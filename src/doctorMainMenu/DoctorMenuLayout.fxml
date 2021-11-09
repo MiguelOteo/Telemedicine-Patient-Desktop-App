@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="menuWindow" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="730.0" prefWidth="1250.0" styleClass="blue_color" stylesheets="@DoctorMenuStyle.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="doctorMainMenu.DoctorMenuController">
+   <children>
+      <Pane prefHeight="730.0" prefWidth="1250.0" styleClass="blue_color" stylesheets="@DoctorMenuStyle.css">
+         <children>
+            <JFXButton fx:id="logOutButton" layoutX="14.0" layoutY="682.0" onMouseClicked="#logOut" prefHeight="34.0" prefWidth="87.0" styleClass="log_out_buttom" text="Log out" textFill="#ffffffb0">
+               <font>
+                  <Font name="Ebrima" size="16.0" />
+               </font>
+            </JFXButton>
+            <Label layoutX="115.0" layoutY="33.0" text="Telelepsia" textFill="#ffffffcc">
+               <font>
+                  <Font name="Ebrima" size="25.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="28.0" layoutY="21.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../Icons/logo.png" />
+               </image>
+            </ImageView>
+            <JFXButton alignment="TOP_LEFT" layoutY="130.0" prefHeight="44.0" prefWidth="280.0" text="       Update account" textFill="#ffffffb3">
+               <font>
+                  <Font name="Ebrima" size="16.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="40.0" fitWidth="50.0" opacity="0.7" pickOnBounds="true" preserveRatio="true" translateX="5.0">
+                     <image>
+                        <Image url="@../../Icons/doctor.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <JFXButton alignment="TOP_LEFT" layoutY="200.0" onAction="#openDoctorPatients" prefHeight="44.0" prefWidth="280.0" text="    Your patients" textFill="#ffffffb2">
+               <font>
+                  <Font name="Ebrima" size="16.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="38.0" fitWidth="50.0" opacity="0.7" pickOnBounds="true" preserveRatio="true" translateX="5.0">
+                     <image>
+                        <Image url="@../../Icons/patients.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <Pane fx:id="menuMainPane" layoutX="280.0" layoutY="5.0" prefHeight="720.0" prefWidth="965.0" styleClass="white_color" stylesheets="@../patientMainMenu/PacientMenuStyle.css">
+               <children>
+                  <JFXButton layoutX="924.0" layoutY="13.0" onMouseClicked="#closeApp" prefHeight="25.0" prefWidth="25.0" styleClass="window_button" text="X">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton layoutX="888.0" layoutY="13.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#minWindow" prefHeight="28.0" prefWidth="28.0" styleClass="window_button" text="_">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </JFXButton>
+                  <Pane layoutX="14.0" layoutY="14.0" prefHeight="100.0" prefWidth="400.0" styleClass="blue_color">
+                     <children>
+                        <Pane layoutX="5.0" layoutY="5.0" prefHeight="90.0" prefWidth="390.0" styleClass="white_color_round" stylesheets="@../patientMainMenu/PacientMenuStyle.css">
+                           <children>
+                              <Label layoutX="21.0" layoutY="4.0" styleClass="label_text_bold" text="Doctor name: " textFill="#000000cc" />
+                              <Label layoutX="21.0" layoutY="35.0" styleClass="label_text_bold" text="Doctor Email:" textFill="#000000cc" />
+                              <Label fx:id="userNameLabel" layoutX="135.0" layoutY="2.0" styleClass="label_text" text="doctor_name" textFill="#000000cc" />
+                              <Label fx:id="userEmailLabel" layoutX="133.0" layoutY="33.0" styleClass="label_text" text="user@gmail.com" textFill="#000000cc" />
+                              <Label layoutX="21.0" layoutY="66.0" styleClass="label_text_bold" text="Doctor ID:" textFill="#000000cc" />
+                              <Label layoutX="111.0" layoutY="64.0" styleClass="label_text" text="doctor_id" textFill="#000000cc" />
+                           </children>
+                        </Pane>
+                     </children>
+                  </Pane>
+               </children>
+            </Pane>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
