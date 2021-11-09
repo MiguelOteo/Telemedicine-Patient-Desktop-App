@@ -8,6 +8,6 @@ This project requires the addition of three .jar to work.
 
 1. gson .jar (Link: https://jar-download.com/artifacts/com.google.code.gson/gson/2.8.2/source-code)
 2. json .jar (Link: https://jar-download.com/artifacts/org.json)
-3. jfoenix .jar
+3. jfoenix .jar (Link: http://www.jfoenix.com/documentation.html#Download)
 
 Add them to the project build path
