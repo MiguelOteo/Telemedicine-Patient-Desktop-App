@@ -2,7 +2,7 @@
 
 Project of an application which recives data from a BITalino and sends it to a MySQL data base by stablishing a connecton with a REST API, as well as allowing the user to create two possible accounts, patients which send the BITalino biodata and doctors how can see the stored patient's data.
 
-## Intallation
+## IJavaFX Project configuration and set-up
 
 This project requires the addition of three .jar to work.
 
