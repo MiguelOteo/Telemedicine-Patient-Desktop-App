@@ -1,6 +1,6 @@
 # TelemedicineProject
 
-Project of an application which recives data from a BITalino and sends it to a MySQL data base by stablishing a connecton with a REST API, as well as allowing the user to create two possible accounts, patients which send the BITalino biodata and doctors how can see the stored patient's data.
+Project of an application which recieves data from a BITalino and sends it to a MySQL data base by stablishing a connecton with an Rest API, as well as allowing the user to create two possible accounts, patients which send the BITalino bio-data and doctors who can see the stored patient's data.
 
 ## JavaFX Project configuration and set-up
 
