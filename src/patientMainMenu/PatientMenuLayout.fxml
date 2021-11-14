@@ -8,11 +8,11 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="730.0" prefWidth="1250.0" styleClass="blue_color" stylesheets="@PacientMenuStyle.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="patientMainMenu.PatientMenuController">
+<AnchorPane fx:id="menuWindow" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="730.0" prefWidth="1250.0" styleClass="blue_color" stylesheets="@PacientMenuStyle.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="patientMainMenu.PatientMenuController">
    <children>
       <Pane prefHeight="730.0" prefWidth="1250.0" styleClass="blue_color" stylesheets="@PacientMenuStyle.css">
          <children>
-            <JFXButton fx:id="logOut_button" layoutX="14.0" layoutY="682.0" onMouseClicked="#log_out" prefHeight="34.0" prefWidth="87.0" styleClass="log_out_buttom" text="Log out" textFill="#ffffffb0">
+            <JFXButton fx:id="logOutButton" layoutX="14.0" layoutY="682.0" onMouseClicked="#logOut" prefHeight="34.0" prefWidth="87.0" styleClass="log_out_buttom" text="Log out" textFill="#ffffffb0">
                <font>
                   <Font name="Ebrima" size="16.0" />
                </font>
@@ -63,14 +63,14 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <Pane layoutX="280.0" layoutY="5.0" prefHeight="720.0" prefWidth="965.0" styleClass="white_color" stylesheets="@PacientMenuStyle.css">
+            <Pane fx:id="menuMainPane" layoutX="280.0" layoutY="5.0" prefHeight="720.0" prefWidth="965.0" styleClass="white_color" stylesheets="@PacientMenuStyle.css">
                <children>
-                  <JFXButton layoutX="924.0" layoutY="13.0" onMouseClicked="#close_app" prefHeight="25.0" prefWidth="25.0" styleClass="window_button" text="X">
+                  <JFXButton layoutX="924.0" layoutY="13.0" onMouseClicked="#closeApp" prefHeight="25.0" prefWidth="25.0" styleClass="window_button" text="X">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton layoutX="888.0" layoutY="13.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#min_window" prefHeight="28.0" prefWidth="28.0" styleClass="window_button" text="_">
+                  <JFXButton layoutX="888.0" layoutY="13.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#minWindow" prefHeight="28.0" prefWidth="28.0" styleClass="window_button" text="_">
                      <font>
                         <Font size="14.0" />
                      </font>

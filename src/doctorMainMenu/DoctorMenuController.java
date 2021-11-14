@@ -45,8 +45,7 @@ public class DoctorMenuController implements Initializable {
 	@FXML
 	private JFXButton updateAccountInformation;
 
-	public DoctorMenuController() {
-	}
+	public DoctorMenuController() {}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -76,6 +75,7 @@ public class DoctorMenuController implements Initializable {
 	private void logOut(MouseEvent event) {
 		Stage stage = (Stage) logOutButton.getScene().getWindow();
 		stage.close();
+		AccountObjectCommunication.setDoctor(null);
 		LaunchApp.getStage().show();
 	}
 

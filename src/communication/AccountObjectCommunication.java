@@ -7,8 +7,8 @@ import models.Patient;
 public class AccountObjectCommunication {
 	
 	// To share the account on all the stages/panes etc
-    private static Patient patient = new Patient();
-    private static Doctor doctor = new Doctor();
+    private static Patient patient;
+    private static Doctor doctor;
    
     // To set the blur on the whole menu
     private static AnchorPane anchorPane;
