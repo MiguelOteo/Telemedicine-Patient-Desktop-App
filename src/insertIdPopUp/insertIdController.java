@@ -34,6 +34,12 @@ public class insertIdController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
+		if(AccountObjectCommunication.getDoctor() != null) {
+			idField.setPromptText("Doctor identification number");
+		} else {
+			idField.setPromptText("Health insurance number");
+		}
+		
 		confirmButton.setOnAction((ActionEvent event) -> {
 			
 			confirmButton.setDisable(true);
@@ -52,7 +58,7 @@ public class insertIdController implements Initializable {
 					
 					if(AccountObjectCommunication.getDoctor() != null) {
 			
-						connection = (HttpURLConnection) new URL(RestAPI.BASE_URL + "/addDoctorAutentification").openConnection();
+						connection = (HttpURLConnection) new URL(RestAPI.BASE_URL + "/addDoctorIdentification").openConnection();
 						connection.setRequestMethod("POST");
 						
 						postData = "doctorId=" + URLEncoder.encode(Integer.toString(AccountObjectCommunication.getDoctor().getDoctorId()), "UTF-8");

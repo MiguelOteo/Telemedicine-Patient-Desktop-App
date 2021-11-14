@@ -10,7 +10,7 @@
    <children>
       <Pane layoutX="5.0" layoutY="5.0" prefHeight="150.0" prefWidth="300.0" styleClass="white_color">
          <children>
-            <JFXTextField fx:id="idField" focusColor="#4094a8" layoutX="49.0" layoutY="23.0" prefHeight="43.0" prefWidth="202.0" promptText="Insert your ID number">
+            <JFXTextField fx:id="idField" focusColor="#4094a8" layoutX="40.0" layoutY="23.0" prefHeight="43.0" prefWidth="220.0" promptText="message" styleClass="jfx-text-field" stylesheets="@insertIdStyle.css">
                <font>
                   <Font size="14.0" />
                </font>

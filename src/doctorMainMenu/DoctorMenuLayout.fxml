@@ -72,7 +72,7 @@
                               <Label fx:id="userNameLabel" layoutX="135.0" layoutY="2.0" styleClass="label_text" text="doctor_name" textFill="#000000cc" />
                               <Label fx:id="userEmailLabel" layoutX="133.0" layoutY="33.0" styleClass="label_text" text="user@gmail.com" textFill="#000000cc" />
                               <Label layoutX="21.0" layoutY="66.0" styleClass="label_text_bold" text="Doctor ID:" textFill="#000000cc" />
-                              <Label layoutX="111.0" layoutY="64.0" styleClass="label_text" text="doctor_id" textFill="#000000cc" />
+                              <Label fx:id="userDoctorIdLabel" layoutX="111.0" layoutY="64.0" styleClass="label_text" text="doctor_id" textFill="#000000cc" />
                            </children>
                         </Pane>
                      </children>
