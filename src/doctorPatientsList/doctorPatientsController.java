@@ -260,7 +260,13 @@ class PatientTreeObject extends RecursiveTreeObject<PatientTreeObject> {
 		this.patientIdNumber = new SimpleStringProperty(patientIdNumber);
 		
 		// TODO - Add button function
-		this.showBITalinoRecords = new SimpleObjectProperty<JFXButton>(new JFXButton("Show"));	
-		this.unsignPatient = new SimpleObjectProperty<JFXButton>(new JFXButton("Delete"));
+		JFXButton showDetails = new JFXButton("Show details");
+		showDetails.getStyleClass().add("window_button");
+		
+		JFXButton deleteAsingment = new JFXButton("Delete asignment");
+		deleteAsingment.getStyleClass().add("window_button");
+		
+		this.showBITalinoRecords = new SimpleObjectProperty<JFXButton>(showDetails);	
+		this.unsignPatient = new SimpleObjectProperty<JFXButton>(deleteAsingment);
 	}
 }
