@@ -227,7 +227,8 @@ public class addPatientController implements Initializable {
 	private void loadTreeTable() {
 
 		JFXTreeTableColumn<PatientTreeObject, String> patientName = new JFXTreeTableColumn<>("Patient Name");
-		patientName.setPrefWidth(160);
+		patientName.setPrefWidth(159);
+		patientName.setStyle("-fx-alignment: center");
 		patientName.setCellValueFactory(new Callback<JFXTreeTableColumn.CellDataFeatures<PatientTreeObject,String>, ObservableValue<String>>() {
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<PatientTreeObject, String> param) {
@@ -237,7 +238,8 @@ public class addPatientController implements Initializable {
 		patientName.setResizable(false);
 		
 		JFXTreeTableColumn<PatientTreeObject, String> patientIdNumber = new JFXTreeTableColumn<>("Patient ID Number");
-		patientIdNumber.setPrefWidth(160);
+		patientIdNumber.setPrefWidth(159);
+		patientIdNumber.setStyle("-fx-alignment: center");
 		patientIdNumber.setCellValueFactory(new Callback<JFXTreeTableColumn.CellDataFeatures<PatientTreeObject,String>, ObservableValue<String>>() {
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<PatientTreeObject, String> param) {
@@ -247,13 +249,14 @@ public class addPatientController implements Initializable {
 		patientIdNumber.setResizable(false);
 		
 		JFXTreeTableColumn<PatientTreeObject, JFXCheckBox> selectedPatients = new JFXTreeTableColumn<>("Select");
-		selectedPatients.setPrefWidth(100);
+		selectedPatients.setPrefWidth(139);
+		selectedPatients.setStyle("-fx-alignment: center");
 		selectedPatients.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<PatientTreeObject, JFXCheckBox>, ObservableValue<JFXCheckBox>>() {
-					@Override
-					public ObservableValue<JFXCheckBox> call(CellDataFeatures<PatientTreeObject, JFXCheckBox> param) {
-						return param.getValue().getValue().selectedPatient;
-					}
-				});
+			@Override
+			public ObservableValue<JFXCheckBox> call(CellDataFeatures<PatientTreeObject, JFXCheckBox> param) {
+				return param.getValue().getValue().selectedPatient;
+			}
+		});
 		selectedPatients.setResizable(false);
 		
 		TreeItem<PatientTreeObject> root = new RecursiveTreeItem<PatientTreeObject>(patientsObjects, RecursiveTreeObject::getChildren);

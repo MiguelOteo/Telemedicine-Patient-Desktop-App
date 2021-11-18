@@ -55,3 +55,11 @@
     -fx-border-radius: 40;
 	-fx-border-color: linear-gradient(to bottom left, #00A9CC, #020024);
 }
+
+.tree-table-cell:centered {
+    -fx-alignment: center;
+}
+
+
+
+

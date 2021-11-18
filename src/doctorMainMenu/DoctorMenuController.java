@@ -43,7 +43,7 @@ public class DoctorMenuController implements Initializable {
 	@FXML
 	private JFXButton doctorPatients;
 	@FXML
-	private JFXButton updateAccountInformation;
+	private JFXButton doctorAccount;
 
 	public DoctorMenuController() {}
 
@@ -87,15 +87,32 @@ public class DoctorMenuController implements Initializable {
 	
 	@FXML
 	private void openDoctorPatients() {
-		Pane docotorPatientsPane;
+		Pane doctorPatientsPane;
 		try {
-			docotorPatientsPane = FXMLLoader.load(getClass().getResource("/doctorPatientsList/DoctorPatientsLayout.fxml"));
+			doctorPatientsPane = FXMLLoader.load(getClass().getResource("/doctorPatientsList/DoctorPatientsLayout.fxml"));
 			menuMainPane.getChildren().removeAll();
-			menuMainPane.getChildren().setAll(docotorPatientsPane);
+			menuMainPane.getChildren().setAll(doctorPatientsPane);
+			doctorPatients.setDisable(true);
+			doctorAccount.setDisable(false);
 		} catch (IOException error) {
 			error.printStackTrace();
 		}
 	}
+	
+	@FXML
+	private void openDoctorAccount() {
+		//Pane doctorAccountPane;
+		//try {
+			//doctorAccountPane = FXMLLoader.load(getClass().getResource(""));
+			//menuMainPane.getChildren().removeAll();
+			//menuMainPane.getChildren().setAll(doctorAccountPane);
+			doctorPatients.setDisable(false);
+			doctorAccount.setDisable(true);
+		//} catch (IOException error) {
+		//	error.printStackTrace();
+		//}
+	}
+	
 
 	private void opendIdPopUp() {
 		try {

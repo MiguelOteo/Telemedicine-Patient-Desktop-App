@@ -186,7 +186,8 @@ public class doctorPatientsController implements Initializable {
 	private void loadTreeTable() {
 		
 		JFXTreeTableColumn<PatientTreeObject, String> patientName = new JFXTreeTableColumn<>("Patient Name");
-		patientName.setPrefWidth(160);
+		patientName.setPrefWidth(178);
+		patientName.setStyle("-fx-alignment: center");
 		patientName.setCellValueFactory(new Callback<JFXTreeTableColumn.CellDataFeatures<PatientTreeObject,String>, ObservableValue<String>>() {
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<PatientTreeObject, String> param) {
@@ -194,9 +195,10 @@ public class doctorPatientsController implements Initializable {
 			}
 		});
 		patientName.setResizable(false);
-		
+
 		JFXTreeTableColumn<PatientTreeObject, String> patientEmail = new JFXTreeTableColumn<>("Patient Email");
-		patientEmail.setPrefWidth(160);
+		patientEmail.setPrefWidth(218);
+		patientEmail.setStyle("-fx-alignment: center");
 		patientEmail.setCellValueFactory(new Callback<JFXTreeTableColumn.CellDataFeatures<PatientTreeObject,String>, ObservableValue<String>>() {
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<PatientTreeObject, String> param) {
@@ -206,7 +208,8 @@ public class doctorPatientsController implements Initializable {
 		patientEmail.setResizable(false);
 		
 		JFXTreeTableColumn<PatientTreeObject, String> patientIdNumber = new JFXTreeTableColumn<>("Patient ID Number");
-		patientIdNumber.setPrefWidth(160);
+		patientIdNumber.setPrefWidth(178);
+		patientIdNumber.setStyle("-fx-alignment: center");
 		patientIdNumber.setCellValueFactory(new Callback<JFXTreeTableColumn.CellDataFeatures<PatientTreeObject,String>, ObservableValue<String>>() {
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<PatientTreeObject, String> param) {
@@ -215,8 +218,9 @@ public class doctorPatientsController implements Initializable {
 		});
 		patientIdNumber.setResizable(false);
 		
-		JFXTreeTableColumn<PatientTreeObject, JFXButton> showRecords = new JFXTreeTableColumn<>("Show Records");
-		showRecords.setPrefWidth(100);
+		JFXTreeTableColumn<PatientTreeObject, JFXButton> showRecords = new JFXTreeTableColumn<>("Show patient details");
+		showRecords.setPrefWidth(158);
+		showRecords.setStyle("-fx-alignment: center");
 		showRecords.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<PatientTreeObject, JFXButton>, ObservableValue<JFXButton>>() {
 			@Override
 			public ObservableValue<JFXButton> call(CellDataFeatures<PatientTreeObject, JFXButton> param) {
@@ -226,7 +230,7 @@ public class doctorPatientsController implements Initializable {
 		showRecords.setResizable(false);
 		
 		JFXTreeTableColumn<PatientTreeObject, JFXButton> deletePatient = new JFXTreeTableColumn<>("Unassign patient");
-		deletePatient.setPrefWidth(140);
+		deletePatient.setPrefWidth(158);
 		deletePatient.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<PatientTreeObject, JFXButton>, ObservableValue<JFXButton>>() {
 			@Override
 			public ObservableValue<JFXButton> call(CellDataFeatures<PatientTreeObject, JFXButton> param) {
@@ -234,6 +238,7 @@ public class doctorPatientsController implements Initializable {
 			}
 		});
 		deletePatient.setResizable(false);
+		deletePatient.setStyle("-fx-alignment: center");
 		
 		TreeItem<PatientTreeObject> root = new RecursiveTreeItem<PatientTreeObject>(patientsObjects, RecursiveTreeObject::getChildren);
 		patientsTreeView.setSelectionModel(null);
@@ -261,10 +266,10 @@ class PatientTreeObject extends RecursiveTreeObject<PatientTreeObject> {
 		
 		// TODO - Add button function
 		JFXButton showDetails = new JFXButton("Show details");
-		showDetails.getStyleClass().add("window_button");
+		showDetails.getStyleClass().add("table_button");
 		
-		JFXButton deleteAsingment = new JFXButton("Delete asignment");
-		deleteAsingment.getStyleClass().add("window_button");
+		JFXButton deleteAsingment = new JFXButton("Delete assignment"); 
+		deleteAsingment.getStyleClass().add("table_button");
 		
 		this.showBITalinoRecords = new SimpleObjectProperty<JFXButton>(showDetails);	
 		this.unsignPatient = new SimpleObjectProperty<JFXButton>(deleteAsingment);

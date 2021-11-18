@@ -27,7 +27,7 @@
                   <Image url="@../../Icons/logo.png" />
                </image>
             </ImageView>
-            <JFXButton alignment="TOP_LEFT" layoutY="130.0" prefHeight="44.0" prefWidth="280.0" text="       Update account" textFill="#ffffffb3">
+            <JFXButton fx:id="doctorAccount" alignment="TOP_LEFT" layoutY="130.0" onAction="#openDoctorAccount" prefHeight="44.0" prefWidth="280.0" text="       Update account" textFill="#ffffffb3">
                <font>
                   <Font name="Ebrima" size="16.0" />
                </font>
@@ -39,7 +39,7 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton alignment="TOP_LEFT" layoutY="200.0" onAction="#openDoctorPatients" prefHeight="44.0" prefWidth="280.0" text="    Your patients" textFill="#ffffffb2">
+            <JFXButton fx:id="doctorPatients" alignment="TOP_LEFT" layoutY="200.0" onAction="#openDoctorPatients" prefHeight="44.0" prefWidth="280.0" text="    Your patients" textFill="#ffffffb2">
                <font>
                   <Font name="Ebrima" size="16.0" />
                </font>
