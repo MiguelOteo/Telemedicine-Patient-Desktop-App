@@ -9,7 +9,7 @@
 }
 
 .blue_color {
-   -fx-background-color: linear-gradient(to bottom left, #00d4ff, #020024);
+   -fx-background-color: linear-gradient(to bottom left, #00A9CC, #020024);
    -fx-background-radius: 25 25 25 25;
 }
 
@@ -21,7 +21,7 @@
     -fx-text-fill: #000000b0;
 	-fx-border-width: 2;
     -fx-border-radius: 40;
-	-fx-border-color: linear-gradient(to bottom left, #00d4ff, #020024);
+	-fx-border-color: linear-gradient(to bottom left, #00A9CC, #020024);
 }
 
 .window_button:hover {
@@ -31,7 +31,7 @@
     -fx-text-fill: #00000098;
 	-fx-border-width: 2;
     -fx-border-radius: 40;
-	-fx-border-color: linear-gradient(to bottom left, #00d4ff, #020024);
+	-fx-border-color: linear-gradient(to bottom left, #00A9CC, #020024);
 }
 
 .label_text {

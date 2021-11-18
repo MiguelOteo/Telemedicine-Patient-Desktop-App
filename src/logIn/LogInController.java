@@ -35,6 +35,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import launchApp.LaunchApp;
+import models.APIRequest;
 import models.APIResponse;
 import remoteParams.RestAPI;
 
@@ -140,10 +141,12 @@ public class LogInController implements Initializable {
 							.openConnection();
 
 					connection.setRequestMethod("POST");
-
-					String postData = "userEmail=" + URLEncoder.encode(userEmail, "UTF-8");
-					postData += "&userPassword=" + URLEncoder.encode(userPassword, "UTF-8");
-
+					
+					APIRequest requestAPI = new APIRequest();
+					if(!userEmail.equals("")) {requestAPI.setUserEmail(userEmail);}
+					if(!userPassword.equals("")) {requestAPI.setUserPassword(userPassword);}
+					String postData = "APIRequest=" + URLEncoder.encode(new Gson().toJson(requestAPI), "UTF-8");
+					
 					connection.setDoOutput(true);
 					OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
 					writer.write(postData);
@@ -201,5 +204,6 @@ public class LogInController implements Initializable {
 		};
 		threadObject.start();
 	}
-
 }
+
+// #00d4ff Original color

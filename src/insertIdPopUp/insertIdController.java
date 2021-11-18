@@ -20,6 +20,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.stage.Stage;
+import models.APIRequest;
 import models.APIResponse;
 import remoteParams.RestAPI;
 
@@ -61,15 +62,19 @@ public class insertIdController implements Initializable {
 						connection = (HttpURLConnection) new URL(RestAPI.BASE_URL + "/addDoctorIdentification").openConnection();
 						connection.setRequestMethod("POST");
 						
-						postData = "doctorId=" + URLEncoder.encode(Integer.toString(AccountObjectCommunication.getDoctor().getDoctorId()), "UTF-8");
-						postData += "&doctorIdentification=" + URLEncoder.encode(idValue, "UTF-8");
+						APIRequest requestAPI = new APIRequest();
+						if(!idValue.equals("")) {requestAPI.setDoctorIdentification(idValue);}
+						requestAPI.setDoctorId(AccountObjectCommunication.getDoctor().getDoctorId());
+						postData = "APIRequest=" + URLEncoder.encode(new Gson().toJson(requestAPI), "UTF-8");
 					} else {
 						
 						connection = (HttpURLConnection) new URL(RestAPI.BASE_URL + "/addPatientIdNumber").openConnection();
 						connection.setRequestMethod("POST");
 						
-						postData = "patientId=" + URLEncoder.encode(Integer.toString(AccountObjectCommunication.getPatient().getPatientId()), "UTF-8");
-						postData += "&patientIdNumber=" + URLEncoder.encode(idValue, "UTF-8");
+						APIRequest requestAPI = new APIRequest();
+						if(!idValue.equals("")) {requestAPI.setPatientIdNumber(idValue);}
+						requestAPI.setPatientId(AccountObjectCommunication.getPatient().getPatientId());
+						postData = "APIRequest=" + URLEncoder.encode(new Gson().toJson(requestAPI), "UTF-8");	
 					}
 					
 					connection.setDoOutput(true);

@@ -9,6 +9,8 @@ import java.net.ConnectException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -18,32 +20,28 @@ import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXTreeTableColumn;
 import com.jfoenix.controls.JFXTreeTableView;
 import com.jfoenix.controls.RecursiveTreeItem;
-import com.jfoenix.controls.cells.editors.base.JFXTreeTableCell;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 
 import communication.AccountObjectCommunication;
 import javafx.application.Platform;
-import javafx.beans.InvalidationListener;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeTableCell;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTableColumn.CellDataFeatures;
-import javafx.scene.control.cell.CheckBoxTreeTableCell;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import models.APIRequest;
 import models.APIResponse;
 import models.Patient;
 import remoteParams.RestAPI;
@@ -55,14 +53,19 @@ public class addPatientController implements Initializable {
 	@FXML
 	private JFXButton addSelectedPatients;
 	@FXML
-	private JFXTreeTableView<PatientTreeObject> PatientTreeView;
+	private JFXTreeTableView<PatientTreeObject> patientsTreeView;
 	@FXML
 	private final ObservableList<PatientTreeObject> patientsObjects = FXCollections.observableArrayList();
 	
+	// Stores the selected patients' ID when button "addSelected" is pressed
+	private List<Integer> selectedPatients = new ArrayList<Integer>();
+	
+	// Stores all the APIResponse patients
 	private List<Patient> patientsList;
 	
 	@Override 
 	public void initialize(URL location, ResourceBundle resources) {		
+		loadTreeTable();
 		getPatients();
 	}
 	
@@ -72,6 +75,85 @@ public class addPatientController implements Initializable {
 		stage.close();
 	}
 	
+	@FXML
+	private void addPatients(MouseEvent event) {
+		
+		for(PatientTreeObject patientObject: patientsObjects) {
+			if(patientObject.selectedPatient.getValue().isSelected() == true) {
+				selectedPatients.add(patientObject.patientId);
+			}
+		}
+		
+		if(!patientsList.isEmpty()) {
+			addPatients();
+		}
+	}
+	
+	/*
+	 *  --> HTTP requests methods
+	 */
+	
+	// Sends a HTTP request to all selected patients and returns a new list of patients without a assigned doctor
+	private void addPatients() {
+		Thread threadObject = new Thread("AddingPatients") {
+			public void run() {
+				// TODO- HTTP request
+				try {
+					HttpURLConnection connection = (HttpURLConnection) new URL(RestAPI.BASE_URL + "/addPatientsToDoctor")
+							.openConnection();
+					
+					connection.setRequestMethod("POST");
+					
+					Gson gsonConverter = new Gson();
+					APIRequest requestAPI = new APIRequest();
+					requestAPI.setDoctorId(AccountObjectCommunication.getDoctor().getDoctorId());
+					requestAPI.setSelectedPatients(selectedPatients);
+					
+					String postData = "APIRequest=" + URLEncoder.encode(gsonConverter.toJson(requestAPI), "UTF-8");
+					
+					connection.setDoOutput(true);
+					OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
+					writer.write(postData);
+					writer.flush();
+					
+					BufferedReader inputReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+					String inputLine;
+					StringBuffer response = new StringBuffer();
+					while ((inputLine = inputReader.readLine()) != null) {
+						response.append(inputLine);
+					}
+					inputReader.close();
+
+					APIResponse responseAPI = gsonConverter.fromJson(response.toString(), APIResponse.class);
+					patientsList = responseAPI.getNoDoctorPatients();
+					
+					Platform.runLater(new Runnable() {
+						@Override
+						public void run() {
+							loadData();
+							selectedPatients.clear();
+						}
+					});
+					
+				} catch (ConnectException | FileNotFoundException conncetionError) {
+					Platform.runLater(new Runnable() {
+						@Override
+						public void run() {
+							conncetionError.printStackTrace();
+							//openDialog("Failed to connect to the server");
+							selectedPatients.clear();
+						}
+					});
+				} catch (IOException error) {
+					error.printStackTrace();
+					selectedPatients.clear();
+				}
+			}
+		};
+		threadObject.start();
+	}
+	
+	// Sends a HTTP request to get all the patients without a assigned doctor
 	private void getPatients() {
 	
 		Thread threadObject = new Thread("GettingPatients") {
@@ -82,7 +164,11 @@ public class addPatientController implements Initializable {
 					
 					connection.setRequestMethod("POST");
 					
-					String postData = "doctorId=" + URLEncoder.encode(Integer.toString(AccountObjectCommunication.getDoctor().getDoctorId()), "UTF-8");
+					Gson gsonConverter = new Gson();
+					APIRequest requestAPI = new APIRequest();
+					requestAPI.setDoctorId(AccountObjectCommunication.getDoctor().getDoctorId());
+					
+					String postData = "APIRequest=" + URLEncoder.encode(gsonConverter.toJson(requestAPI), "UTF-8");
 
 					connection.setDoOutput(true);
 					OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
@@ -97,14 +183,13 @@ public class addPatientController implements Initializable {
 					}
 					inputReader.close();
 
-					Gson gsonConverter = new Gson();
 					APIResponse responseAPI = gsonConverter.fromJson(response.toString(), APIResponse.class);
 					patientsList = responseAPI.getNoDoctorPatients();
 					
 					Platform.runLater(new Runnable() {
 						@Override
 						public void run() {
-							setList();
+							loadData();
 						}
 					});
 					
@@ -124,11 +209,25 @@ public class addPatientController implements Initializable {
 		threadObject.start();
 	}
 	
-	@SuppressWarnings("unchecked")
-	private void setList() {
+	/*
+	 * 	--> Tree Table View view
+	 */
+	
+	// Reloads the list after some patients have been added to the doctor
+	private void loadData() {
 		
-		JFXTreeTableColumn<PatientTreeObject, String> patientName = new JFXTreeTableColumn<>("Patient name");
-		patientName.setPrefWidth(150);
+		patientsObjects.clear();
+		for (Patient patient: patientsList) {
+			patientsObjects.add(new PatientTreeObject(patient.getPatientId(), patient.getName(), patient.getPatientIdNumber()));
+		}
+		patientsTreeView.refresh();
+	}
+	
+	// Establishes the list columns and loads the patients list
+	private void loadTreeTable() {
+
+		JFXTreeTableColumn<PatientTreeObject, String> patientName = new JFXTreeTableColumn<>("Patient Name");
+		patientName.setPrefWidth(160);
 		patientName.setCellValueFactory(new Callback<JFXTreeTableColumn.CellDataFeatures<PatientTreeObject,String>, ObservableValue<String>>() {
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<PatientTreeObject, String> param) {
@@ -137,8 +236,8 @@ public class addPatientController implements Initializable {
 		});
 		patientName.setResizable(false);
 		
-		JFXTreeTableColumn<PatientTreeObject, String> patientIdNumber = new JFXTreeTableColumn<>("Patient ID number");
-		patientIdNumber.setPrefWidth(150);
+		JFXTreeTableColumn<PatientTreeObject, String> patientIdNumber = new JFXTreeTableColumn<>("Patient ID Number");
+		patientIdNumber.setPrefWidth(160);
 		patientIdNumber.setCellValueFactory(new Callback<JFXTreeTableColumn.CellDataFeatures<PatientTreeObject,String>, ObservableValue<String>>() {
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<PatientTreeObject, String> param) {
@@ -147,40 +246,38 @@ public class addPatientController implements Initializable {
 		});
 		patientIdNumber.setResizable(false);
 		
-		JFXTreeTableColumn<PatientTreeObject, Boolean> selectedPatients = new JFXTreeTableColumn<>("Patient Selected");
-		selectedPatients.setPrefWidth(150);
-		selectedPatients.setCellFactory(new Callback<TreeTableColumn<PatientTreeObject ,Boolean>,TreeTableCell<PatientTreeObject,Boolean>>() {
-		    @Override 
-		    public TreeTableCell<PatientTreeObject, Boolean> call( TreeTableColumn<PatientTreeObject,Boolean> param) {
-		        CheckBoxTreeTableCell<PatientTreeObject,Boolean> cell = new CheckBoxTreeTableCell<PatientTreeObject,Boolean>();
-		        cell.setAlignment(Pos.CENTER);
-		        return cell;
-		    }
-		});
+		JFXTreeTableColumn<PatientTreeObject, JFXCheckBox> selectedPatients = new JFXTreeTableColumn<>("Select");
+		selectedPatients.setPrefWidth(100);
+		selectedPatients.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<PatientTreeObject, JFXCheckBox>, ObservableValue<JFXCheckBox>>() {
+					@Override
+					public ObservableValue<JFXCheckBox> call(CellDataFeatures<PatientTreeObject, JFXCheckBox> param) {
+						return param.getValue().getValue().selectedPatient;
+					}
+				});
 		selectedPatients.setResizable(false);
 		
-		
-		for (Patient patient: patientsList) {
-				patientsObjects.add(new PatientTreeObject(patient.getName(), patient.getPatientIdNumber(), false));
-		}
-		
 		TreeItem<PatientTreeObject> root = new RecursiveTreeItem<PatientTreeObject>(patientsObjects, RecursiveTreeObject::getChildren);
-		PatientTreeView.setPlaceholder(new Label("No patients found"));
-		PatientTreeView.getColumns().setAll(patientName, patientIdNumber, selectedPatients);
-		PatientTreeView.setRoot(root);
-		PatientTreeView.setShowRoot(false);
+		patientsTreeView.setSelectionModel(null);
+		patientsTreeView.setPlaceholder(new Label("No patients found without an assigned doctor"));
+		patientsTreeView.getColumns().setAll(Arrays.asList(patientName, patientIdNumber, selectedPatients));
+		patientsTreeView.setRoot(root);
+		patientsTreeView.setShowRoot(false);
 	}
 }
 
 class PatientTreeObject extends RecursiveTreeObject<PatientTreeObject> {
 	
+	int patientId;
 	StringProperty patientName;
 	StringProperty patientIdNumber;
-	BooleanProperty selectedPatient;
+	ObjectProperty<JFXCheckBox> selectedPatient;
 	
-	public PatientTreeObject(String patientName, String patientIdNumber, boolean selected) {
+	public PatientTreeObject(int patientId, String patientName, String patientIdNumber) {
+		this.patientId = patientId;
 		this.patientName = new SimpleStringProperty(patientName);
 		this.patientIdNumber = new SimpleStringProperty(patientIdNumber);
-		this.selectedPatient = new SimpleBooleanProperty(selected);	
+		JFXCheckBox checkBox = new JFXCheckBox();
+		checkBox.setCheckedColor(Color.web("#4f90a5",1.0));
+		this.selectedPatient = new SimpleObjectProperty<JFXCheckBox>(checkBox);	
 	}
 }

@@ -31,6 +31,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import launchApp.LaunchApp;
+import models.APIRequest;
 import models.APIResponse;
 import remoteParams.RestAPI;
 
@@ -145,7 +146,7 @@ public class RegistrationController implements Initializable {
 	}
 
 	private void resgisterUserRest(String userType, String userName, String userEmail, String userPassword,
-			String userRepeatPassword) {
+			String userPasswordRepeat) {
 
 		Thread threadObject = new Thread("RegisteringUser") {
 			public void run() {
@@ -154,12 +155,14 @@ public class RegistrationController implements Initializable {
 							.openConnection();
 					connection.setRequestMethod("POST");
 
-					String postData = "userType=" + URLEncoder.encode(userType, "UTF-8");
-					postData += "&userName=" + URLEncoder.encode(userName, "UTF-8");
-					postData += "&userEmail=" + URLEncoder.encode(userEmail, "UTF-8");
-					postData += "&userPassword=" + URLEncoder.encode(userPassword, "UTF-8");
-					postData += "&userRepeatPassword=" + URLEncoder.encode(userRepeatPassword, "UTF-8");
-
+					APIRequest requestAPI = new APIRequest();
+					if(!userType.equals("")) {requestAPI.setUserType(userType);}
+					if(!userName.equals("")) {requestAPI.setUserName(userName);}
+					if(!userEmail.equals("")) {requestAPI.setUserEmail(userEmail);}
+					if(!userPassword.equals("")) {requestAPI.setUserPassword(userPassword);}
+					if(!userPasswordRepeat.equals("")) {requestAPI.setUserPasswordRepeat(userPasswordRepeat);}
+					String postData = "APIRequest=" + URLEncoder.encode(new Gson().toJson(requestAPI), "UTF-8");
+					
 					connection.setDoOutput(true);
 					OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
 					writer.write(postData);

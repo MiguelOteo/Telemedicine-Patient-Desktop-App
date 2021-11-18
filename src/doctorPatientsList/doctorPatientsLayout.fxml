@@ -8,7 +8,7 @@
 
 <Pane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="965.0" styleClass="white_color" stylesheets="@doctorPatientsStyle.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="doctorPatientsList.doctorPatientsController">
    <children>
-      <JFXTreeTableView layoutX="33.0" layoutY="64.0" prefHeight="575.0" prefWidth="900.0" styleClass="tree_view">
+      <JFXTreeTableView fx:id="patientsTreeView" layoutX="33.0" layoutY="64.0" prefHeight="575.0" prefWidth="900.0" styleClass="tree_view">
          <columnResizePolicy>
             <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy></JFXTreeTableView>
