@@ -103,6 +103,13 @@ public class insertIdController implements Initializable {
 						});
 						
 					} else {
+						
+						if(AccountObjectCommunication.getDoctor() != null) {
+							AccountObjectCommunication.getDoctor().setDoctorIdNumber(idValue);
+						} else {
+							AccountObjectCommunication.getPatient().setPatientIdNumber(idValue);
+						}
+						
 						Platform.runLater(new Runnable() {
 							@Override
 							public void run() {

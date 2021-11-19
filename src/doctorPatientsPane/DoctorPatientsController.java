@@ -1,4 +1,4 @@
-package doctorPatientsList;
+package doctorPatientsPane;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -55,7 +55,7 @@ import models.Patient;
 import remoteParams.RestAPI;
 
 @SuppressWarnings("all")
-public class doctorPatientsController implements Initializable {
+public class DoctorPatientsController implements Initializable {
 
 	@FXML
 	private Pane mainPane;

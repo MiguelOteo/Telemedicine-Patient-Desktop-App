@@ -9,9 +9,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="965.0" styleClass="white_color" stylesheets="@doctorPatientsStyle.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="doctorPatientsList.doctorPatientsController">
+<Pane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="965.0" styleClass="white_color" stylesheets="@DoctorPatientsStyle.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="doctorPatientsPane.DoctorPatientsController">
    <children>
-      <Label layoutX="106.0" layoutY="25.0" text="Your patients " textFill="#00000080">
+      <Label layoutX="106.0" layoutY="25.0" text="Your patients" textFill="#00000080">
          <font>
             <Font name="Ebrima" size="22.0" />
          </font>

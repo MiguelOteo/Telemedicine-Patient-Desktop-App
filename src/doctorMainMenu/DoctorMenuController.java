@@ -13,7 +13,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.effect.BoxBlur;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -32,12 +31,6 @@ public class DoctorMenuController implements Initializable {
 	private Pane menuMainPane;
 	@FXML
 	private JFXButton logOutButton;
-	@FXML
-	private Label userNameLabel;
-	@FXML
-	private Label userEmailLabel;
-	@FXML
-	private Label userDoctorIdLabel;
 	
 	// Menu buttons
 	@FXML
@@ -49,8 +42,8 @@ public class DoctorMenuController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		userNameLabel.setText(AccountObjectCommunication.getDoctor().getName());
-		userEmailLabel.setText(AccountObjectCommunication.getDoctor().getEmail());
+		
+		AccountObjectCommunication.setAnchorPane(menuWindow);
 		
 		if(AccountObjectCommunication.getDoctor().getDoctorIdNumber() == null) {
 			Platform.runLater(new Runnable() {
@@ -60,10 +53,8 @@ public class DoctorMenuController implements Initializable {
 				}	
 			});
 		} else {
-			userDoctorIdLabel.setText(AccountObjectCommunication.getDoctor().getDoctorIdNumber());
+			openDoctorAccount();
 		}
-		
-		AccountObjectCommunication.setAnchorPane(menuWindow);
 	}
 
 	@FXML
@@ -89,7 +80,7 @@ public class DoctorMenuController implements Initializable {
 	private void openDoctorPatients() {
 		Pane doctorPatientsPane;
 		try {
-			doctorPatientsPane = FXMLLoader.load(getClass().getResource("/doctorPatientsList/DoctorPatientsLayout.fxml"));
+			doctorPatientsPane = FXMLLoader.load(getClass().getResource("/doctorPatientsPane/DoctorPatientsLayout.fxml"));
 			menuMainPane.getChildren().removeAll();
 			menuMainPane.getChildren().setAll(doctorPatientsPane);
 			doctorPatients.setDisable(true);
@@ -101,16 +92,16 @@ public class DoctorMenuController implements Initializable {
 	
 	@FXML
 	private void openDoctorAccount() {
-		//Pane doctorAccountPane;
-		//try {
-			//doctorAccountPane = FXMLLoader.load(getClass().getResource(""));
-			//menuMainPane.getChildren().removeAll();
-			//menuMainPane.getChildren().setAll(doctorAccountPane);
+		Pane doctorAccountPane;
+		try {
+			doctorAccountPane = FXMLLoader.load(getClass().getResource("/doctorAccountPane/DoctorAccountLayout.fxml"));
+			menuMainPane.getChildren().removeAll();
+			menuMainPane.getChildren().setAll(doctorAccountPane);
 			doctorPatients.setDisable(false);
 			doctorAccount.setDisable(true);
-		//} catch (IOException error) {
-		//	error.printStackTrace();
-		//}
+		} catch (IOException error) {
+			error.printStackTrace();
+		}
 	}
 	
 
@@ -128,6 +119,7 @@ public class DoctorMenuController implements Initializable {
 			stage.show();
 			stage.setOnHiding(event -> {
 				menuWindow.setEffect(null);
+				openDoctorAccount();
 			});
 		} catch (IOException error) {
 			error.printStackTrace();
