@@ -25,7 +25,7 @@ import models.APIResponse;
 import remoteParams.RestAPI;
 
 
-public class insertIdController implements Initializable {
+public class InsertIdController implements Initializable {
 
 	@FXML
 	JFXButton confirmButton;

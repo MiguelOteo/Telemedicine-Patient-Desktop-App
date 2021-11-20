@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane styleClass="blue_color" stylesheets="@addPatientStyle.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="addPatientsPopUp.addPatientController">
+<AnchorPane styleClass="blue_color" stylesheets="@AddPatientStyle.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="addPatientsPopUp.AddPatientController">
    <children>
       <Pane prefHeight="600.0" prefWidth="500.0" styleClass="blue_color" />
       <Pane layoutX="5.0" layoutY="5.0" prefHeight="590.0" prefWidth="490.0" styleClass="white_color">

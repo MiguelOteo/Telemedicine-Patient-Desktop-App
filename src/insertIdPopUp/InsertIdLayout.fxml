@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="160.0" prefWidth="310.0" styleClass="blue_color" stylesheets="@insertIdStyle.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="insertIdPopUp.insertIdController">
+<AnchorPane prefHeight="160.0" prefWidth="310.0" styleClass="blue_color" stylesheets="@InsertIdStyle.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="insertIdPopUp.InsertIdController">
    <children>
       <Pane layoutX="5.0" layoutY="5.0" prefHeight="150.0" prefWidth="300.0" styleClass="white_color">
          <children>

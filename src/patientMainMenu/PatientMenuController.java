@@ -82,7 +82,7 @@ public class PatientMenuController implements Initializable {
 	
 	private void opendIdPopUp() {
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/insertIdPopUp/insertIdLayout.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/insertIdPopUp/InsertIdLayout.fxml"));
 			Parent root = (Parent) loader.load();
 			Stage stage = new Stage();
 			Scene scene = new Scene(root);

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="965.0" styleClass="white_color" stylesheets="@PatientRecordsStyle.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="patientRecordsPane.PatientRecordsController">
+   <children>
+      <Label layoutX="106.0" layoutY="25.0" text="Patient records: " textFill="#00000080">
+         <font>
+            <Font name="Ebrima" size="22.0" />
+         </font>
+      </Label>
+      <JFXButton layoutX="923.0" layoutY="13.0" onMouseClicked="#closeApp" prefHeight="25.0" prefWidth="25.0" styleClass="window_button" text="X">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </JFXButton>
+      <JFXButton layoutX="887.0" layoutY="13.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#minWindow" prefHeight="28.0" prefWidth="28.0" styleClass="window_button" text="_">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </JFXButton>
+      <ImageView fitHeight="45.0" fitWidth="64.0" layoutX="33.0" layoutY="18.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../icons/patients_black.png" />
+         </image>
+      </ImageView>
+      <JFXButton layoutX="915.0" layoutY="671.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#goBack" prefHeight="35.0" prefWidth="35.0" styleClass="window_button" text="&lt;-">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </JFXButton>
+   </children>
+</Pane>

@@ -13,6 +13,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javax.swing.text.AbstractDocument.DefaultDocumentEvent;
+
 import com.google.gson.Gson;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
@@ -32,6 +34,7 @@ import javafx.beans.property.StringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -53,6 +56,7 @@ import models.APIRequest;
 import models.APIResponse;
 import models.Patient;
 import remoteParams.RestAPI;
+import treeTableObjects.PatientTreeObject;
 
 @SuppressWarnings("all")
 public class DoctorPatientsController implements Initializable {
@@ -78,7 +82,7 @@ public class DoctorPatientsController implements Initializable {
 	@FXML
 	private void openAddPatients() {
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/addPatientsPopUp/addPatientsLayout.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/addPatientsPopUp/AddPatientsLayout.fxml"));
 			Parent root = (Parent) loader.load();
 			Stage stage = new Stage();
 			Scene scene = new Scene(root);
@@ -177,7 +181,7 @@ public class DoctorPatientsController implements Initializable {
 		
 		patientsObjects.clear();
 		for (Patient patient: patientsList) {
-			patientsObjects.add(new PatientTreeObject(patient.getPatientId(), patient.getName(), patient.getEmail(), patient.getPatientIdNumber()));
+			patientsObjects.add(new PatientTreeObject(patient.getPatientId(), patient.getName(), patient.getEmail(), patient.getPatientIdNumber(), mainPane));
 		}
 		patientsTreeView.refresh();
 	}
@@ -191,7 +195,7 @@ public class DoctorPatientsController implements Initializable {
 		patientName.setCellValueFactory(new Callback<JFXTreeTableColumn.CellDataFeatures<PatientTreeObject,String>, ObservableValue<String>>() {
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<PatientTreeObject, String> param) {
-				return param.getValue().getValue().patientName;
+				return param.getValue().getValue().getPatientName();
 			}
 		});
 		patientName.setResizable(false);
@@ -202,7 +206,7 @@ public class DoctorPatientsController implements Initializable {
 		patientEmail.setCellValueFactory(new Callback<JFXTreeTableColumn.CellDataFeatures<PatientTreeObject,String>, ObservableValue<String>>() {
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<PatientTreeObject, String> param) {
-				return param.getValue().getValue().patientEmail;
+				return param.getValue().getValue().getPatientEmail();
 			}
 		});
 		patientEmail.setResizable(false);
@@ -213,7 +217,7 @@ public class DoctorPatientsController implements Initializable {
 		patientIdNumber.setCellValueFactory(new Callback<JFXTreeTableColumn.CellDataFeatures<PatientTreeObject,String>, ObservableValue<String>>() {
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<PatientTreeObject, String> param) {
-				return param.getValue().getValue().patientIdNumber;
+				return param.getValue().getValue().getPatientIdNumber();
 			}
 		});
 		patientIdNumber.setResizable(false);
@@ -224,7 +228,7 @@ public class DoctorPatientsController implements Initializable {
 		showRecords.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<PatientTreeObject, JFXButton>, ObservableValue<JFXButton>>() {
 			@Override
 			public ObservableValue<JFXButton> call(CellDataFeatures<PatientTreeObject, JFXButton> param) {
-				return param.getValue().getValue().showBITalinoRecords;
+				return param.getValue().getValue().getShowBITalinoRecords();
 			}
 		});
 		showRecords.setResizable(false);
@@ -234,7 +238,7 @@ public class DoctorPatientsController implements Initializable {
 		deletePatient.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<PatientTreeObject, JFXButton>, ObservableValue<JFXButton>>() {
 			@Override
 			public ObservableValue<JFXButton> call(CellDataFeatures<PatientTreeObject, JFXButton> param) {
-				return param.getValue().getValue().unsignPatient;
+				return param.getValue().getValue().getUnsignPatient();
 			}
 		});
 		deletePatient.setResizable(false);
@@ -246,32 +250,5 @@ public class DoctorPatientsController implements Initializable {
 		patientsTreeView.getColumns().setAll(Arrays.asList(patientName, patientEmail, patientIdNumber, showRecords, deletePatient));
 		patientsTreeView.setRoot(root);
 		patientsTreeView.setShowRoot(false);
-	}
-}
-
-class PatientTreeObject extends RecursiveTreeObject<PatientTreeObject> {
-	
-	int patientId;
-	StringProperty patientName;
-	StringProperty patientEmail;
-	StringProperty patientIdNumber;
-	ObjectProperty<JFXButton> showBITalinoRecords;
-	ObjectProperty<JFXButton> unsignPatient;
-	
-	public PatientTreeObject(int patientId, String patientName, String patientEmail, String patientIdNumber) {
-		this.patientId = patientId;
-		this.patientName = new SimpleStringProperty(patientName);
-		this.patientEmail = new SimpleStringProperty(patientEmail);
-		this.patientIdNumber = new SimpleStringProperty(patientIdNumber);
-		
-		// TODO - Add button function
-		JFXButton showDetails = new JFXButton("Show details");
-		showDetails.getStyleClass().add("table_button");
-		
-		JFXButton deleteAsingment = new JFXButton("Delete assignment"); 
-		deleteAsingment.getStyleClass().add("table_button");
-		
-		this.showBITalinoRecords = new SimpleObjectProperty<JFXButton>(showDetails);	
-		this.unsignPatient = new SimpleObjectProperty<JFXButton>(deleteAsingment);
 	}
 }
