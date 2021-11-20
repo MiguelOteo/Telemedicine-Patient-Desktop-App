@@ -1,16 +1,39 @@
 package treeTableObjects;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.ConnectException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 
+import com.google.gson.Gson;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
+
+import communication.AccountObjectCommunication;
+import dialogPopUp.DialogPopUpController;
+import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.effect.BoxBlur;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import models.APIRequest;
+import models.APIResponse;
+import remoteParams.RestAPI;
 
 public class PatientTreeObject extends RecursiveTreeObject<PatientTreeObject> {
 	
@@ -60,7 +83,90 @@ public class PatientTreeObject extends RecursiveTreeObject<PatientTreeObject> {
 	}
 	
 	private void deletePatient() {
-		// TODO - Add button function
+		unsignPatient.getValue().setDisable(true);
+		showBITalinoRecords.getValue().setDisable(true);
+		Thread threadObject = new Thread("deletingPatient") {
+			public void run() {
+				try {
+					HttpURLConnection connection = (HttpURLConnection) new URL(RestAPI.BASE_URL + "/deletePatientAssignment")
+							.openConnection();
+					
+					connection.setRequestMethod("POST");
+					
+					Gson gsonConverter = new Gson();
+					APIRequest requestAPI = new APIRequest();
+					requestAPI.setPatientId(patientId);
+					
+					String postData = "APIRequest=" + URLEncoder.encode(gsonConverter.toJson(requestAPI), "UTF-8");
+					
+					connection.setDoOutput(true);
+					OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
+					writer.write(postData);
+					writer.flush();
+					
+					BufferedReader inputReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+					String inputLine;
+					StringBuffer response = new StringBuffer();
+					while ((inputLine = inputReader.readLine()) != null) {
+						response.append(inputLine);
+					}
+					inputReader.close();
+
+					APIResponse responseAPI = gsonConverter.fromJson(response.toString(), APIResponse.class);
+					
+					Platform.runLater(new Runnable() {
+						@Override
+						public void run() {
+							openDialog(responseAPI.getAPImessage());
+							
+							// TODO - Reload only the treeTableView
+							Pane doctorPatientsPane;
+							try {
+								doctorPatientsPane = FXMLLoader.load(getClass().getResource("/doctorPatientsPane/DoctorPatientsLayout.fxml"));
+								mainPane.getChildren().removeAll();
+								mainPane.getChildren().setAll(doctorPatientsPane);
+							} catch (IOException error) {
+								error.printStackTrace();
+							}
+						}
+					});
+					
+				} catch (ConnectException | FileNotFoundException conncetionError) {
+					Platform.runLater(new Runnable() {
+						@Override
+						public void run() {
+							openDialog("Failed to connect to the server");
+						}
+					});
+				} catch (IOException error) {
+					error.printStackTrace();
+				}
+			}
+		};
+		threadObject.start();
+	}
+	
+	// Displays any error returned form the Rest API
+	private void openDialog(String message) {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/dialogPopUp/dialogPopUpLayout.fxml"));
+			Parent root = (Parent) loader.load();
+			DialogPopUpController controler = loader.getController();
+			controler.setMessage(message);
+			Stage stage = new Stage();
+			Scene scene = new Scene(root);
+			scene.setFill(Color.TRANSPARENT);
+			stage.setScene(scene);
+			stage.initStyle(StageStyle.TRANSPARENT);
+			stage.initModality(Modality.APPLICATION_MODAL);
+			AccountObjectCommunication.getAnchorPane().setEffect(new BoxBlur(4, 4, 4));
+			stage.show();
+			stage.setOnHiding(event -> {
+				AccountObjectCommunication.getAnchorPane().setEffect(null);
+			});
+		} catch (IOException error) {
+			error.printStackTrace();
+		}
 	}
 	
 	// Getters methods

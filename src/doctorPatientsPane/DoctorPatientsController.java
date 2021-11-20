@@ -13,12 +13,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import javax.swing.text.AbstractDocument.DefaultDocumentEvent;
-
 import com.google.gson.Gson;
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXCheckBox;
-import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTreeTableColumn;
 import com.jfoenix.controls.JFXTreeTableView;
 import com.jfoenix.controls.RecursiveTreeItem;
@@ -26,16 +22,10 @@ import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 
 import communication.AccountObjectCommunication;
 import dialogPopUp.DialogPopUpController;
-import doctorMainMenu.DoctorMenuController;
 import javafx.application.Platform;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -59,7 +49,6 @@ import models.Patient;
 import remoteParams.RestAPI;
 import treeTableObjects.PatientTreeObject;
 
-@SuppressWarnings("all")
 public class DoctorPatientsController implements Initializable {
 
 	@FXML
@@ -67,7 +56,7 @@ public class DoctorPatientsController implements Initializable {
 	@FXML
 	private JFXButton addPatients;
 	@FXML
-	private JFXTreeTableView patientsTreeView;
+	private JFXTreeTableView<PatientTreeObject> patientsTreeView;
 	@FXML
 	private final ObservableList<PatientTreeObject> patientsObjects = FXCollections.observableArrayList();
 	
