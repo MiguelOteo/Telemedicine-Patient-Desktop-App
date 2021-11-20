@@ -23,18 +23,27 @@ import com.jfoenix.controls.RecursiveTreeItem;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 
 import communication.AccountObjectCommunication;
+import dialogPopUp.DialogPopUpController;
 import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTableColumn.CellDataFeatures;
+import javafx.scene.effect.BoxBlur;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Callback;
 import models.APIRequest;
 import models.APIResponse;
@@ -44,6 +53,8 @@ import treeTableObjects.AddPatientTreeObject;
 
 public class AddPatientController implements Initializable {
 
+	@FXML
+	private AnchorPane anchorPane;
 	@FXML
 	private JFXButton cancelOperation;
 	@FXML
@@ -61,6 +72,7 @@ public class AddPatientController implements Initializable {
 	
 	@Override 
 	public void initialize(URL location, ResourceBundle resources) {		
+		addSelectedPatients.setDisable(true);
 		loadTreeTable();
 		getPatients();
 	}
@@ -85,6 +97,29 @@ public class AddPatientController implements Initializable {
 		}
 	}
 	
+	// Displays any error returned form the Rest API
+	private void openDialog(String message) {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/dialogPopUp/dialogPopUpLayout.fxml"));
+			Parent root = (Parent) loader.load();
+			DialogPopUpController controler = loader.getController();
+			controler.setMessage(message);
+			Stage stage = new Stage();
+			Scene scene = new Scene(root);
+			scene.setFill(Color.TRANSPARENT);
+			stage.setScene(scene);
+			stage.initStyle(StageStyle.TRANSPARENT);
+			stage.initModality(Modality.APPLICATION_MODAL);
+			anchorPane.setEffect(new BoxBlur(4, 4, 4));
+			stage.show();
+			stage.setOnHiding(event -> {
+				anchorPane.setEffect(null);
+			});
+		} catch (IOException error) {
+			error.printStackTrace();
+		}
+	}
+	
 	/*
 	 *  --> HTTP requests methods
 	 */
@@ -93,7 +128,6 @@ public class AddPatientController implements Initializable {
 	private void addPatients() {
 		Thread threadObject = new Thread("AddingPatients") {
 			public void run() {
-				// TODO- HTTP request
 				try {
 					HttpURLConnection connection = (HttpURLConnection) new URL(RestAPI.BASE_URL + "/addPatientsToDoctor")
 							.openConnection();
@@ -136,8 +170,9 @@ public class AddPatientController implements Initializable {
 						@Override
 						public void run() {
 							conncetionError.printStackTrace();
-							//openDialog("Failed to connect to the server");
+							openDialog("Failed to connect to the server");
 							selectedPatients.clear();
+							addSelectedPatients.setDisable(true);
 						}
 					});
 				} catch (IOException error) {
@@ -186,6 +221,7 @@ public class AddPatientController implements Initializable {
 						@Override
 						public void run() {
 							loadData();
+							addSelectedPatients.setDisable(false);
 						}
 					});
 					
@@ -194,7 +230,8 @@ public class AddPatientController implements Initializable {
 						@Override
 						public void run() {
 							conncetionError.printStackTrace();
-							//openDialog("Failed to connect to the server");
+							openDialog("Failed to connect to the server");
+							addSelectedPatients.setDisable(true);
 						}
 					});
 				} catch (IOException error) {

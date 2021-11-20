@@ -25,6 +25,7 @@ import com.jfoenix.controls.RecursiveTreeItem;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 
 import communication.AccountObjectCommunication;
+import dialogPopUp.DialogPopUpController;
 import doctorMainMenu.DoctorMenuController;
 import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
@@ -112,15 +113,38 @@ public class DoctorPatientsController implements Initializable {
 		System.exit(0);
 	}
 	
+	// Displays any error returned form the Rest API
+	private void openDialog(String message) {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/dialogPopUp/dialogPopUpLayout.fxml"));
+			Parent root = (Parent) loader.load();
+			DialogPopUpController controler = loader.getController();
+			controler.setMessage(message);
+			Stage stage = new Stage();
+			Scene scene = new Scene(root);
+			scene.setFill(Color.TRANSPARENT);
+			stage.setScene(scene);
+			stage.initStyle(StageStyle.TRANSPARENT);
+			stage.initModality(Modality.APPLICATION_MODAL);
+			AccountObjectCommunication.getAnchorPane().setEffect(new BoxBlur(4, 4, 4));
+			stage.show();
+			stage.setOnHiding(event -> {
+				AccountObjectCommunication.getAnchorPane().setEffect(null);
+			});
+		} catch (IOException error) {
+			error.printStackTrace();
+		}
+	}
+	
 	/*
 	 *  --> HTTP requests methods
 	 */
 	
 	// Sends a HTTP request to get all the patients with the assigned doctorId
 	private void getDoctorPatients() {
+		addPatients.setDisable(true);
 		Thread threadObject = new Thread("GettingDoctorPatients") {
 			public void run() {
-				// TODO- HTTP request
 				try {
 					HttpURLConnection connection = (HttpURLConnection) new URL(RestAPI.BASE_URL + "/listDoctorPatients")
 							.openConnection();
@@ -153,6 +177,7 @@ public class DoctorPatientsController implements Initializable {
 						@Override
 						public void run() {
 							loadData();	
+							addPatients.setDisable(false);
 						}
 					});
 					
@@ -160,8 +185,8 @@ public class DoctorPatientsController implements Initializable {
 					Platform.runLater(new Runnable() {
 						@Override
 						public void run() {
+							openDialog("Failed to connect to the server");
 							conncetionError.printStackTrace();
-							//openDialog("Failed to connect to the server");
 						}
 					});
 				} catch (IOException error) {
