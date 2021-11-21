@@ -26,7 +26,7 @@
       </JFXButton>
       <ImageView fitHeight="45.0" fitWidth="64.0" layoutX="33.0" layoutY="18.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../icons/patient_black.png" />
+            <Image url="@../icons/patient_black.png" />
          </image>
       </ImageView>
       <JFXButton layoutX="905.0" layoutY="660.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#goBack" prefHeight="50.0" prefWidth="50.0" styleClass="window_button" text=" ">
@@ -36,7 +36,7 @@
          <graphic>
             <ImageView fitHeight="33.0" fitWidth="33.0" opacity="0.5" pickOnBounds="true" preserveRatio="true" translateX="-2.0" translateY="-1.0">
                <image>
-                  <Image url="@../../icons/go_back.png" />
+                  <Image url="@../icons/go_back.png" />
                </image>
             </ImageView>
          </graphic>

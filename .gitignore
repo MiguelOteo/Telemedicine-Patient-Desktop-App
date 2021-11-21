@@ -28,3 +28,4 @@ hs_err_pid*
 # Ignore .settings file and bin folder
 /.settings
 bin/
+/target/

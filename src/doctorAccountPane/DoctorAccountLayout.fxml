@@ -26,7 +26,7 @@
       </JFXButton>
       <ImageView fitHeight="54.0" fitWidth="55.0" layoutX="33.0" layoutY="14.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../icons/doctor_black.png" />
+            <Image url="@../icons/doctor_black.png" />
          </image>
       </ImageView>
       <Pane layoutX="283.0" layoutY="116.0" prefHeight="100.0" prefWidth="400.0" styleClass="blue_color">

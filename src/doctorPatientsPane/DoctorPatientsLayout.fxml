@@ -37,7 +37,7 @@
       </JFXButton>
       <ImageView fitHeight="45.0" fitWidth="64.0" layoutX="33.0" layoutY="18.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../icons/patients_black.png" />
+            <Image url="@../icons/patients_black.png" />
          </image>
       </ImageView>
    </children>

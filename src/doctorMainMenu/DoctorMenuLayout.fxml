@@ -24,7 +24,7 @@
             </Label>
             <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="28.0" layoutY="21.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../Icons/logo.png" />
+                  <Image url="@../icons/logo.png" />
                </image>
             </ImageView>
             <JFXButton fx:id="doctorAccount" alignment="TOP_LEFT" layoutY="130.0" onAction="#openDoctorAccount" prefHeight="44.0" prefWidth="280.0" text="       Update account" textFill="#ffffffb3">
@@ -34,7 +34,7 @@
                <graphic>
                   <ImageView fitHeight="40.0" fitWidth="50.0" opacity="0.7" pickOnBounds="true" preserveRatio="true" translateX="5.0">
                      <image>
-                        <Image url="@../../Icons/doctor.png" />
+                        <Image url="@../icons/doctor.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -46,7 +46,7 @@
                <graphic>
                   <ImageView fitHeight="38.0" fitWidth="50.0" opacity="0.7" pickOnBounds="true" preserveRatio="true" translateX="5.0">
                      <image>
-                        <Image url="@../../Icons/patients.png" />
+                        <Image url="@../icons/patients.png" />
                      </image>
                   </ImageView>
                </graphic>
