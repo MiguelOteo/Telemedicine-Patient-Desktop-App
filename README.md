@@ -11,5 +11,3 @@ This project uses the following Maven dependencies
 1. gson dependency: https://mvnrepository.com/artifact/com.google.code.gson/gson
 2. json dependency: https://mvnrepository.com/artifact/org.json/json
 3. jfoenix 8.0.8 dependency: https://mvnrepository.com/artifact/com.jfoenix/jfoenix
-
-Add them to the project build path
