@@ -38,8 +38,8 @@ import remoteParams.RestAPI;
 public class PatientTreeObject extends RecursiveTreeObject<PatientTreeObject> {
 	
 	private Pane mainPane;
-	
 	private int patientId;
+	
 	private StringProperty patientName;
 	private StringProperty patientEmail;
 	private StringProperty patientIdNumber;
@@ -49,20 +49,20 @@ public class PatientTreeObject extends RecursiveTreeObject<PatientTreeObject> {
 	public PatientTreeObject(int patientId, String patientName, String patientEmail, String patientIdNumber, Pane pane) {
 		
 		this.mainPane = pane;
-		
 		this.patientId = patientId;
+		
 		this.patientName = new SimpleStringProperty(patientName);
 		this.patientEmail = new SimpleStringProperty(patientEmail);
 		this.patientIdNumber = new SimpleStringProperty(patientIdNumber);
 		
 		JFXButton showDetails = new JFXButton("Show details");
-		showDetails.getStyleClass().add("table_button");
+		showDetails.getStyleClass().add("tree_table_button");
 		showDetails.setOnAction((ActionEvent event) -> {
 			openPatientRecords();
 		});
 		
 		JFXButton deleteAsingment = new JFXButton("Delete assignment"); 
-		deleteAsingment.getStyleClass().add("table_button");
+		deleteAsingment.getStyleClass().add("tree_table_button");
 		deleteAsingment.setOnAction((ActionEvent event) -> {
 			deletePatient();
 		});
@@ -72,8 +72,9 @@ public class PatientTreeObject extends RecursiveTreeObject<PatientTreeObject> {
 	}
 	
 	private void openPatientRecords() {
-		Pane patientRecordsPane;
+		Pane patientRecordsPane;	
 		try {
+			AccountObjectCommunication.setDatabaseId(patientId);
 			patientRecordsPane = FXMLLoader.load(getClass().getResource("/patientRecordsPane/PatientRecordsLayout.fxml"));
 			mainPane.getChildren().removeAll();
 			mainPane.getChildren().setAll(patientRecordsPane);
@@ -116,18 +117,8 @@ public class PatientTreeObject extends RecursiveTreeObject<PatientTreeObject> {
 					
 					Platform.runLater(new Runnable() {
 						@Override
-						public void run() {
-							openDialog(responseAPI.getAPImessage());
-							
-							// TODO - Reload only the treeTableView
-							Pane doctorPatientsPane;
-							try {
-								doctorPatientsPane = FXMLLoader.load(getClass().getResource("/doctorPatientsPane/DoctorPatientsLayout.fxml"));
-								mainPane.getChildren().removeAll();
-								mainPane.getChildren().setAll(doctorPatientsPane);
-							} catch (IOException error) {
-								error.printStackTrace();
-							}
+						public void run() {	
+							openDialog(responseAPI.getAPImessage(), responseAPI.isError());
 						}
 					});
 					
@@ -135,7 +126,7 @@ public class PatientTreeObject extends RecursiveTreeObject<PatientTreeObject> {
 					Platform.runLater(new Runnable() {
 						@Override
 						public void run() {
-							openDialog("Failed to connect to the server");
+							openDialog("Failed to connect to the server", true);
 						}
 					});
 				} catch (IOException error) {
@@ -147,7 +138,7 @@ public class PatientTreeObject extends RecursiveTreeObject<PatientTreeObject> {
 	}
 	
 	// Displays any error returned form the Rest API
-	private void openDialog(String message) {
+	private void openDialog(String message, boolean error) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/dialogPopUp/dialogPopUpLayout.fxml"));
 			Parent root = (Parent) loader.load();
@@ -163,9 +154,19 @@ public class PatientTreeObject extends RecursiveTreeObject<PatientTreeObject> {
 			stage.show();
 			stage.setOnHiding(event -> {
 				AccountObjectCommunication.getAnchorPane().setEffect(null);
+				if(!error) {
+					Pane doctorPatientsPane;
+					try {
+						doctorPatientsPane = FXMLLoader.load(getClass().getResource("/doctorPatientsPane/DoctorPatientsLayout.fxml"));
+						mainPane.getChildren().removeAll();
+						mainPane.getChildren().setAll(doctorPatientsPane);
+					} catch (IOException exception) {
+						exception.printStackTrace();
+					}
+				}
 			});
-		} catch (IOException error) {
-			error.printStackTrace();
+		} catch (IOException exception) {
+			exception.printStackTrace();
 		}
 	}
 	

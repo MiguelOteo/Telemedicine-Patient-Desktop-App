@@ -54,7 +54,7 @@
     -fx-border-radius: 12;
 }
 .starter_small_buttom:hover {
-	-fx-background-color: white;
+	-fx-background-color: #d8d8d8;
 	-fx-font-family: "Ebrima";
 	-fx-font-weight: normal;
     -fx-font-size: 14;
@@ -76,7 +76,7 @@
 }
 
 .window_button:hover {
-	-fx-background-color: white;
+	-fx-background-color: #d8d8d8;
 	-fx-font-weight: normal;
     -fx-text-fill: #00000098;
 	-fx-border-width: 2;

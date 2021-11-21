@@ -26,7 +26,7 @@
 }
 
 .window_button:hover {
-	-fx-background-color: white;
+	-fx-background-color: #d8d8d8;
 	-fx-font-weight: normal;
     -fx-font-size: 12;
     -fx-text-fill: #00000098;
@@ -47,7 +47,7 @@
 }
 
 .window_button_big:hover {
-	-fx-background-color: white;
+	-fx-background-color: #d8d8d8;
 	-fx-font-weight: normal;
     -fx-font-size: 16;
     -fx-text-fill: #00000098;

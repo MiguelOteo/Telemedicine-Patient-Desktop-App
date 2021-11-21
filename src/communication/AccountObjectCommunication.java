@@ -9,6 +9,7 @@ public class AccountObjectCommunication {
 	// To share the account on all the stages/panes etc
     private static Patient patient;
     private static Doctor doctor;
+    private static int databaseId;
    
     // To set the blur on the whole menu
     private static AnchorPane anchorPane;
@@ -27,6 +28,14 @@ public class AccountObjectCommunication {
     
     public static void setDoctor(Doctor passedDoctor) {
     	doctor = passedDoctor;
+	}
+    
+	public static int getDatabaseId() {
+		return databaseId;
+	}
+
+	public static void setDatabaseId(int id) {
+		databaseId = id;
 	}
     
     public static AnchorPane getAnchorPane() {

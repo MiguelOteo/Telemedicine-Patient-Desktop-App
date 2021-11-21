@@ -9,7 +9,7 @@
 
 <Pane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="965.0" styleClass="white_color" stylesheets="@PatientRecordsStyle.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="patientRecordsPane.PatientRecordsController">
    <children>
-      <Label layoutX="106.0" layoutY="25.0" text="Patient records: " textFill="#00000080">
+      <Label layoutX="106.0" layoutY="25.0" text="Patient Records" textFill="#00000080">
          <font>
             <Font name="Ebrima" size="22.0" />
          </font>
@@ -26,13 +26,50 @@
       </JFXButton>
       <ImageView fitHeight="45.0" fitWidth="64.0" layoutX="33.0" layoutY="18.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../icons/patients_black.png" />
+            <Image url="@../../icons/patient_black.png" />
          </image>
       </ImageView>
-      <JFXButton layoutX="915.0" layoutY="671.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#goBack" prefHeight="35.0" prefWidth="35.0" styleClass="window_button" text="&lt;-">
+      <JFXButton layoutX="905.0" layoutY="660.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#goBack" prefHeight="50.0" prefWidth="50.0" styleClass="window_button" text=" ">
          <font>
             <Font size="14.0" />
          </font>
+         <graphic>
+            <ImageView fitHeight="33.0" fitWidth="33.0" opacity="0.5" pickOnBounds="true" preserveRatio="true" translateX="-2.0" translateY="-1.0">
+               <image>
+                  <Image url="@../../icons/go_back.png" />
+               </image>
+            </ImageView>
+         </graphic>
       </JFXButton>
+      <Label fx:id="patientName" layoutX="59.0" layoutY="110.0" text="Name: not found" textFill="#00000080">
+         <font>
+            <Font name="Ebrima" size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="patientIdNumber" layoutX="59.0" layoutY="150.0" text="Patient ID: not found" textFill="#00000080">
+         <font>
+            <Font name="Ebrima" size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="patientEmail" layoutX="59.0" layoutY="190.0" text="Patient Email: not found" textFill="#00000080">
+         <font>
+            <Font name="Ebrima" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="59.0" layoutY="250.0" text="Patient Health Data" textFill="#00000080">
+         <font>
+            <Font name="Ebrima Bold" size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="59.0" layoutY="290.0" text="Patient Weight: weight Kg" textFill="#00000080">
+         <font>
+            <Font name="Ebrima" size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="59.0" layoutY="330.0" text="Patient Height: height cm" textFill="#00000080">
+         <font>
+            <Font name="Ebrima" size="16.0" />
+         </font>
+      </Label>
    </children>
 </Pane>
