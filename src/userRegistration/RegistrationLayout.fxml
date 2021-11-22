@@ -47,7 +47,7 @@
                         <Font name="Ebrima" size="14.0" />
                      </font>
                   </JFXPasswordField>
-                  <JFXComboBox fx:id="userType" focusColor="#0193bb" labelFloat="true" layoutX="90.0" layoutY="392.0" prefHeight="45.0" prefWidth="240.0" promptText="Type of user" styleClass="comboBox" stylesheets="@RegistrationStyle.css" visibleRowCount="3" />
+                  <JFXComboBox fx:id="userType" focusColor="#0193bb" labelFloat="true" layoutX="90.0" layoutY="400.0" prefHeight="45.0" prefWidth="240.0" promptText="Type of user" styleClass="comboBox" stylesheets="@RegistrationStyle.css" visibleRowCount="3" />
                   <JFXButton fx:id="registerButton" buttonType="RAISED" layoutX="90.0" layoutY="465.0" prefHeight="60.0" prefWidth="240.0" styleClass="starter_buttom" text="Create account">
                      <font>
                         <Font name="Ebrima Bold" size="20.0" />
