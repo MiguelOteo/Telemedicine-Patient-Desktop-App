@@ -25,9 +25,9 @@ public class DoctorAccountController implements Initializable {
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		userNameLabel.setText(AccountObjectCommunication.getDoctor().getName());
-		userEmailLabel.setText(AccountObjectCommunication.getDoctor().getEmail());
-		userDoctorIdLabel.setText(AccountObjectCommunication.getDoctor().getDoctorIdNumber());
+		userNameLabel.setText("Name: " + AccountObjectCommunication.getDoctor().getName());
+		userEmailLabel.setText("Doctor Email: " + AccountObjectCommunication.getDoctor().getEmail());
+		userDoctorIdLabel.setText("Doctor Identification: " + AccountObjectCommunication.getDoctor().getDoctorIdNumber());
 	}
 	
 	@FXML

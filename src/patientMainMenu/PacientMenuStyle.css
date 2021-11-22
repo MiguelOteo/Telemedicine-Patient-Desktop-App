@@ -45,3 +45,40 @@
     -fx-font-size: 16;
     -fx-font-family: "Ebrima";
 }
+
+.menu_button {
+	-fx-font-weight: normal;
+	-fx-font-size: 16;
+	-fx-text-fill: #ffffffb0;
+	-fx-font-family: "Ebrima";
+	-fx-background-color: transparent;
+}
+
+.menu_button:hover {
+	-fx-font-weight: normal;
+	-fx-font-size: 16;
+	-fx-text-fill: #ffffffb3;
+	-fx-font-family: "Ebrima";
+	-fx-background-color: #ffffff0c;
+}
+
+.log_out_buttom {
+	-fx-font-weight: normal;
+	-fx-font-size: 16;
+	-fx-text-fill: #ffffffb0;
+	-fx-font-family: "Ebrima";
+	-fx-background-radius: 25 25 25 25;
+	-fx-background-color: transparent;
+}
+
+.log_out_buttom:hover {
+	-fx-font-weight: normal;
+	-fx-font-size: 16;
+	-fx-text-fill: #ffffffb0;
+	-fx-font-family: "Ebrima";
+	-fx-background-radius: 25 25 25 25;
+	-fx-background-color: #ffffff0c;
+}
+
+
+

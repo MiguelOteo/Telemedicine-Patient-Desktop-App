@@ -27,7 +27,7 @@
                   <Image url="@../icons/logo.png" />
                </image>
             </ImageView>
-            <JFXButton alignment="TOP_LEFT" layoutY="130.0" prefHeight="44.0" prefWidth="280.0" text="    Update account" textFill="#ffffffb3">
+            <JFXButton alignment="TOP_LEFT" layoutY="130.0" prefHeight="44.0" prefWidth="280.0" styleClass="menu_button" text="    Update account" textFill="#ffffffb3">
                <font>
                   <Font name="Ebrima" size="16.0" />
                </font>
@@ -39,7 +39,7 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton alignment="TOP_LEFT" layoutY="270.0" prefHeight="44.0" prefWidth="280.0" text="        BITalino connectivity" textFill="#ffffffb2">
+            <JFXButton alignment="TOP_LEFT" layoutY="270.0" prefHeight="44.0" prefWidth="280.0" styleClass="menu_button" text="        BITalino connectivity" textFill="#ffffffb2">
                <font>
                   <Font name="Ebrima" size="16.0" />
                </font>
@@ -51,7 +51,7 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton alignment="TOP_LEFT" layoutY="200.0" prefHeight="44.0" prefWidth="280.0" text="     Parameters record" textFill="#ffffffb2">
+            <JFXButton alignment="TOP_LEFT" layoutY="200.0" prefHeight="44.0" prefWidth="280.0" styleClass="menu_button" text="     Parameters record" textFill="#ffffffb2">
                <font>
                   <Font name="Ebrima" size="16.0" />
                </font>

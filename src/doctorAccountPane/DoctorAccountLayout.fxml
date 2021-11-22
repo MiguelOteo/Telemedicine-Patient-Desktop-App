@@ -29,19 +29,20 @@
             <Image url="@../icons/doctor_black.png" />
          </image>
       </ImageView>
-      <Pane layoutX="283.0" layoutY="116.0" prefHeight="100.0" prefWidth="400.0" styleClass="blue_color">
-         <children>
-            <Pane layoutX="5.0" layoutY="5.0" prefHeight="90.0" prefWidth="390.0" styleClass="white_color_round" stylesheets="@../patientMainMenu/PacientMenuStyle.css">
-               <children>
-                  <Label layoutX="21.0" layoutY="4.0" styleClass="label_text_bold" text="Doctor name: " textFill="#000000cc" />
-                  <Label layoutX="21.0" layoutY="35.0" styleClass="label_text_bold" text="Doctor Email:" textFill="#000000cc" />
-                  <Label fx:id="userNameLabel" layoutX="135.0" layoutY="2.0" styleClass="label_text" text="doctor_name" textFill="#000000cc" />
-                  <Label fx:id="userEmailLabel" layoutX="133.0" layoutY="33.0" styleClass="label_text" text="user@gmail.com" textFill="#000000cc" />
-                  <Label layoutX="21.0" layoutY="66.0" styleClass="label_text_bold" text="Doctor ID:" textFill="#000000cc" />
-                  <Label fx:id="userDoctorIdLabel" layoutX="111.0" layoutY="64.0" styleClass="label_text" text="doctor_id" textFill="#000000cc" />
-               </children>
-            </Pane>
-         </children>
-      </Pane>
+      <Label fx:id="userNameLabel" layoutX="69.0" layoutY="120.0" text="Name: not found" textFill="#00000080">
+         <font>
+            <Font name="Ebrima" size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="userDoctorIdLabel" layoutX="69.0" layoutY="160.0" text="Doctor Identification: not found" textFill="#00000080">
+         <font>
+            <Font name="Ebrima" size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="userEmailLabel" layoutX="69.0" layoutY="200.0" text="Doctor Email: not found" textFill="#00000080">
+         <font>
+            <Font name="Ebrima" size="18.0" />
+         </font>
+      </Label>
    </children>
 </Pane>

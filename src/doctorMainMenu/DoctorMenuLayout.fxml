@@ -10,9 +10,9 @@
 
 <AnchorPane fx:id="menuWindow" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="730.0" prefWidth="1250.0" styleClass="blue_color" stylesheets="@DoctorMenuStyle.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="doctorMainMenu.DoctorMenuController">
    <children>
-      <Pane prefHeight="730.0" prefWidth="1250.0" styleClass="blue_color" stylesheets="@DoctorMenuStyle.css">
+      <Pane prefHeight="730.0" prefWidth="1250.0" styleClass="blue_color">
          <children>
-            <JFXButton fx:id="logOutButton" layoutX="14.0" layoutY="682.0" onMouseClicked="#logOut" prefHeight="34.0" prefWidth="87.0" styleClass="log_out_buttom" text="Log out" textFill="#ffffffb0">
+            <JFXButton fx:id="logOutButton" layoutX="14.0" layoutY="679.0" onMouseClicked="#logOut" prefHeight="37.0" prefWidth="100.0" styleClass="log_out_buttom" text="Log out" textFill="#ffffffb0" wrapText="true">
                <font>
                   <Font name="Ebrima" size="16.0" />
                </font>
@@ -27,7 +27,7 @@
                   <Image url="@../icons/logo.png" />
                </image>
             </ImageView>
-            <JFXButton fx:id="doctorAccount" alignment="TOP_LEFT" layoutY="130.0" onAction="#openDoctorAccount" prefHeight="44.0" prefWidth="280.0" text="       Update account" textFill="#ffffffb3">
+            <JFXButton fx:id="doctorAccount" alignment="TOP_LEFT" layoutY="130.0" onAction="#openDoctorAccount" prefHeight="44.0" prefWidth="280.0" styleClass="menu_button" text="       Update account" textFill="#ffffffb3">
                <font>
                   <Font name="Ebrima" size="16.0" />
                </font>
@@ -39,7 +39,7 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="doctorPatients" alignment="TOP_LEFT" layoutY="200.0" onAction="#openDoctorPatients" prefHeight="44.0" prefWidth="280.0" text="    Your patients" textFill="#ffffffb2">
+            <JFXButton fx:id="doctorPatients" alignment="TOP_LEFT" layoutY="200.0" onAction="#openDoctorPatients" prefHeight="44.0" prefWidth="280.0" styleClass="menu_button" text="    Your patients" textFill="#ffffffb3">
                <font>
                   <Font name="Ebrima" size="16.0" />
                </font>
