@@ -205,7 +205,6 @@ public class DoctorPatientsController implements Initializable {
 		
 		JFXTreeTableColumn<PatientTreeObject, String> patientName = new JFXTreeTableColumn<>("Patient Name");
 		patientName.setPrefWidth(178);
-		patientName.setStyle("-fx-alignment: center");
 		patientName.setCellValueFactory(new Callback<JFXTreeTableColumn.CellDataFeatures<PatientTreeObject,String>, ObservableValue<String>>() {
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<PatientTreeObject, String> param) {
@@ -216,7 +215,6 @@ public class DoctorPatientsController implements Initializable {
 
 		JFXTreeTableColumn<PatientTreeObject, String> patientEmail = new JFXTreeTableColumn<>("Patient Email");
 		patientEmail.setPrefWidth(218);
-		patientEmail.setStyle("-fx-alignment: center");
 		patientEmail.setCellValueFactory(new Callback<JFXTreeTableColumn.CellDataFeatures<PatientTreeObject,String>, ObservableValue<String>>() {
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<PatientTreeObject, String> param) {
@@ -227,7 +225,6 @@ public class DoctorPatientsController implements Initializable {
 		
 		JFXTreeTableColumn<PatientTreeObject, String> patientIdNumber = new JFXTreeTableColumn<>("Patient ID Number");
 		patientIdNumber.setPrefWidth(178);
-		patientIdNumber.setStyle("-fx-alignment: center");
 		patientIdNumber.setCellValueFactory(new Callback<JFXTreeTableColumn.CellDataFeatures<PatientTreeObject,String>, ObservableValue<String>>() {
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<PatientTreeObject, String> param) {

@@ -22,9 +22,9 @@
 .window_button:hover {
 	-fx-background-color: #d8d8d8;
 	-fx-font-weight: normal;
-    -fx-font-size: 11;
     -fx-text-fill: #00000080;
 	-fx-border-width: 2;
+	-fx-font-size: 11;
     -fx-border-radius: 40;
 	-fx-border-color: linear-gradient(to bottom left, #00A9CC, #020024);
 }

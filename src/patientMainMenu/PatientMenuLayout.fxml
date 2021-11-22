@@ -27,7 +27,7 @@
                   <Image url="@../icons/logo.png" />
                </image>
             </ImageView>
-            <JFXButton alignment="TOP_LEFT" layoutY="130.0" prefHeight="44.0" prefWidth="280.0" styleClass="menu_button" text="    Update account" textFill="#ffffffb3">
+            <JFXButton fx:id="openPatientAccount" alignment="TOP_LEFT" layoutY="130.0" onMouseClicked="#openPatientAccout" prefHeight="44.0" prefWidth="280.0" styleClass="menu_button" text="    Your account" textFill="#ffffffb3">
                <font>
                   <Font name="Ebrima" size="16.0" />
                </font>
@@ -39,7 +39,7 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton alignment="TOP_LEFT" layoutY="270.0" prefHeight="44.0" prefWidth="280.0" styleClass="menu_button" text="        BITalino connectivity" textFill="#ffffffb2">
+            <JFXButton fx:id="openBitalinoConnection" alignment="TOP_LEFT" layoutY="270.0" onMouseClicked="#openBitalinoConnectivity" prefHeight="44.0" prefWidth="280.0" styleClass="menu_button" text="        BITalino connectivity" textFill="#ffffffb2">
                <font>
                   <Font name="Ebrima" size="16.0" />
                </font>
@@ -51,7 +51,7 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton alignment="TOP_LEFT" layoutY="200.0" prefHeight="44.0" prefWidth="280.0" styleClass="menu_button" text="     Parameters record" textFill="#ffffffb2">
+            <JFXButton fx:id="openBitalinoRecord" alignment="TOP_LEFT" layoutY="200.0" onMouseClicked="#openBitalinoRecord" prefHeight="44.0" prefWidth="280.0" styleClass="menu_button" text="     Parameters record" textFill="#ffffffb2">
                <font>
                   <Font name="Ebrima" size="16.0" />
                </font>
@@ -63,33 +63,7 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <Pane fx:id="menuMainPane" layoutX="280.0" layoutY="5.0" prefHeight="720.0" prefWidth="965.0" styleClass="white_color" stylesheets="@PacientMenuStyle.css">
-               <children>
-                  <JFXButton layoutX="924.0" layoutY="13.0" onMouseClicked="#closeApp" prefHeight="25.0" prefWidth="25.0" styleClass="window_button" text="X">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </JFXButton>
-                  <JFXButton layoutX="888.0" layoutY="13.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#minWindow" prefHeight="28.0" prefWidth="28.0" styleClass="window_button" text="_">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </JFXButton>
-                  <Pane layoutX="14.0" layoutY="14.0" prefHeight="100.0" prefWidth="400.0" styleClass="blue_color">
-                     <children>
-                        <Pane layoutX="5.0" layoutY="5.0" prefHeight="90.0" prefWidth="390.0" styleClass="white_color_round" stylesheets="@PacientMenuStyle.css">
-                           <children>
-                              <Label layoutX="21.0" layoutY="4.0" styleClass="label_text_bold" text="Patient name: " textFill="#000000cc" />
-                              <Label layoutX="21.0" layoutY="35.0" styleClass="label_text_bold" text="Patient Email:" textFill="#000000cc" />
-                              <Label fx:id="userNameLabel" layoutX="135.0" layoutY="2.0" styleClass="label_text" text="user_name" textFill="#000000cc" />
-                              <Label fx:id="userEmailLabel" layoutX="133.0" layoutY="33.0" styleClass="label_text" text="user@gmail.com" textFill="#000000cc" />
-                              <Label layoutX="21.0" layoutY="66.0" styleClass="label_text_bold" text="Patient ID:" textFill="#000000cc" />
-                              <Label fx:id="userPatientIdLabel" layoutX="111.0" layoutY="64.0" styleClass="label_text" text="patient_id" textFill="#000000cc" />
-                           </children>
-                        </Pane>
-                     </children>
-                  </Pane>
-               </children></Pane>
+            <Pane fx:id="menuMainPane" layoutX="280.0" layoutY="5.0" prefHeight="720.0" prefWidth="965.0" styleClass="white_color" stylesheets="@PacientMenuStyle.css" />
          </children>
       </Pane>
    </children>

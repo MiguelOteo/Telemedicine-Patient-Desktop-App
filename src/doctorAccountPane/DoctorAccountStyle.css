@@ -11,20 +11,20 @@
 .window_button {
 	-fx-background-radius: 40;
 	-fx-background-color: white;
-	-fx-font-weight: bold;
+	-fx-font-weight: normal;
     -fx-font-size: 11;
-    -fx-text-fill: #000000b0;
+    -fx-text-fill: #00000080;
 	-fx-border-width: 2;
     -fx-border-radius: 40;
 	-fx-border-color: linear-gradient(to bottom left, #00A9CC, #020024);
 }
 
 .window_button:hover {
-	-fx-background-color: white;
-	-fx-font-weight: bold;
-    -fx-font-size: 11;
-    -fx-text-fill: #00000098;
+	-fx-background-color: #d8d8d8;
+	-fx-font-weight: normal;
+    -fx-text-fill: #00000080;
 	-fx-border-width: 2;
+	 -fx-font-size: 11;
     -fx-border-radius: 40;
 	-fx-border-color: linear-gradient(to bottom left, #00A9CC, #020024);
 }

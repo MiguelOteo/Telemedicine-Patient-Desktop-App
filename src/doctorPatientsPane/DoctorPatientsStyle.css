@@ -11,9 +11,9 @@
 .window_button {
 	-fx-background-radius: 40;
 	-fx-background-color: white;
-	-fx-font-weight: bold;
+	-fx-font-weight: normal;
     -fx-font-size: 11;
-    -fx-text-fill: #000000b0;
+    -fx-text-fill: #00000080;
 	-fx-border-width: 2;
     -fx-border-radius: 40;
 	-fx-border-color: linear-gradient(to bottom left, #00A9CC, #020024);
@@ -21,10 +21,31 @@
 
 .window_button:hover {
 	-fx-background-color: #d8d8d8;
-	-fx-font-weight: bold;
-    -fx-font-size: 11;
-    -fx-text-fill: #00000098;
+	-fx-font-weight: normal;
+    -fx-text-fill: #00000080;
 	-fx-border-width: 2;
+	-fx-font-size: 11;
+    -fx-border-radius: 40;
+	-fx-border-color: linear-gradient(to bottom left, #00A9CC, #020024);
+}
+
+.add_button {
+	-fx-background-radius: 40;
+	-fx-background-color: white;
+	-fx-font-weight: normal;
+    -fx-font-size: 14;
+    -fx-text-fill: #00000080;
+	-fx-border-width: 2;
+    -fx-border-radius: 40;
+	-fx-border-color: linear-gradient(to bottom left, #00A9CC, #020024);
+}
+
+.add_button:hover {
+	-fx-background-color: #d8d8d8;
+	-fx-font-weight: normal;
+    -fx-text-fill: #00000080;
+	-fx-border-width: 2;
+	-fx-font-size: 14;
     -fx-border-radius: 40;
 	-fx-border-color: linear-gradient(to bottom left, #00A9CC, #020024);
 }
@@ -32,44 +53,37 @@
 .tree_view {
 	-fx-border-color: white;
 	-fx-border-width: 2;
-	-fx-background-radius: 0;
 	-fx-background-color: white;
-	-fx-font-weight: normal;
     -fx-font-size: 14;
-    -fx-text-fill: #000000b0;
+    -fx-text-fill: #00000080;
     -fx-border-radius: 20;
 }
 
-.label_text {
-	-fx-font-weight: normal;
-    -fx-font-size: 16;
-    -fx-font-family: "Ebrima";
-}
-
-.label_text_bold {
-	-fx-font-weight: bold;
-    -fx-font-size: 16;
-    -fx-font-family: "Ebrima";
+.tree_view .table-column {
+	-fx-text-fill: #00000080;
+	-fx-alignment:center;
 }
 
 .tree_table_button {
 	-fx-background-radius: 40;
 	-fx-background-color: white;
 	-fx-font-weight: normal;
+	-fx-font-family: "Ebrima";
     -fx-font-size: 12;
-    -fx-text-fill: #000000b0;
+    -fx-text-fill: #00000080;
     -fx-border-width: 2;
     -fx-border-radius: 40;
-	-fx-border-color: linear-gradient(to bottom left, #00A9CC, #020024);
+	-fx-border-color: #8c8c8c;
 }
 
 .tree_table_button:hover {
 	-fx-background-color: #d8d8d8;
 	-fx-background-radius: 40;
 	-fx-font-weight: normal;
+	-fx-font-family: "Ebrima";
     -fx-font-size: 12;
-    -fx-text-fill: #00000098;
+    -fx-text-fill: #00000080;
     -fx-border-width: 2;
     -fx-border-radius: 40;
-	-fx-border-color: linear-gradient(to bottom left, #00A9CC, #020024);
+	-fx-border-color: #8c8c8c;
 }

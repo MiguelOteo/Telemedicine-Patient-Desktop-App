@@ -20,7 +20,7 @@
          <columnResizePolicy>
             <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy></JFXTreeTableView>
-      <JFXButton fx:id="addPatients" layoutX="373.0" layoutY="661.0" onMouseClicked="#openAddPatients" prefHeight="34.0" prefWidth="220.0" styleClass="window_button" text="Add new patients">
+      <JFXButton fx:id="addPatients" layoutX="373.0" layoutY="661.0" onMouseClicked="#openAddPatients" prefHeight="34.0" prefWidth="220.0" styleClass="add_button" text="Add new patients">
          <font>
             <Font size="14.0" />
          </font>

@@ -32,22 +32,22 @@
                         <Font name="Ebrima" size="30.0" />
                      </font>
                   </Label>
-                  <JFXTextField fx:id="userNameField" focusColor="#0193bb" labelFloat="true" layoutX="90.0" layoutY="95.0" prefHeight="45.0" prefWidth="240.0" promptText="User name" styleClass="text-field" stylesheets="@RegistrationStyle.css">
+                  <JFXTextField fx:id="userNameField" focusColor="#0193bb" labelFloat="true" layoutX="90.0" layoutY="95.0" prefHeight="45.0" prefWidth="240.0" promptText="User name" styleClass="text-field" stylesheets="@RegistrationStyle.css" unFocusColor="#00000080">
                      <font>
                         <Font name="Ebrima" size="14.0" />
                      </font>
                   </JFXTextField>
-                  <JFXPasswordField fx:id="userPasswordField" focusColor="#0193bb" labelFloat="true" layoutX="90.0" layoutY="249.0" prefHeight="45.0" prefWidth="240.0" promptText="Password">
+                  <JFXPasswordField fx:id="userPasswordField" focusColor="#0193bb" labelFloat="true" layoutX="90.0" layoutY="249.0" prefHeight="45.0" prefWidth="240.0" promptText="Password" unFocusColor="#00000080">
                      <font>
                         <Font name="Ebrima" size="14.0" />
                      </font>
                   </JFXPasswordField>
-                  <JFXPasswordField fx:id="userRepeatPasswordField" focusColor="#0193bb" labelFloat="true" layoutX="90.0" layoutY="325.0" prefHeight="45.0" prefWidth="240.0" promptText="Repeat Password">
+                  <JFXPasswordField fx:id="userRepeatPasswordField" focusColor="#0193bb" labelFloat="true" layoutX="90.0" layoutY="325.0" prefHeight="45.0" prefWidth="240.0" promptText="Repeat Password" unFocusColor="#00000080">
                      <font>
                         <Font name="Ebrima" size="14.0" />
                      </font>
                   </JFXPasswordField>
-                  <JFXComboBox fx:id="userType" focusColor="#0193bb" labelFloat="true" layoutX="90.0" layoutY="400.0" prefHeight="45.0" prefWidth="240.0" promptText="Type of user" styleClass="comboBox" stylesheets="@RegistrationStyle.css" visibleRowCount="3" />
+                  <JFXComboBox fx:id="userType" focusColor="#0193bb" labelFloat="true" layoutX="90.0" layoutY="400.0" prefHeight="45.0" prefWidth="240.0" promptText="Type of user" styleClass="comboBox" stylesheets="@RegistrationStyle.css" unFocusColor="#00000080" visibleRowCount="3" />
                   <JFXButton fx:id="registerButton" buttonType="RAISED" layoutX="90.0" layoutY="465.0" prefHeight="60.0" prefWidth="240.0" styleClass="starter_buttom" text="Create account">
                      <font>
                         <Font name="Ebrima Bold" size="20.0" />
@@ -58,7 +58,7 @@
                         <Font name="Ebrima" size="14.0" />
                      </font>
                   </JFXButton>
-                  <JFXTextField fx:id="userEmailField" focusColor="#0193bb" labelFloat="true" layoutX="90.0" layoutY="172.0" prefHeight="45.0" prefWidth="240.0" promptText="User email">
+                  <JFXTextField fx:id="userEmailField" focusColor="#0193bb" labelFloat="true" layoutX="90.0" layoutY="172.0" prefHeight="45.0" prefWidth="240.0" promptText="User email" unFocusColor="#0000007e">
                      <font>
                         <Font name="Ebrima" size="14.0" />
                      </font>

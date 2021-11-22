@@ -19,7 +19,7 @@
 	-fx-background-color: white;
 	-fx-font-weight: normal;
     -fx-font-size: 12;
-    -fx-text-fill: #000000b0;
+    -fx-text-fill: #00000080;
 	-fx-border-width: 2;
     -fx-border-radius: 40;
 	-fx-border-color: linear-gradient(to bottom left, #00A9CC, #020024);
@@ -29,35 +29,24 @@
 	-fx-background-color: #d8d8d8;
 	-fx-font-weight: normal;
     -fx-font-size: 12;
-    -fx-text-fill: #00000098;
+    -fx-text-fill: #00000080;
 	-fx-border-width: 2;
     -fx-border-radius: 40;
 	-fx-border-color: linear-gradient(to bottom left, #00A9CC, #020024);
 }
 
-.window_button_big {
-	-fx-background-radius: 40;
+.tree_view {
+	-fx-border-color: white;
+	-fx-border-width: 2;
 	-fx-background-color: white;
-	-fx-font-weight: normal;
-    -fx-font-size: 16;
-    -fx-text-fill: #000000b0;
-	-fx-border-width: 2;
-    -fx-border-radius: 40;
-	-fx-border-color: linear-gradient(to bottom left, #00A9CC, #020024);
+    -fx-font-size: 12;
+    -fx-text-fill: #00000080;
+    -fx-border-radius: 20;
 }
 
-.window_button_big:hover {
-	-fx-background-color: #d8d8d8;
-	-fx-font-weight: normal;
-    -fx-font-size: 16;
-    -fx-text-fill: #00000098;
-	-fx-border-width: 2;
-    -fx-border-radius: 40;
-	-fx-border-color: linear-gradient(to bottom left, #00A9CC, #020024);
-}
-
-.tree-table-cell:centered {
-    -fx-alignment: center;
+.tree_view .table-column {
+	-fx-text-fill: #00000080;
+	-fx-alignment:center;
 }
 
 

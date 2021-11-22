@@ -33,12 +33,12 @@
                   <Font name="Ebrima" size="30.0" />
                </font>
             </Label>
-            <Label layoutX="144.0" layoutY="95.0" text="Log in to continue:" textFill="#0000004e">
+            <Label layoutX="144.0" layoutY="95.0" text="Log in to continue:" textFill="#0000007f">
                <font>
                   <Font name="Ebrima" size="16.0" />
                </font>
             </Label>
-            <Label layoutX="123.0" layoutY="482.0" text="Register a new account" textFill="#000000b0">
+            <Label layoutX="123.0" layoutY="482.0" text="Register a new account" textFill="#0000007f">
                <font>
                   <Font name="Ebrima" size="16.0" />
                </font>
@@ -53,7 +53,7 @@
                   <Font name="Ebrima" size="14.0" />
                </font>
             </JFXButton>
-            <JFXPasswordField fx:id="userPasswordField" focusColor="#0193bb" labelFloat="true" layoutX="90.0" layoutY="266.0" prefHeight="45.0" prefWidth="240.0" promptText="Password:">
+            <JFXPasswordField fx:id="userPasswordField" focusColor="#0193bb" labelFloat="true" layoutX="90.0" layoutY="266.0" prefHeight="45.0" prefWidth="240.0" promptText="Password:" unFocusColor="#00000080">
                <font>
                   <Font name="Ebrima" size="14.0" />
                </font>
@@ -63,7 +63,7 @@
                   <Font name="Ebrima" size="20.0" />
                </font>
             </JFXButton>
-            <JFXTextField fx:id="userEmailField" focusColor="#0193bb" labelFloat="true" layoutX="90.0" layoutY="184.0" prefHeight="45.0" prefWidth="240.0" promptText="User email">
+            <JFXTextField fx:id="userEmailField" focusColor="#0193bb" labelFloat="true" layoutX="90.0" layoutY="184.0" prefHeight="45.0" prefWidth="240.0" promptText="User email" unFocusColor="#0000007e">
                <font>
                   <Font name="Ebrima" size="14.0" />
                </font>

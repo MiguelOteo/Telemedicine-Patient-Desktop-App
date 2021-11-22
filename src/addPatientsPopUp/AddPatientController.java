@@ -260,8 +260,7 @@ public class AddPatientController implements Initializable {
 	private void loadTreeTable() {
 
 		JFXTreeTableColumn<AddPatientTreeObject, String> patientName = new JFXTreeTableColumn<>("Patient Name");
-		patientName.setPrefWidth(159);
-		patientName.setStyle("-fx-alignment: center");
+		patientName.setPrefWidth(158);
 		patientName.setCellValueFactory(new Callback<JFXTreeTableColumn.CellDataFeatures<AddPatientTreeObject,String>, ObservableValue<String>>() {
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<AddPatientTreeObject, String> param) {
@@ -271,8 +270,7 @@ public class AddPatientController implements Initializable {
 		patientName.setResizable(false);
 		
 		JFXTreeTableColumn<AddPatientTreeObject, String> patientIdNumber = new JFXTreeTableColumn<>("Patient ID Number");
-		patientIdNumber.setPrefWidth(159);
-		patientIdNumber.setStyle("-fx-alignment: center");
+		patientIdNumber.setPrefWidth(158);
 		patientIdNumber.setCellValueFactory(new Callback<JFXTreeTableColumn.CellDataFeatures<AddPatientTreeObject,String>, ObservableValue<String>>() {
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<AddPatientTreeObject, String> param) {
@@ -282,8 +280,7 @@ public class AddPatientController implements Initializable {
 		patientIdNumber.setResizable(false);
 		
 		JFXTreeTableColumn<AddPatientTreeObject, JFXCheckBox> selectedPatients = new JFXTreeTableColumn<>("Select");
-		selectedPatients.setPrefWidth(139);
-		selectedPatients.setStyle("-fx-alignment: center");
+		selectedPatients.setPrefWidth(138);
 		selectedPatients.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<AddPatientTreeObject, JFXCheckBox>, ObservableValue<JFXCheckBox>>() {
 			@Override
 			public ObservableValue<JFXCheckBox> call(CellDataFeatures<AddPatientTreeObject, JFXCheckBox> param) {
