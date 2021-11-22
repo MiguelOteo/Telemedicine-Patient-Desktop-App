@@ -14,7 +14,7 @@
             <Font name="Ebrima" size="22.0" />
          </font>
       </Label>
-      <JFXButton layoutX="923.0" layoutY="13.0" onMouseClicked="#closeApp" prefHeight="25.0" prefWidth="25.0" styleClass="window_button" text="X">
+      <JFXButton layoutX="923.0" layoutY="13.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#closeApp" prefHeight="28.0" prefWidth="28.0" styleClass="window_button" text="X">
          <font>
             <Font size="14.0" />
          </font>

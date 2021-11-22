@@ -51,20 +51,7 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <Pane fx:id="menuMainPane" layoutX="280.0" layoutY="5.0" prefHeight="720.0" prefWidth="965.0" styleClass="white_color" stylesheets="@../patientMainMenu/PacientMenuStyle.css">
-               <children>
-                  <JFXButton layoutX="924.0" layoutY="13.0" onMouseClicked="#closeApp" prefHeight="25.0" prefWidth="25.0" styleClass="window_button" text="X">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </JFXButton>
-                  <JFXButton layoutX="888.0" layoutY="13.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#minWindow" prefHeight="28.0" prefWidth="28.0" styleClass="window_button" text="_">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </JFXButton>
-               </children>
-            </Pane>
+            <Pane fx:id="menuMainPane" layoutX="280.0" layoutY="5.0" prefHeight="720.0" prefWidth="965.0" styleClass="white_color" stylesheets="@../patientMainMenu/PacientMenuStyle.css" />
          </children>
       </Pane>
    </children>
