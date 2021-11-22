@@ -13,7 +13,7 @@
                <font>
                   <Font name="Ebrima" size="14.0" />
                </font></JFXButton>
-            <Label fx:id="message" alignment="CENTER" contentDisplay="TOP" layoutX="6.0" layoutY="31.0" prefHeight="22.0" prefWidth="280.0" text="Message to be displayed" textAlignment="CENTER">
+            <Label fx:id="message" alignment="CENTER" contentDisplay="TOP" layoutX="6.0" layoutY="31.0" prefHeight="22.0" prefWidth="280.0" styleClass="message" text="Message to be displayed" textAlignment="CENTER">
                <font>
                   <Font size="14.0" />
                </font>
