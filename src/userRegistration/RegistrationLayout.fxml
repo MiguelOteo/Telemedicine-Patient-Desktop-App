@@ -11,9 +11,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane styleClass="blue_color" stylesheets="@RegistrationStyle.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="userRegistration.RegistrationController">
+<AnchorPane stylesheets="@RegistrationStyle.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="userRegistration.RegistrationController">
    <children>
-      <Pane prefHeight="610.0" prefWidth="810.0" styleClass="blue_color" stylesheets="@RegistrationStyle.css">
+      <Pane prefHeight="610.0" prefWidth="810.0" styleClass="blue_color">
          <children>
             <ImageView fitHeight="165.0" fitWidth="166.0" layoutX="117.0" layoutY="195.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                <image>
@@ -47,7 +47,7 @@
                         <Font name="Ebrima" size="14.0" />
                      </font>
                   </JFXPasswordField>
-                  <JFXComboBox fx:id="userType" focusColor="#0193bb" labelFloat="true" layoutX="90.0" layoutY="400.0" prefHeight="45.0" prefWidth="240.0" promptText="Type of user" styleClass="comboBox" stylesheets="@RegistrationStyle.css" unFocusColor="#00000080" visibleRowCount="3" />
+                  <JFXComboBox fx:id="userType" focusColor="#0193bb" labelFloat="true" layoutX="90.0" layoutY="400.0" prefHeight="45.0" prefWidth="240.0" promptText="Type of user" styleClass="comboBox" unFocusColor="#00000080" visibleRowCount="3" />
                   <JFXButton fx:id="registerButton" buttonType="RAISED" layoutX="90.0" layoutY="465.0" prefHeight="60.0" prefWidth="240.0" styleClass="starter_buttom" text="Create account">
                      <font>
                         <Font name="Ebrima Bold" size="20.0" />

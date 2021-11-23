@@ -175,9 +175,7 @@ public class RegistrationController implements Initializable {
 						response.append(inputLine);
 					}
 					inputReader.close();
-
-					Gson gsonConverter = new Gson();
-					APIResponse responseAPI = gsonConverter.fromJson(response.toString(), APIResponse.class);
+					APIResponse responseAPI = new Gson().fromJson(response.toString(), APIResponse.class);
 
 					if (responseAPI.isError()) {
 						Platform.runLater(new Runnable() {

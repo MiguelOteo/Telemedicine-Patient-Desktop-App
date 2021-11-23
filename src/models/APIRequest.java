@@ -9,6 +9,7 @@ public class APIRequest {
 	private String userEmail;
 	private String userPassword;
 	private String userPasswordRepeat;
+	private String userNewPassword;
 	
 	private int doctorId;
 	private int patientId;
@@ -57,6 +58,9 @@ public class APIRequest {
 
 	public String getPatientIdNumber() {return patientIdNumber;}
 
-	public void setPatientIdNumber(String patientIdNumber) {this.patientIdNumber = patientIdNumber;}	
-		
+	public void setPatientIdNumber(String patientIdNumber) {this.patientIdNumber = patientIdNumber;}
+
+	public String getUserNewPassword() {return userNewPassword;}
+
+	public void setUserNewPassword(String userNewPassword) {this.userNewPassword = userNewPassword;}		
 }
