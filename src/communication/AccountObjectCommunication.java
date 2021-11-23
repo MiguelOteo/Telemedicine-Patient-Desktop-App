@@ -10,7 +10,7 @@ public class AccountObjectCommunication {
     private static Patient patient;
     private static Doctor doctor;
     private static int databaseId;
-   //KAKITA
+   
     // To set the blur on the whole menu
     private static AnchorPane anchorPane;
    
