@@ -86,10 +86,17 @@ public class PatientMenuController implements Initializable {
 	
 	@FXML
 	private void openBitalinoRecord() {
-		// TODO - Load a patient BITalino record pane
-		openPatientAccount.setDisable(false);
-		openBitalinoConnection.setDisable(false);
-		openBitalinoRecord.setDisable(true);
+		Pane paramRecordPane;
+		try {
+			paramRecordPane = FXMLLoader.load(getClass().getResource("/parametersRecordPane/ParametersRecordLayout.fxml"));
+			menuMainPane.getChildren().removeAll();
+			menuMainPane.getChildren().setAll(paramRecordPane);
+			openPatientAccount.setDisable(false);
+			openBitalinoConnection.setDisable(false);
+			openBitalinoRecord.setDisable(true);
+		} catch (IOException error) {
+			error.printStackTrace();
+		}
 	}
 	
 	@FXML

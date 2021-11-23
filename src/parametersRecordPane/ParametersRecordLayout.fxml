@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="965.0" styleClass="white_color" stylesheets="@ParametersRecordStyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bitalinoConnectedPane.BitalinoConnectedController">
+   <children>
+      <Label layoutX="106.0" layoutY="25.0" prefHeight="32.0" prefWidth="213.0" text="Parameters Record" textFill="#00000080">
+         <font>
+            <Font name="Ebrima" size="22.0" />
+         </font>
+      </Label>
+      <JFXButton layoutX="923.0" layoutY="13.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#closeApp" prefHeight="28.0" prefWidth="28.0" styleClass="window_button" text="X">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </JFXButton>
+      <JFXButton layoutX="887.0" layoutY="13.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#minWindow" prefHeight="28.0" prefWidth="28.0" styleClass="window_button" text="_">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </JFXButton>
+      <ImageView fitHeight="54.0" fitWidth="55.0" layoutX="33.0" layoutY="14.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../icons/BITalino_black.png" />
+         </image>
+      </ImageView>
+      <Label alignment="CENTER" layoutX="73.0" layoutY="506.0" prefHeight="30.0" prefWidth="411.0" text="You are (supposedly) connected to a BITalino" textFill="#0000007f">
+         <font>
+            <Font name="Ebrima" size="20.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="118.0" layoutY="546.0" prefHeight="25.0" prefWidth="321.0" text="Everything ready to record data" textAlignment="CENTER" textFill="#00000067" wrapText="true">
+         <font>
+            <Font name="Ebrima" size="18.0" />
+         </font>
+      </Label>
+      <Pane fx:id="viewPane" layoutX="33.0" layoutY="89.0" prefHeight="412.0" prefWidth="490.0" />
+      <AnchorPane layoutX="145.0" layoutY="506.0" />
+      <JFXButton fx:id="startRecording" layoutX="177.0" layoutY="603.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="204.0" styleClass="add_button" text="START RECORDING!">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </JFXButton>
+      <Pane fx:id="pastPane" layoutX="543.0" layoutY="89.0" prefHeight="243.0" prefWidth="411.0" />
+      <Label alignment="CENTER" layoutX="594.0" layoutY="347.0" prefHeight="25.0" prefWidth="321.0" text="Last recorded values (timewise)" textAlignment="CENTER" textFill="#00000067" wrapText="true">
+         <font>
+            <Font name="Ebrima" size="18.0" />
+         </font>
+      </Label>
+      <JFXButton fx:id="comparePast" layoutX="653.0" layoutY="407.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="204.0" styleClass="add_button" text="Compare with past values">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </JFXButton>
+   </children>
+</Pane>
