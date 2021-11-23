@@ -4,6 +4,7 @@ import java.util.List;
 
 public class APIRequest {
 
+	private int userId;
 	private String userType;
 	private String userName;
 	private String userEmail;
@@ -62,5 +63,9 @@ public class APIRequest {
 
 	public String getUserNewPassword() {return userNewPassword;}
 
-	public void setUserNewPassword(String userNewPassword) {this.userNewPassword = userNewPassword;}		
+	public void setUserNewPassword(String userNewPassword) {this.userNewPassword = userNewPassword;}
+
+	public int getUserId() {return userId;}
+
+	public void setUserId(int userId) {this.userId = userId;}		
 }

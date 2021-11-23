@@ -12,6 +12,7 @@ public class APIResponse {
 	private Doctor doctor;
 	private Patient patient;
 	private List<Patient> noDoctorPatients;
+	private String encryptedPassword;
 	
 	// Return the API message (Error message if error boolean is true)
 	private String APImessage;
@@ -52,5 +53,9 @@ public class APIResponse {
 
 	public List<Patient> getNoDoctorPatients() {return noDoctorPatients;}
 
-	public void setNoDoctorPatients(List<Patient> noDoctorPatients) {this.noDoctorPatients = noDoctorPatients;}	
+	public void setNoDoctorPatients(List<Patient> noDoctorPatients) {this.noDoctorPatients = noDoctorPatients;}
+
+	public String getEncryptedPassword() {return encryptedPassword;}
+
+	public void setEncryptedPassword(String encryptedPassword) {this.encryptedPassword = encryptedPassword;}	
 }

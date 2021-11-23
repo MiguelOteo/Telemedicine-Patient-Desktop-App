@@ -1,6 +1,7 @@
 package userRegistration;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -194,7 +195,7 @@ public class RegistrationController implements Initializable {
 							}
 						});
 					}
-				} catch (ConnectException conncetionError) {
+				} catch (ConnectException | FileNotFoundException conncetionError) {
 					Platform.runLater(new Runnable() {
 						@Override
 						public void run() {

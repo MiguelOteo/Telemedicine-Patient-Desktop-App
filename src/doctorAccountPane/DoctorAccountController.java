@@ -1,6 +1,7 @@
 package doctorAccountPane;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -62,12 +63,12 @@ public class DoctorAccountController implements Initializable {
 	
 	@FXML
 	private void updateAccount() {
-		sendUpdateRequest(true);
+		// TODO - Update Account Request
 	}
 	
 	@FXML
 	private void changePassword() {
-		sendUpdateRequest(false);
+		changePasswordRequest();
 	}
 	
 	@FXML
@@ -104,35 +105,21 @@ public class DoctorAccountController implements Initializable {
 		}
 	}
 	
-	private void sendUpdateRequest(boolean update) {
+	private void changePasswordRequest() {
 		
-		Thread threadObject = new Thread("UpdatingDoctor") {
+		Thread threadObject = new Thread("ChangingPassword") {
 			public void run() {
 				try {
+					HttpURLConnection connection = (HttpURLConnection) new URL(RestAPI.BASE_URL + "/changePassword").openConnection();
+					connection.setRequestMethod("POST");
+						
+					String userNewPasswordString = userNewPassword.getText();
+					String userOldPasswordString = userOldPassword.getText();
 					
-					HttpURLConnection connection;
 					APIRequest requestAPI = new APIRequest();
-					
-					if(update) {
-						connection = (HttpURLConnection) new URL(RestAPI.BASE_URL + "/doctorAccountUpdate").openConnection();
-						connection.setRequestMethod("POST");
-						
-						String userNameString = userName.getText();
-						String userEmailString = userEmail.getText();
-						
-						if(!userNameString.equals("")) {requestAPI.setUserName(userNameString);}
-						if(!userEmailString.equals("")) {requestAPI.setUserEmail(userEmailString);}
-						
-					} else {
-						connection = (HttpURLConnection) new URL(RestAPI.BASE_URL + "/doctorChangePassword").openConnection();
-						connection.setRequestMethod("POST");
-						
-						String userNewPasswordString = userNewPassword.getText();
-						String userOldPasswordString = userOldPassword.getText();
-						
-						if(!userOldPasswordString.equals("")) {requestAPI.setUserPassword(userOldPasswordString);}
-						if(!userNewPasswordString.equals("")) {requestAPI.setUserNewPassword(userNewPasswordString);}
-					}
+					requestAPI.setUserId(AccountObjectCommunication.getDoctor().getUserId());
+					if(!userOldPasswordString.equals("")) {requestAPI.setUserPassword(userOldPasswordString);}
+					if(!userNewPasswordString.equals("")) {requestAPI.setUserNewPassword(userNewPasswordString);}
 					
 					String postData = "APIRequest=" + URLEncoder.encode(new Gson().toJson(requestAPI), "UTF-8");
 					
@@ -150,14 +137,33 @@ public class DoctorAccountController implements Initializable {
 					inputReader.close();
 					APIResponse responseAPI = new Gson().fromJson(response.toString(), APIResponse.class);
 					
-					// TODO- Finish method
-					System.out.println(responseAPI.getAPImessage());
-					
-				} catch (ConnectException conncetionError) {
+					if(!responseAPI.isError()) {	
+						AccountObjectCommunication.getDoctor().setEncryptedPassword(responseAPI.getEncryptedPassword());
+						Platform.runLater(new Runnable() {
+							@Override
+							public void run() {
+								openDialog(responseAPI.getAPImessage());
+								userNewPassword.setText("");
+								userOldPassword.setText("");
+							}
+						});
+					} else {
+						Platform.runLater(new Runnable() {
+							@Override
+							public void run() {
+								openDialog(responseAPI.getAPImessage());
+								userNewPassword.setText("");
+								userOldPassword.setText("");
+							}
+						});
+					}
+				} catch (ConnectException | FileNotFoundException conncetionError) {
 					Platform.runLater(new Runnable() {
 						@Override
 						public void run() {
 							openDialog("Failed to connect to the server");
+							userNewPassword.setText("");
+							userOldPassword.setText("");
 						}
 					});
 				} catch (IOException error) {
