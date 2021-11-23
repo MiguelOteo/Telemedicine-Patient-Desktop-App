@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXTreeTableView?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TreeTableView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="965.0" styleClass="white_color" stylesheets="@BitalinoConnectionStyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bitalinoConnectionPane.BitalinoConnectionController">
+<Pane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="965.0" styleClass="white_color" stylesheets="@BitalinoConnectedStyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bitalinoConnectedPane.BitalinoConnectedController">
    <children>
       <Label layoutX="106.0" layoutY="25.0" prefHeight="32.0" prefWidth="213.0" text="BITalino Connection" textFill="#00000080">
          <font>
@@ -31,42 +29,42 @@
             <Image url="@../icons/BITalino_black.png" />
          </image>
       </ImageView>
-      <JFXTreeTableView fx:id="bitalinoTreeView" layoutX="43.0" layoutY="95.0" prefHeight="580.0" prefWidth="530.0" styleClass="tree_view">
-         <columnResizePolicy>
-            <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-         </columnResizePolicy>
-      </JFXTreeTableView>
-      <ImageView fitHeight="173.0" fitWidth="130.0" layoutX="698.0" layoutY="185.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="300.0" fitWidth="225.0" layoutX="371.0" layoutY="110.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../icons/BITalino_black.png" />
          </image>
       </ImageView>
-      <Label alignment="CENTER" layoutX="602.0" layoutY="373.0" prefHeight="25.0" prefWidth="321.0" text="Connect to a BITalino" textFill="#0000007f">
+      <Label alignment="CENTER" layoutX="322.0" layoutY="426.0" prefHeight="25.0" prefWidth="321.0" text="You are connected to a BITalino" textFill="#0000007f">
          <font>
             <Font name="Ebrima" size="20.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="602.0" layoutY="403.0" prefHeight="25.0" prefWidth="321.0" text="To record data" textAlignment="CENTER" textFill="#00000067" wrapText="true">
+      <Label alignment="CENTER" layoutX="322.0" layoutY="456.0" prefHeight="25.0" prefWidth="321.0" text="Everything ready to record data" textAlignment="CENTER" textFill="#00000067" wrapText="true">
          <font>
             <Font name="Ebrima" size="18.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="602.0" layoutY="555.0" prefHeight="25.0" prefWidth="321.0" text="Refresh List" textAlignment="CENTER" textFill="#00000080" wrapText="true">
+      <Label alignment="CENTER" layoutX="293.0" layoutY="592.0" prefHeight="30.0" prefWidth="382.0" text="If you want to connect to a new BITalino" textAlignment="CENTER" textFill="#00000080" wrapText="true">
          <font>
             <Font name="Ebrima" size="20.0" />
          </font>
       </Label>
-      <JFXButton layoutX="698.0" layoutY="504.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="130.0" styleClass="window_button" text=" ">
+      <JFXButton fx:id="closeConnection" layoutX="383.0" layoutY="540.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#closeConnection" prefHeight="40.0" prefWidth="204.0" styleClass="add_button" text=" Close Connection">
          <font>
-            <Font size="14.0" />
+            <Font size="16.0" />
          </font>
          <graphic>
-            <ImageView fitHeight="33.0" fitWidth="33.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="30.0" fitWidth="30.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../icons/refresh_arrow.png" />
+                  <Image url="@../icons/cross_black.png" />
                </image>
             </ImageView>
          </graphic>
       </JFXButton>
+      <Label alignment="CENTER" layoutX="242.0" layoutY="622.0" prefHeight="30.0" prefWidth="485.0" text="You must first close the connection with the current one" textAlignment="CENTER" textFill="#00000067" wrapText="true">
+         <font>
+            <Font name="Ebrima" size="18.0" />
+         </font>
+      </Label>
    </children>
 </Pane>
