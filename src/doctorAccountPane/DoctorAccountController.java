@@ -12,6 +12,7 @@ import java.net.URLEncoder;
 import java.util.ResourceBundle;
 
 import com.google.gson.Gson;
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.validation.RequiredFieldValidator;
@@ -20,6 +21,7 @@ import commonParams.CommonParams;
 import communication.AccountObjectCommunication;
 import dialogPopUp.DialogPopUpController;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -47,6 +49,10 @@ public class DoctorAccountController implements Initializable {
 	private Label userEmailLabel;
 	@FXML
 	private Label userDoctorIdLabel;
+	@FXML
+	private JFXButton updateEmail;
+	@FXML
+	private JFXButton updateName;
 	@FXML
 	private JFXTextField userNameField;
 	@FXML
@@ -99,11 +105,18 @@ public class DoctorAccountController implements Initializable {
 				userNewPassword.validate();
 			}
 		});
-	}
-	
-	@FXML
-	private void updateAccount() {
-		// TODO - Update Account Request
+		
+		updateEmail.setOnAction((ActionEvent event) -> {
+			if(userEmailField.validate()) {
+				updateAccount(true);
+			}
+		});
+		
+		updateName.setOnAction((ActionEvent event) -> {
+			if(userNameField.validate()) {
+				updateAccount(false);
+			}
+		});
 	}
 	
 	@FXML
@@ -148,6 +161,89 @@ public class DoctorAccountController implements Initializable {
 		} catch (IOException error) {
 			error.printStackTrace();
 		}
+	}
+	
+	private void updateAccount(boolean emailUpdate) {
+		
+		Thread threadObject = new Thread("Updating Account") {
+			public void run() {
+				try {
+					
+					HttpURLConnection connection = (HttpURLConnection) new URL(CommonParams.BASE_URL + "/updateAccount").openConnection();
+					connection.setRequestMethod("POST");
+					APIRequest requestAPI = new APIRequest();
+					
+					requestAPI.setUserId(AccountObjectCommunication.getDoctor().getUserId());
+					if(emailUpdate) {
+						
+						String userEmail = userEmailField.getText();
+						if(!userEmail.equals("")) {requestAPI.setUserEmail(userEmail);}
+						
+					} else {
+						
+						String userName = userNameField.getText();
+						if(!userName.equals("")) {requestAPI.setUserName(userName);}
+					}
+					
+					String postData = "APIRequest=" + URLEncoder.encode(new Gson().toJson(requestAPI), "UTF-8");
+					
+					connection.setDoOutput(true);
+					OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
+					writer.write(postData);
+					writer.flush();
+
+					BufferedReader inputReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+					String inputLine;
+					StringBuffer response = new StringBuffer();
+					while ((inputLine = inputReader.readLine()) != null) {
+						response.append(inputLine);
+					}
+					inputReader.close();
+					APIResponse responseAPI = new Gson().fromJson(response.toString(), APIResponse.class);
+					
+					if(!responseAPI.isError()) {	
+						
+						Platform.runLater(new Runnable() {
+							@Override
+							public void run() {
+								if(emailUpdate) {
+									AccountObjectCommunication.getDoctor().setEmail(responseAPI.getUserEmail());
+									userEmailLabel.setText("Doctor Email: " + responseAPI.getUserEmail());
+									userEmailField.setText("");
+								} else {
+									AccountObjectCommunication.getDoctor().setName(responseAPI.getUserName());
+									userNameLabel.setText("Name: " +responseAPI.getUserName());
+									userNameField.setText("");
+								}
+								openDialog(responseAPI.getAPImessage());
+							}
+						});
+					} else {
+						Platform.runLater(new Runnable() {
+							@Override
+							public void run() {
+								openDialog(responseAPI.getAPImessage());
+								userNameField.setText("");
+								userEmailField.setText("");
+							}
+						});
+					}
+					
+				} catch (ConnectException | FileNotFoundException conncetionError) {
+					Platform.runLater(new Runnable() {
+						@Override
+						public void run() {
+							openDialog("Failed to connect to the server");
+							userNameField.setText("");
+							userEmailField.setText("");
+						}
+					});
+				} catch (IOException error) {
+					error.printStackTrace();
+				}	
+			}
+		};
+		threadObject.start();
 	}
 	
 	private void changePasswordRequest() {
