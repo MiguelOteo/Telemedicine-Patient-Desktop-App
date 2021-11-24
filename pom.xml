@@ -9,7 +9,7 @@
 
 	<dependencies>
 		<!-- External libraries dependencies -->
-	
+
 		<!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
@@ -30,33 +30,33 @@
 		</dependency>
 
 		<!-- JavaFx FXML dependencies -->
-		
+
 		<!-- https://mvnrepository.com/artifact/org.openjfx/javafx-controls -->
 		<dependency>
 			<groupId>org.openjfx</groupId>
-   			<artifactId>javafx-controls</artifactId>
-    		<version>18-ea+7</version>
+			<artifactId>javafx-controls</artifactId>
+			<version>18-ea+7</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.openjfx/javafx-fxml -->
 		<dependency>
 			<groupId>org.openjfx</groupId>
-    		<artifactId>javafx-fxml</artifactId>
-    		<version>18-ea+7</version>
-		</dependency>	
-		
+			<artifactId>javafx-fxml</artifactId>
+			<version>18-ea+7</version>
+		</dependency>
+
 	</dependencies>
 
 	<properties>
 		<maven.compiler.release>9</maven.compiler.release>
 	</properties>
-	
+
 	<build>
 		<sourceDirectory>src</sourceDirectory>
 		<plugins>
 			<plugin>
 				<groupId>org.openjfx</groupId>
-    			<artifactId>javafx-maven-plugin</artifactId>
-    			<version>0.0.8</version>
+				<artifactId>javafx-maven-plugin</artifactId>
+				<version>0.0.8</version>
 				<configuration>
 					<mainClass>LaunchApp.java</mainClass>
 				</configuration>

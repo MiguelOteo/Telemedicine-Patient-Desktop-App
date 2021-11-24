@@ -17,7 +17,9 @@ import com.google.gson.Gson;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.validation.RequiredFieldValidator;
 
+import commonParams.CommonParams;
 import communication.AccountObjectCommunication;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -37,7 +39,7 @@ import javafx.stage.StageStyle;
 import launchApp.LaunchApp;
 import models.APIRequest;
 import models.APIResponse;
-import remoteParams.RestAPI;
+import utility.RegexValidator;
 
 public class LogInController implements Initializable {
 
@@ -61,12 +63,42 @@ public class LogInController implements Initializable {
 	// Initialize method
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-
+		
+		RegexValidator validator = new RegexValidator();
+		validator.setRegexPattern("^[_A-Za-z0-9-+]+(\\.[_A-Za-z0-9-]+)*@"
+                + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+		validator.setMessage("Email is not valid");
+		userEmailField.getValidators().add(validator);
+		userEmailField.focusedProperty().addListener((o, oldVal, newVal) ->{
+			if(!newVal) {
+				userEmailField.validate();
+			}
+		});
+		
+		
+		RequiredFieldValidator validatorEmpty = new RequiredFieldValidator();
+		validatorEmpty.setMessage("Password cannot be empty");
+		userPasswordField.getValidators().add(validatorEmpty);
+		userPasswordField.focusedProperty().addListener((o, oldVal, newVal) ->{
+			if(!newVal) {
+				userPasswordField.validate();
+			}
+		});
+		
 		// Initialize the logIn button on press event
 		logInButton.setOnAction((ActionEvent event) -> {
+			boolean resultEmail = userEmailField.validate();
+			boolean resultPass = userPasswordField.validate();
+			doRequest(resultEmail, resultPass);
+		});
+	}
+	
+	public void doRequest(boolean resultEmail, boolean resultPass) {
+		
+		if(resultEmail == true && resultPass == true) {
 			loginUserRest(userEmailField.getText(), userPasswordField.getText());
 			logInButton.setDisable(true);
-		});
+		}
 	}
 
 	// Replace the login pane with the registration one
@@ -137,7 +169,7 @@ public class LogInController implements Initializable {
 		Thread threadObject = new Thread("AthentificatingUser") {
 			public void run() {
 				try {
-					HttpURLConnection connection = (HttpURLConnection) new URL(RestAPI.BASE_URL + "/userLogin")
+					HttpURLConnection connection = (HttpURLConnection) new URL(CommonParams.BASE_URL + "/userLogin")
 							.openConnection();
 
 					connection.setRequestMethod("POST");

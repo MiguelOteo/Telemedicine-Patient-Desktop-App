@@ -20,6 +20,7 @@ import com.jfoenix.controls.JFXTreeTableView;
 import com.jfoenix.controls.RecursiveTreeItem;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 
+import commonParams.CommonParams;
 import communication.AccountObjectCommunication;
 import dialogPopUp.DialogPopUpController;
 import javafx.application.Platform;
@@ -46,7 +47,6 @@ import javafx.util.Callback;
 import models.APIRequest;
 import models.APIResponse;
 import models.Patient;
-import remoteParams.RestAPI;
 import treeTableObjects.PatientTreeObject;
 
 public class DoctorPatientsController implements Initializable {
@@ -135,7 +135,7 @@ public class DoctorPatientsController implements Initializable {
 		Thread threadObject = new Thread("GettingDoctorPatients") {
 			public void run() {
 				try {
-					HttpURLConnection connection = (HttpURLConnection) new URL(RestAPI.BASE_URL + "/listDoctorPatients")
+					HttpURLConnection connection = (HttpURLConnection) new URL(CommonParams.BASE_URL + "/listDoctorPatients")
 							.openConnection();
 					
 					connection.setRequestMethod("POST");

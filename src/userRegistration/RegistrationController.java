@@ -10,12 +10,15 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ResourceBundle;
+
 import com.google.gson.Gson;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.validation.RequiredFieldValidator;
 
+import commonParams.CommonParams;
 import dialogPopUp.DialogPopUpController;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -34,7 +37,7 @@ import javafx.stage.StageStyle;
 import launchApp.LaunchApp;
 import models.APIRequest;
 import models.APIResponse;
-import remoteParams.RestAPI;
+import utility.RegexValidator;
 
 public class RegistrationController implements Initializable {
 
@@ -59,18 +62,67 @@ public class RegistrationController implements Initializable {
 	public RegistrationController() {}
 
 	public void initialize(URL location, ResourceBundle resources) {
-
+		
+		RegexValidator validator = new RegexValidator();
+		validator.setRegexPattern("^[_A-Za-z0-9-+]+(\\.[_A-Za-z0-9-]+)*@"
+                + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+		validator.setMessage("Email is not valid");
+		userEmailField.getValidators().add(validator);
+		userEmailField.focusedProperty().addListener((o, oldVal, newVal) ->{
+			if(!newVal) {
+				userEmailField.validate();
+			}
+		});
+		
+		RequiredFieldValidator validatorEmpty = new RequiredFieldValidator();
+		validatorEmpty.setMessage("Password cannot be empty");
+		userPasswordField.getValidators().add(validatorEmpty);
+		userPasswordField.focusedProperty().addListener((o, oldVal, newVal) ->{
+			if(!newVal) {
+				userPasswordField.validate();
+			}
+		});
+		
+		RequiredFieldValidator validatorEmpty2 = new RequiredFieldValidator();
+		validatorEmpty2.setMessage("Repeat password cannot be empty");
+		userRepeatPasswordField.getValidators().add(validatorEmpty2);
+		userRepeatPasswordField.focusedProperty().addListener((o, oldVal, newVal) ->{
+			if(!newVal) {
+				userRepeatPasswordField.validate();
+			}
+		});
+		
+		RequiredFieldValidator validatorEmpty3 = new RequiredFieldValidator(); 
+		validatorEmpty3.setMessage("User name cannot be empty");
+		userNameField.getValidators().add(validatorEmpty3);
+		userNameField.focusedProperty().addListener((o, oldVal, newVal) ->{
+			if(!newVal) {
+				userNameField.validate();
+			}
+		});
+		
 		// Adding the types of users
 		userType.getItems().addAll("Patient", "Doctor");
 		userType.setValue("Patient");
 
 		registerButton.setOnAction((ActionEvent event) -> {
-			resgisterUserRest(userType.getSelectionModel().getSelectedItem().toString(), userNameField.getText(),
-					userEmailField.getText(), userPasswordField.getText(), userRepeatPasswordField.getText());
-			registerButton.setDisable(true);
+			boolean resultEmail = userEmailField.validate();
+			boolean resultPass = userPasswordField.validate();
+			boolean resultPassRep = userRepeatPasswordField.validate();
+			boolean resultName = userNameField.validate();
+			doRequest(resultEmail, resultName, resultPass, resultPassRep);
 		});
 	}
 
+	public void doRequest(boolean resultEmail, boolean resultName, boolean resultPass, boolean resultPassRep) {
+		
+		if(resultName == true && resultEmail == true && resultPass == true && resultPassRep == true) {
+			resgisterUserRest(userType.getSelectionModel().getSelectedItem().toString(), userNameField.getText(),
+					userEmailField.getText(), userPasswordField.getText(), userRepeatPasswordField.getText());
+			registerButton.setDisable(true);
+		}
+	}
+	
 	// When press it goes back to the logIn pane
 	@FXML
 	private void backToMenu(MouseEvent event) throws IOException {
@@ -152,7 +204,7 @@ public class RegistrationController implements Initializable {
 		Thread threadObject = new Thread("RegisteringUser") {
 			public void run() {
 				try {
-					HttpURLConnection connection = (HttpURLConnection) new URL(RestAPI.BASE_URL + "/userRegistration")
+					HttpURLConnection connection = (HttpURLConnection) new URL(CommonParams.BASE_URL + "/userRegistration")
 							.openConnection();
 					connection.setRequestMethod("POST");
 

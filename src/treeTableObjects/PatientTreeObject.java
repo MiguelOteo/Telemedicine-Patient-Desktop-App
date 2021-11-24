@@ -14,6 +14,7 @@ import com.google.gson.Gson;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 
+import commonParams.CommonParams;
 import communication.AccountObjectCommunication;
 import dialogPopUp.DialogPopUpController;
 import javafx.application.Platform;
@@ -33,7 +34,6 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import models.APIRequest;
 import models.APIResponse;
-import remoteParams.RestAPI;
 
 public class PatientTreeObject extends RecursiveTreeObject<PatientTreeObject> {
 	
@@ -89,7 +89,7 @@ public class PatientTreeObject extends RecursiveTreeObject<PatientTreeObject> {
 		Thread threadObject = new Thread("deletingPatient") {
 			public void run() {
 				try {
-					HttpURLConnection connection = (HttpURLConnection) new URL(RestAPI.BASE_URL + "/deletePatientAssignment")
+					HttpURLConnection connection = (HttpURLConnection) new URL(CommonParams.BASE_URL + "/deletePatientAssignment")
 							.openConnection();
 					
 					connection.setRequestMethod("POST");

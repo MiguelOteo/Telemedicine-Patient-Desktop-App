@@ -13,6 +13,7 @@ import java.util.ResourceBundle;
 
 import com.google.gson.Gson;
 
+import commonParams.CommonParams;
 import communication.AccountObjectCommunication;
 import dialogPopUp.DialogPopUpController;
 import javafx.application.Platform;
@@ -32,7 +33,6 @@ import javafx.stage.StageStyle;
 import models.APIRequest;
 import models.APIResponse;
 import models.Patient;
-import remoteParams.RestAPI;
 
 public class PatientRecordsController implements Initializable {
 
@@ -110,7 +110,7 @@ public class PatientRecordsController implements Initializable {
 		Thread threadObject = new Thread("gettingPatientInfo") {
 			public void run() {
 				try {
-					HttpURLConnection connection = (HttpURLConnection) new URL(RestAPI.BASE_URL + "/getPatientInformation")
+					HttpURLConnection connection = (HttpURLConnection) new URL(CommonParams.BASE_URL + "/getPatientInformation")
 							.openConnection();
 
 					connection.setRequestMethod("POST");

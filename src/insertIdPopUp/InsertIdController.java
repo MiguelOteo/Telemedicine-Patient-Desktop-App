@@ -15,6 +15,7 @@ import com.google.gson.Gson;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 
+import commonParams.CommonParams;
 import communication.AccountObjectCommunication;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -23,7 +24,7 @@ import javafx.fxml.Initializable;
 import javafx.stage.Stage;
 import models.APIRequest;
 import models.APIResponse;
-import remoteParams.RestAPI;
+import utility.RegexValidator;
 
 
 public class InsertIdController implements Initializable {
@@ -36,16 +37,29 @@ public class InsertIdController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
+		RegexValidator validator = new RegexValidator();
+		validator.setRegexPattern("[0-9]{8}" + CommonParams.DNI_LETTERS + "{1}");
+		
 		if(AccountObjectCommunication.getDoctor() != null) {
 			idField.setPromptText("Doctor identification number");
+			validator.setMessage("Doctor ID Number is not valid");
 		} else {
 			idField.setPromptText("Health insurance number");
+			validator.setMessage("Patient ID Number is not valid");
 		}
 		
+		idField.getValidators().add(validator);
+		idField.focusedProperty().addListener((o, oldVal, newVal) ->{
+			if(!newVal) {
+				idField.validate();
+			}
+		});
+		
 		confirmButton.setOnAction((ActionEvent event) -> {
-			
-			confirmButton.setDisable(true);
-			updateId(idField.getText().toString());
+			if(idField.validate()) {
+				confirmButton.setDisable(true);
+				updateId(idField.getText().toString());
+			}
 		});
 	}
 	
@@ -60,7 +74,7 @@ public class InsertIdController implements Initializable {
 					
 					if(AccountObjectCommunication.getDoctor() != null) {
 			
-						connection = (HttpURLConnection) new URL(RestAPI.BASE_URL + "/addDoctorIdentification").openConnection();
+						connection = (HttpURLConnection) new URL(CommonParams.BASE_URL + "/addDoctorIdentification").openConnection();
 						connection.setRequestMethod("POST");
 						
 						APIRequest requestAPI = new APIRequest();
@@ -69,7 +83,7 @@ public class InsertIdController implements Initializable {
 						postData = "APIRequest=" + URLEncoder.encode(new Gson().toJson(requestAPI), "UTF-8");
 					} else {
 						
-						connection = (HttpURLConnection) new URL(RestAPI.BASE_URL + "/addPatientIdNumber").openConnection();
+						connection = (HttpURLConnection) new URL(CommonParams.BASE_URL + "/addPatientIdNumber").openConnection();
 						connection.setRequestMethod("POST");
 						
 						APIRequest requestAPI = new APIRequest();
