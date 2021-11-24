@@ -14,6 +14,7 @@ import java.util.ResourceBundle;
 import com.google.gson.Gson;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.validation.RequiredFieldValidator;
 
 import commonParams.CommonParams;
 import communication.AccountObjectCommunication;
@@ -34,6 +35,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import models.APIRequest;
 import models.APIResponse;
+import utility.RegexValidator;
 
 public class DoctorAccountController implements Initializable {
 
@@ -46,9 +48,9 @@ public class DoctorAccountController implements Initializable {
 	@FXML
 	private Label userDoctorIdLabel;
 	@FXML
-	private JFXTextField userName;
+	private JFXTextField userNameField;
 	@FXML
-	private JFXTextField userEmail;
+	private JFXTextField userEmailField;
 	@FXML
 	private JFXPasswordField userOldPassword;
 	@FXML
@@ -59,6 +61,44 @@ public class DoctorAccountController implements Initializable {
 		userNameLabel.setText("Name: " + AccountObjectCommunication.getDoctor().getName());
 		userEmailLabel.setText("Doctor Email: " + AccountObjectCommunication.getDoctor().getEmail());
 		userDoctorIdLabel.setText("Doctor Identification: " + AccountObjectCommunication.getDoctor().getDoctorIdNumber());
+		
+		RegexValidator validator = new RegexValidator();
+		validator.setRegexPattern("^[_A-Za-z0-9-+]+(\\.[_A-Za-z0-9-]+)*@"
+                + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+		validator.setMessage("Email is not valid");
+		userEmailField.getValidators().add(validator);
+		userEmailField.focusedProperty().addListener((o, oldVal, newVal) ->{
+			if(!newVal) {
+				userEmailField.validate();
+			}
+		});
+		
+		RequiredFieldValidator validatorEmpty3 = new RequiredFieldValidator(); 
+		validatorEmpty3.setMessage("User name cannot be empty");
+		userNameField.getValidators().add(validatorEmpty3);
+		userNameField.focusedProperty().addListener((o, oldVal, newVal) ->{
+			if(!newVal) {
+				userNameField.validate();
+			}
+		});
+		
+		RequiredFieldValidator validatorEmpty = new RequiredFieldValidator();
+		validatorEmpty.setMessage("Old password cannot be empty");
+		userOldPassword.getValidators().add(validatorEmpty);
+		userOldPassword.focusedProperty().addListener((o, oldVal, newVal) ->{
+			if(!newVal) {
+				userOldPassword.validate();
+			}
+		});
+		
+		RequiredFieldValidator validatorEmpty2 = new RequiredFieldValidator();
+		validatorEmpty2.setMessage("New password cannot be empty");
+		userNewPassword.getValidators().add(validatorEmpty2);
+		userNewPassword.focusedProperty().addListener((o, oldVal, newVal) ->{
+			if(!newVal) {
+				userNewPassword.validate();
+			}
+		});
 	}
 	
 	@FXML
@@ -68,7 +108,12 @@ public class DoctorAccountController implements Initializable {
 	
 	@FXML
 	private void changePassword() {
-		changePasswordRequest();
+
+		boolean resultNew = userNewPassword.validate();
+		boolean resultOld = userOldPassword.validate();
+		if(resultNew == true && resultOld == true) {
+			changePasswordRequest();
+		}
 	}
 	
 	@FXML

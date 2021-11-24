@@ -53,12 +53,12 @@
          </image>
       </ImageView>
       <Separator layoutX="523.0" layoutY="88.0" orientation="VERTICAL" prefHeight="600.0" prefWidth="0.0" />
-      <JFXTextField fx:id="userEmail" focusColor="#0193bb" labelFloat="true" layoutX="129.0" layoutY="169.0" prefHeight="45.0" prefWidth="240.0" promptText="Doctor email" styleClass="text-field" stylesheets="@../userRegistration/RegistrationStyle.css" unFocusColor="#00000080">
+      <JFXTextField fx:id="userEmailField" focusColor="#0193bb" labelFloat="true" layoutX="129.0" layoutY="169.0" prefHeight="35.0" prefWidth="240.0" promptText="Doctor email" styleClass="text-field" stylesheets="@../userRegistration/RegistrationStyle.css" unFocusColor="#00000080">
          <font>
             <Font name="Ebrima" size="14.0" />
          </font>
       </JFXTextField>
-      <JFXTextField fx:id="userName" focusColor="#0193bb" labelFloat="true" layoutX="129.0" layoutY="244.0" prefHeight="45.0" prefWidth="240.0" promptText="Doctor name" styleClass="text-field" stylesheets="@../userRegistration/RegistrationStyle.css" unFocusColor="#00000080">
+      <JFXTextField fx:id="userNameField" focusColor="#0193bb" labelFloat="true" layoutX="129.0" layoutY="244.0" prefHeight="35.0" prefWidth="240.0" promptText="Doctor name" styleClass="text-field" stylesheets="@../userRegistration/RegistrationStyle.css" unFocusColor="#00000080">
          <font>
             <Font name="Ebrima" size="14.0" />
          </font>
@@ -73,14 +73,14 @@
             <Font name="Ebrima" size="18.0" />
          </font>
       </Label>
-      <JFXButton layoutX="139.0" layoutY="316.0" onMouseClicked="#updateAccount" prefWidth="220.0" styleClass="change_button" text="Update Account" />
-      <JFXButton layoutX="134.0" layoutY="609.0" onMouseClicked="#changePassword" prefWidth="220.0" styleClass="change_button" text="Change password" />
-      <JFXPasswordField fx:id="userNewPassword" focusColor="#0193bb" labelFloat="true" layoutX="129.0" layoutY="457.0" prefHeight="45.0" prefWidth="240.0" promptText="New password" unFocusColor="#00000080">
+      <JFXButton layoutX="139.0" layoutY="322.0" onMouseClicked="#updateAccount" prefWidth="220.0" styleClass="change_button" text="Update Account" />
+      <JFXButton layoutX="134.0" layoutY="615.0" onMouseClicked="#changePassword" prefWidth="220.0" styleClass="change_button" text="Change password" />
+      <JFXPasswordField fx:id="userNewPassword" focusColor="#0193bb" labelFloat="true" layoutX="129.0" layoutY="457.0" prefHeight="35.0" prefWidth="240.0" promptText="New password" unFocusColor="#00000080">
          <font>
             <Font name="Ebrima" size="14.0" />
          </font>
       </JFXPasswordField>
-      <JFXPasswordField fx:id="userOldPassword" focusColor="#0193bb" labelFloat="true" layoutX="129.0" layoutY="537.0" prefHeight="45.0" prefWidth="240.0" promptText="Old password" unFocusColor="#00000080">
+      <JFXPasswordField fx:id="userOldPassword" focusColor="#0193bb" labelFloat="true" layoutX="129.0" layoutY="537.0" prefHeight="35.0" prefWidth="240.0" promptText="Old password" unFocusColor="#00000080">
          <font>
             <Font name="Ebrima" size="14.0" />
          </font>
