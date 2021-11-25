@@ -27,7 +27,7 @@
       </JFXButton>
       <ImageView fitHeight="54.0" fitWidth="55.0" layoutX="33.0" layoutY="14.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../icons/BITalino_black.png" />
+            <Image url="@../icons/heartRate_black.png" />
          </image>
       </ImageView>
       <Label alignment="CENTER" layoutX="73.0" layoutY="506.0" prefHeight="30.0" prefWidth="411.0" text="You are (supposedly) connected to a BITalino" textFill="#0000007f">
