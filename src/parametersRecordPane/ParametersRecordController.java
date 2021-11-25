@@ -11,8 +11,14 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+
+
 public class ParametersRecordController implements Initializable {
 
+	private static final String MAC = "20:18:06:13:01:09";
+	
+	private boolean recordvalue = false;
+	
 	@FXML
 	private Pane mainPane;
 	@FXML
@@ -30,7 +36,26 @@ public class ParametersRecordController implements Initializable {
 	@FXML
 	private void startRecording() {
 		
+		if (recordvalue == true){
+			recordvalue = false;
+			final String mac = MAC.replace(":", "");
+			final int samplerate = 100;
+		    final int[] analogs = {0};
+			//start recording
+			//bucle
 
+		}
+		else {
+			//end recording
+			recordvalue = true;
+		}
+		
+		/*la idea es  usar este boton para empezar a grabar y parar
+		 * dependiendo de una variable hará una cosa o la otra, cambiando a su vez el texto del boton
+		 * 
+		 * Se crea una lista
+
+*/
 	}
 	
 	@FXML
