@@ -11,6 +11,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+import javax.bluetooth.RemoteDevice;
 
 
 public class ParametersRecordController implements Initializable {
