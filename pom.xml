@@ -36,6 +36,7 @@
 		<!-- JavaFx FXML dependencies -->
 
 		<!-- https://mvnrepository.com/artifact/com.jfoenix/jfoenix -->
+		<!-- JFoenix 9.0.1 dependency requires Java 9 or newer versions -->
 		<dependency>
 			<groupId>com.jfoenix</groupId>
 			<artifactId>jfoenix</artifactId>
