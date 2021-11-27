@@ -31,7 +31,7 @@ public class DeviceDiscoverer implements DiscoveryListener {
 
 		try {
 			deviceName = remoteDevice.getFriendlyName(false); // Records devices names
-			if (deviceName.equalsIgnoreCase("bitalino")) {
+			if (deviceName.contains("BITalino")) {
 				remoteDevices.addElement(remoteDevice);
 			}
 

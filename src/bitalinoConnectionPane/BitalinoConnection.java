@@ -29,6 +29,9 @@ public class BitalinoConnection {
 	            	}
 	            }
 	            MACsList.add(tmp2);
+	            tmp = "";
+	            tmp2 = "";
+	            
 	        }
 		 return MACsList;
 	}
