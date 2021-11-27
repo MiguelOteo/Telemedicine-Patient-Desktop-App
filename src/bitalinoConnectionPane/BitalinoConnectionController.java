@@ -70,6 +70,7 @@ public class BitalinoConnectionController implements Initializable {
 	
 	@FXML
 	private void refreshFinder(MouseEvent event) {
+		bitalinoObjects.clear();
 		searchBitalinos();
 	}
 	

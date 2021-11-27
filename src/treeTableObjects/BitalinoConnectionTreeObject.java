@@ -31,7 +31,7 @@ public class BitalinoConnectionTreeObject extends RecursiveTreeObject<BitalinoCo
 		this.bitalinoName = new SimpleStringProperty(name);
 		this.bitalinoMAC = new SimpleStringProperty(MACAddress);
 		
-		JFXButton stablishConnection = new JFXButton("Connect");
+		JFXButton stablishConnection = new JFXButton("Select");
 		stablishConnection.getStyleClass().add("tree_table_button");
 		stablishConnection.setOnAction((ActionEvent event) -> {
 			stablishConnection();
