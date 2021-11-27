@@ -71,27 +71,23 @@ public class BitalinoConnectionController implements Initializable {
 	@FXML
 	private void refreshFinder(MouseEvent event) {
 		bitalinoObjects.clear();
+		bitalinoTreeView.setPlaceholder(new Label("Searching for BITalinos, wait a few seconds"));
+		bitalinoTreeView.refresh();
 		searchBitalinos();
 	}
 	
 	private void searchBitalinos() {
-		
-		bitalinoTreeView.setPlaceholder(new Label("Searching for BITalinos, wait a few seconds"));
 		
 		Thread threadObject = new Thread("FindingBITalinos") {
 			public void run() {
 				
 				ArrayList<String> macList =new ArrayList<String>();
 				BitalinoConnection bita = new BitalinoConnection();
-				
 				try {
-					
 					macList = bita.getBitalinosMACs();
-					
 					for(String mac: macList) {
 						BitalinosMAC.add(mac);
 					}
-					
 					Platform.runLater(new Runnable() {
 						@Override
 						public void run() {
