@@ -13,6 +13,8 @@ import com.jfoenix.controls.RecursiveTreeItem;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 
 import BITalino.BITalino;
+import communication.AccountObjectCommunication;
+import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -41,19 +43,30 @@ public class BitalinoConnectionController implements Initializable {
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		ArrayList<String> macList =new ArrayList<String>();
-		BitalinoConnection bita = new BitalinoConnection();
-		try {
-			macList=bita.getBitalinosMACs();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		for(String mac: macList) {
-			BitalinosMAC.add(mac);
-		}
 		loadTreeTable();
-		loadData();
+		Thread threadObject = new Thread("AthentificatingUser") {
+			public void run() {
+				ArrayList<String> macList =new ArrayList<String>();
+				BitalinoConnection bita = new BitalinoConnection();
+				try {
+					macList=bita.getBitalinosMACs();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				for(String mac: macList) {
+					BitalinosMAC.add(mac);
+				}
+				Platform.runLater(new Runnable() {
+					@Override
+					public void run() {
+						loadData();
+					}
+				});
+			}
+			};
+		threadObject.start();
+		
 	}
 
 	@FXML
