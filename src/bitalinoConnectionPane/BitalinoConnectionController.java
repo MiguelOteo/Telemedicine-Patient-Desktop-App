@@ -12,6 +12,7 @@ import com.jfoenix.controls.JFXTreeTableView;
 import com.jfoenix.controls.RecursiveTreeItem;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 
+import BITalino.BITalino;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -63,6 +64,7 @@ public class BitalinoConnectionController implements Initializable {
 	 */
 	
 	// Loads BITalinos found around the computer and list them 
+	
 	private void loadData() {
 		int count = 1;
 		bitalinoObjects.clear();
