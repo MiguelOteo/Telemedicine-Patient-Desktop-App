@@ -12,8 +12,6 @@ import com.jfoenix.controls.JFXTreeTableView;
 import com.jfoenix.controls.RecursiveTreeItem;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 
-import BITalino.BITalino;
-import communication.AccountObjectCommunication;
 import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -66,7 +64,6 @@ public class BitalinoConnectionController implements Initializable {
 			}
 			};
 		threadObject.start();
-		
 	}
 
 	@FXML
