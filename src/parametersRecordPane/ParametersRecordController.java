@@ -53,25 +53,20 @@ public class ParametersRecordController implements Initializable {
 			 BITalino bitalino = null;
 		        try {
 		            bitalino = new BITalino();
-		            // Code to find Devices
-		            //Only works on some OS
-		            Vector<RemoteDevice> devices = bitalino.findDevices();
-		            System.out.println(devices);
 
-		            //You need TO CHANGE THE MAC ADDRESS
-		            //You should have the MAC ADDRESS in a sticker in the Bitalino
 		            
 		            //Sampling rate, should be 10, 100 or 1000
 		            int SamplingRate = 10;
 		            String MAC = AccountObjectCommunication.getMAC();
 		            bitalino.open(MAC, SamplingRate);
 
-		            // Start acquisition on analog channels A2 and A6
+		            // Start acquisition on analog channels A1 and A2
 		            // For example, If you want A1, A3 and A4 you should use {0,2,3}
-		            int[] channelsToAcquire = {1, 5};
+		            int[] channelsToAcquire = {0, 1};
 		            bitalino.start(channelsToAcquire);
 
 		            //Read in total 10000000 times
+		            //while with boolean that button changes so that it closes	
 		            for (int j = 0; j < 10000000; j++) {
 
 		                //Each time read a block of 10 samples 
