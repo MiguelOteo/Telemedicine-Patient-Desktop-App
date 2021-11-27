@@ -1,4 +1,4 @@
-# TelemedicineProject
+# TelemedicineProject (Java 11)
 
 Project of an application which recieves data from a BITalino and sends it to a MySQL data base by stablishing a connecton with an Rest API, as well as allowing the user to create two possible accounts, patients which send the BITalino bio-data and doctors who can see the stored patient's data.
 
