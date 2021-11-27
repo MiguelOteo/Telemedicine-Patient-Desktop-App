@@ -45,11 +45,13 @@ public class BitalinoConnectionController implements Initializable {
 	@FXML
 	private Pane mainPane;
 	@FXML
+	private JFXButton refreshButton;
+	@FXML
 	private JFXTreeTableView<BitalinoConnectionTreeObject> bitalinoTreeView;
 	@FXML
 	private final ObservableList<BitalinoConnectionTreeObject> bitalinoObjects = FXCollections.observableArrayList();
 	
-	private List<String> BitalinosMAC = new ArrayList<String>(); 
+	private List<String> bitalinosMAC = new ArrayList<String>(); 
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -70,14 +72,15 @@ public class BitalinoConnectionController implements Initializable {
 	
 	@FXML
 	private void refreshFinder(MouseEvent event) {
+		bitalinosMAC.clear();
 		bitalinoObjects.clear();
-		bitalinoTreeView.setPlaceholder(new Label("Searching for BITalinos, wait a few seconds"));
 		bitalinoTreeView.refresh();
 		searchBitalinos();
 	}
 	
 	private void searchBitalinos() {
-		
+		refreshButton.setDisable(true);
+		bitalinoTreeView.setPlaceholder(new Label("Searching for BITalinos, wait a few seconds"));
 		Thread threadObject = new Thread("FindingBITalinos") {
 			public void run() {
 				
@@ -86,23 +89,30 @@ public class BitalinoConnectionController implements Initializable {
 				try {
 					macList = bita.getBitalinosMACs();
 					for(String mac: macList) {
-						BitalinosMAC.add(mac);
+						bitalinosMAC.add(mac);
 					}
 					Platform.runLater(new Runnable() {
 						@Override
 						public void run() {
 							bitalinoTreeView.setPlaceholder(new Label("No BITalinos found around you"));
+							refreshButton.setDisable(false);
 							loadData();
 						}
 					});
 					
 				} catch (BluetoothStateException bluetoothOFF) {
+					
 					Platform.runLater(new Runnable() {
 						@Override
 						public void run() {
-							bitalinoTreeView.setPlaceholder(new Label("Bluetooth is turned off"));
-							openDialog("Remember to turn on the Bluetooth");
-							bluetoothOFF.printStackTrace();
+							if(bluetoothOFF.getMessage().equals("Another inquiry already running")) {
+								bitalinoTreeView.setPlaceholder(new Label("Press refresh button"));
+								openDialog("Wait for the search of BITalinos to finish");
+							}  else {
+								bitalinoTreeView.setPlaceholder(new Label("Bluetooth is turned off"));
+								openDialog("Remember to turn on the Bluetooth");
+							}
+							refreshButton.setDisable(false);
 						}
 					});
 				} catch (InterruptedException exception) {
@@ -111,6 +121,7 @@ public class BitalinoConnectionController implements Initializable {
 						public void run() {
 							bitalinoTreeView.setPlaceholder(new Label("Error occurred searching for BITalinos"));
 							openDialog("Error occurred searching for BITalinos");
+							refreshButton.setDisable(false);
 							exception.printStackTrace();
 						}
 					});	
@@ -152,7 +163,7 @@ public class BitalinoConnectionController implements Initializable {
 	private void loadData() {
 		int count = 1;
 		bitalinoObjects.clear();
-		for (String MACAdress: BitalinosMAC) {
+		for (String MACAdress: bitalinosMAC) {
 			bitalinoObjects.add(new BitalinoConnectionTreeObject(mainPane, "BITalino " + count, MACAdress));
 			count++;
 		}
