@@ -13,6 +13,7 @@ import com.jfoenix.controls.JFXButton;
 import BITalino.BITalino;
 import BITalino.BITalinoException;
 import BITalino.Frame;
+import communication.AccountObjectCommunication;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
@@ -24,7 +25,6 @@ import javax.bluetooth.RemoteDevice;
 
 public class ParametersRecordController implements Initializable {
 
-	private static final String MAC = "20:18:06:13:01:09";
 	
 	private boolean recordvalue = false;
 	
@@ -63,6 +63,7 @@ public class ParametersRecordController implements Initializable {
 		            
 		            //Sampling rate, should be 10, 100 or 1000
 		            int SamplingRate = 10;
+		            String MAC = AccountObjectCommunication.getMAC();
 		            bitalino.open(MAC, SamplingRate);
 
 		            // Start acquisition on analog channels A2 and A6
