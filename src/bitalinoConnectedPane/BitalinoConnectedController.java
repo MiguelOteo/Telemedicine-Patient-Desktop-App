@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
 
+import communication.AccountObjectCommunication;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -25,9 +26,7 @@ public class BitalinoConnectedController implements Initializable {
 	
 	@FXML
 	private void closeConnection() {
-		
-		// TODO Connection object = null;
-		
+		AccountObjectCommunication.setMAC(null);
 		Pane bitalinoConnectivityPane;
 		try {
 			bitalinoConnectivityPane = FXMLLoader.load(getClass().getResource("/bitalinoConnectionPane/BitalinoConnectionLayout.fxml"));
