@@ -10,8 +10,11 @@ public class AccountObjectCommunication {
     private static Patient patient;
     private static Doctor doctor;
     private static int databaseId;
+    private static String MAC;
    
-    // To set the blur on the whole menu
+   
+
+	// To set the blur on the whole menu
     private static AnchorPane anchorPane;
    
     public static Patient getPatient() {
@@ -45,4 +48,11 @@ public class AccountObjectCommunication {
     public static void setAnchorPane(AnchorPane anchor) {
     	anchorPane = anchor;
     }
+    public static String getMAC() {
+		return MAC;
+	}
+
+	public static void setMAC(String mAC) {
+		MAC = mAC;
+	}
 }
