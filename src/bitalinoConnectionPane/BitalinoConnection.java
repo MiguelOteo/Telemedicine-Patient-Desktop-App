@@ -12,5 +12,6 @@ public class BitalinoConnection {
 	public void getBitalinosMACs() throws InterruptedException{
 		BITalino.findDevices();
 		
+		
 	}
 }
