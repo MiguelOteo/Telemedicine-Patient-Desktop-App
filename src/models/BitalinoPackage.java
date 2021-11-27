@@ -2,7 +2,7 @@ package models;
 
 import java.sql.Date;
 
-public class bitalinoPackage {
+public class BitalinoPackage {
 
 	private int bitalinoPackageId;
 	
@@ -11,7 +11,7 @@ public class bitalinoPackage {
 	private Date recordsDate;
 	private String recordsData;
 
-	public bitalinoPackage() {}
+	public BitalinoPackage() {}
 
 	public int getBitalinoPackageId() {return bitalinoPackageId;}
 
