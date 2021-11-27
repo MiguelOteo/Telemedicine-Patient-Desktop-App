@@ -3,6 +3,7 @@ package bitalinoConnectionPane;
 import java.util.ArrayList;
 import java.util.Vector;
 
+import javax.bluetooth.BluetoothStateException;
 import javax.bluetooth.RemoteDevice;
 
 import BITalino.BITalino;
@@ -11,7 +12,7 @@ public class BitalinoConnection {
 	
 	public BitalinoConnection() {}
 
-	public ArrayList<String> getBitalinosMACs() throws InterruptedException {
+	public ArrayList<String> getBitalinosMACs() throws InterruptedException, BluetoothStateException {
 		Vector<RemoteDevice> availableDevices = new Vector<RemoteDevice>();
 		ArrayList<String> MACsList = new ArrayList<String>();
 		String tmp = "";

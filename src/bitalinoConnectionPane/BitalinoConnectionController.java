@@ -1,10 +1,13 @@
 package bitalinoConnectionPane;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import javax.bluetooth.BluetoothStateException;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTreeTableColumn;
@@ -12,19 +15,28 @@ import com.jfoenix.controls.JFXTreeTableView;
 import com.jfoenix.controls.RecursiveTreeItem;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 
+import communication.AccountObjectCommunication;
+import dialogPopUp.DialogPopUpController;
 import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTableColumn.CellDataFeatures;
+import javafx.scene.effect.BoxBlur;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Callback;
 import treeTableObjects.BitalinoConnectionTreeObject;
 
@@ -42,28 +54,7 @@ public class BitalinoConnectionController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		loadTreeTable();
-		Thread threadObject = new Thread("AthentificatingUser") {
-			public void run() {
-				ArrayList<String> macList =new ArrayList<String>();
-				BitalinoConnection bita = new BitalinoConnection();
-				try {
-					macList=bita.getBitalinosMACs();
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				for(String mac: macList) {
-					BitalinosMAC.add(mac);
-				}
-				Platform.runLater(new Runnable() {
-					@Override
-					public void run() {
-						loadData();
-					}
-				});
-			}
-			};
-		threadObject.start();
+		searchBitalinos();
 	}
 
 	@FXML
@@ -75,6 +66,84 @@ public class BitalinoConnectionController implements Initializable {
 	@FXML
 	private void closeApp(MouseEvent event) {
 		System.exit(0);
+	}
+	
+	@FXML
+	private void refreshFinder(MouseEvent event) {
+		searchBitalinos();
+	}
+	
+	private void searchBitalinos() {
+		
+		bitalinoTreeView.setPlaceholder(new Label("Searching for BITalinos, wait a few seconds"));
+		
+		Thread threadObject = new Thread("FindingBITalinos") {
+			public void run() {
+				
+				ArrayList<String> macList =new ArrayList<String>();
+				BitalinoConnection bita = new BitalinoConnection();
+				
+				try {
+					
+					macList = bita.getBitalinosMACs();
+					
+					for(String mac: macList) {
+						BitalinosMAC.add(mac);
+					}
+					
+					Platform.runLater(new Runnable() {
+						@Override
+						public void run() {
+							bitalinoTreeView.setPlaceholder(new Label("No BITalinos found around you"));
+							loadData();
+						}
+					});
+					
+				} catch (BluetoothStateException bluetoothOFF) {
+					Platform.runLater(new Runnable() {
+						@Override
+						public void run() {
+							bitalinoTreeView.setPlaceholder(new Label("Bluetooth is turned off"));
+							openDialog("Remember to turn on the Bluetooth");
+							bluetoothOFF.printStackTrace();
+						}
+					});
+				} catch (InterruptedException exception) {
+					Platform.runLater(new Runnable() {
+						@Override
+						public void run() {
+							bitalinoTreeView.setPlaceholder(new Label("Error occurred searching for BITalinos"));
+							openDialog("Error occurred searching for BITalinos");
+							exception.printStackTrace();
+						}
+					});	
+				}
+			}
+		};
+		threadObject.start();
+	}
+	
+	// Displays any error message on a popUp pane
+	private void openDialog(String message) {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/dialogPopUp/dialogPopUpLayout.fxml"));
+			Parent root = (Parent) loader.load();
+			DialogPopUpController controler = loader.getController();
+			controler.setMessage(message);
+			Stage stage = new Stage();
+			Scene scene = new Scene(root);
+			scene.setFill(Color.TRANSPARENT);
+			stage.setScene(scene);
+			stage.initStyle(StageStyle.TRANSPARENT);
+			stage.initModality(Modality.APPLICATION_MODAL);
+			AccountObjectCommunication.getAnchorPane().setEffect(new BoxBlur(4, 4, 4));
+			stage.show();
+			stage.setOnHiding(event -> {
+				AccountObjectCommunication.getAnchorPane().setEffect(null);
+			});
+		} catch (IOException error) {
+			error.printStackTrace();
+		}
 	}
 	
 	/*
@@ -128,7 +197,6 @@ public class BitalinoConnectionController implements Initializable {
 		
 		TreeItem<BitalinoConnectionTreeObject> root = new RecursiveTreeItem<BitalinoConnectionTreeObject>(bitalinoObjects, RecursiveTreeObject::getChildren);
 		bitalinoTreeView.setSelectionModel(null);
-		bitalinoTreeView.setPlaceholder(new Label("No BITalino found around you"));
 		bitalinoTreeView.getColumns().setAll(Arrays.asList(bitalinoName, bitalinoMAC, establishConnection));
 		bitalinoTreeView.setRoot(root);
 		bitalinoTreeView.setShowRoot(false);

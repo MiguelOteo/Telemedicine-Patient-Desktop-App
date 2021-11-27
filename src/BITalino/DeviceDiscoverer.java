@@ -1,6 +1,8 @@
 package BITalino;
 
 import java.util.Vector;
+
+import javax.bluetooth.BluetoothStateException;
 import javax.bluetooth.DeviceClass;
 import javax.bluetooth.DiscoveryAgent;
 import javax.bluetooth.DiscoveryListener;
@@ -15,16 +17,11 @@ public class DeviceDiscoverer implements DiscoveryListener {
 	public String deviceName;
 	String inqStatus = null;
 
-	public DeviceDiscoverer() {
-		try {
+	public DeviceDiscoverer() throws BluetoothStateException {
 			LocalDevice localDevice = LocalDevice.getLocalDevice();
 			System.err.println(LocalDevice.getLocalDevice());
 			discoveryAgent = localDevice.getDiscoveryAgent();
 			discoveryAgent.startInquiry(DiscoveryAgent.GIAC, this);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 
 	public void deviceDiscovered(RemoteDevice remoteDevice, DeviceClass cod) {

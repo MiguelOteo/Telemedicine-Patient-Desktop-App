@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="965.0" styleClass="white_color" stylesheets="@BitalinoConnectionStyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bitalinoConnectionPane.BitalinoConnectionController">
+<Pane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="965.0" styleClass="white_color" stylesheets="@BitalinoConnectionStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bitalinoConnectionPane.BitalinoConnectionController">
    <children>
       <Label layoutX="106.0" layoutY="25.0" prefHeight="32.0" prefWidth="213.0" text="BITalino Connection" textFill="#00000080">
          <font>
@@ -56,7 +56,7 @@
             <Font name="Ebrima" size="20.0" />
          </font>
       </Label>
-      <JFXButton layoutX="698.0" layoutY="504.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="130.0" styleClass="window_button" text=" ">
+      <JFXButton layoutX="698.0" layoutY="504.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#refreshFinder" prefHeight="40.0" prefWidth="130.0" styleClass="window_button" text=" ">
          <font>
             <Font size="14.0" />
          </font>

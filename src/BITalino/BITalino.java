@@ -42,6 +42,8 @@ import java.io.IOException;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.util.Vector;
+
+import javax.bluetooth.BluetoothStateException;
 import javax.bluetooth.RemoteDevice;
 import javax.microedition.io.Connector;
 import javax.microedition.io.StreamConnection;
@@ -70,7 +72,7 @@ public class BITalino {
 	public BITalino() {
 	}
 
-	public static Vector<RemoteDevice> findDevices() throws InterruptedException {
+	public static Vector<RemoteDevice> findDevices() throws InterruptedException, BluetoothStateException {
 		/**
 		 * Searches for Bluetooth devices in range. \return a list of found devices with
 		 * the name BITalino
