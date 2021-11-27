@@ -41,9 +41,17 @@ public class BitalinoConnectionController implements Initializable {
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		BitalinosMAC.add("3B:4F:2A:7C");
-		BitalinosMAC.add("4D:49:2A:43");
-		BitalinosMAC.add("3B:6F:2B:9D");
+		ArrayList<String> macList =new ArrayList<String>();
+		BitalinoConnection bita = new BitalinoConnection();
+		try {
+			macList=bita.getBitalinosMACs();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		for(String mac: macList) {
+			BitalinosMAC.add(mac);
+		}
 		loadTreeTable();
 		loadData();
 	}
