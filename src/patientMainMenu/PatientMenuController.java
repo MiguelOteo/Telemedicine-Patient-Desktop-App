@@ -24,7 +24,7 @@ import javafx.stage.StageStyle;
 import launchApp.LaunchApp;
 
 public class PatientMenuController implements Initializable {
-	
+
 	@FXML
 	private AnchorPane menuWindow;
 	@FXML
@@ -37,26 +37,27 @@ public class PatientMenuController implements Initializable {
 	private JFXButton openPatientAccount;
 	@FXML
 	private JFXButton openBitalinoRecord;
-	
-	public PatientMenuController() {}
+
+	public PatientMenuController() {
+	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		
+
 		AccountObjectCommunication.setAnchorPane(menuWindow);
-		
-		if(AccountObjectCommunication.getPatient().getPatientIdNumber() == null) {
+
+		if (AccountObjectCommunication.getPatient().getPatientIdNumber() == null) {
 			Platform.runLater(new Runnable() {
 				@Override
 				public void run() {
 					opendIdPopUp();
-				}	
+				}
 			});
 		} else {
 			openPatientAccout();
 		}
 	}
-	
+
 	@FXML
 	private void closeApp(MouseEvent event) {
 		System.exit(0);
@@ -69,13 +70,13 @@ public class PatientMenuController implements Initializable {
 		AccountObjectCommunication.setPatient(null);
 		LaunchApp.getStage().show();
 	}
-	
+
 	@FXML
 	private void minWindow(MouseEvent event) {
 		Stage stage = (Stage) menuMainPane.getScene().getWindow();
 		stage.setIconified(true);
 	}
-	
+
 	@FXML
 	private void openPatientAccout() {
 		// TODO - Load a patient account pane
@@ -83,12 +84,13 @@ public class PatientMenuController implements Initializable {
 		openBitalinoConnection.setDisable(false);
 		openBitalinoRecord.setDisable(false);
 	}
-	
+
 	@FXML
 	private void openBitalinoRecord() {
 		Pane paramRecordPane;
 		try {
-			paramRecordPane = FXMLLoader.load(getClass().getResource("/parametersRecordPane/ParametersRecordLayout.fxml"));
+			paramRecordPane = FXMLLoader
+					.load(getClass().getResource("/parametersRecordPane/ParametersRecordLayout.fxml"));
 			menuMainPane.getChildren().removeAll();
 			menuMainPane.getChildren().setAll(paramRecordPane);
 			openPatientAccount.setDisable(false);
@@ -98,22 +100,39 @@ public class PatientMenuController implements Initializable {
 			error.printStackTrace();
 		}
 	}
-	
+
 	@FXML
 	private void openBitalinoConnectivity() {
-		Pane bitalinoConnectivityPane;
-		try {
-			bitalinoConnectivityPane = FXMLLoader.load(getClass().getResource("/bitalinoConnectionPane/BitalinoConnectionLayout.fxml"));
-			menuMainPane.getChildren().removeAll();
-			menuMainPane.getChildren().setAll(bitalinoConnectivityPane);
-			openPatientAccount.setDisable(false);
-			openBitalinoConnection.setDisable(true);
-			openBitalinoRecord.setDisable(false);
-		} catch (IOException error) {
-			error.printStackTrace();
+		if (AccountObjectCommunication.getMAC() == null) {
+
+			Pane bitalinoConnectivityPane;
+			try {
+				bitalinoConnectivityPane = FXMLLoader
+						.load(getClass().getResource("/bitalinoConnectionPane/BitalinoConnectionLayout.fxml"));
+				menuMainPane.getChildren().removeAll();
+				menuMainPane.getChildren().setAll(bitalinoConnectivityPane);
+				openPatientAccount.setDisable(false);
+				openBitalinoConnection.setDisable(true);
+				openBitalinoRecord.setDisable(false);
+			} catch (IOException error) {
+				error.printStackTrace();
+			}
+		} else {
+			Pane bitalinoConnectedPane;
+			try {
+				bitalinoConnectedPane = FXMLLoader
+						.load(getClass().getResource("/bitalinoConnectedPane/BitalinoConnectedLayout.fxml"));
+				menuMainPane.getChildren().removeAll();
+				menuMainPane.getChildren().setAll(bitalinoConnectedPane);
+				openPatientAccount.setDisable(false);
+				openBitalinoConnection.setDisable(true);
+				openBitalinoRecord.setDisable(false);
+			} catch (IOException error) {
+				error.printStackTrace();
+			}
 		}
 	}
-	
+
 	private void opendIdPopUp() {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/insertIdPopUp/InsertIdLayout.fxml"));
@@ -135,4 +154,3 @@ public class PatientMenuController implements Initializable {
 		}
 	}
 }
-
