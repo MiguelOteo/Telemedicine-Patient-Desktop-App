@@ -1,6 +1,6 @@
 package models;
 
-import java.sql.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Patient extends User {
@@ -10,10 +10,8 @@ public class Patient extends User {
 	// Id of the patient (Documentation)
 	private String patientIdNumber;
 	
-	//List of the dates he took measures with the BITalino
-	private List<BitalinoPackage> measuresData;
-	
-	// TODO - variables for the heart frequency and muscles activity
+	//List of the packages with BITalino measures
+	private List<BitalinoPackage> measuredPackages;
 	
 	// Default constructor
 	public Patient() {}
@@ -25,7 +23,7 @@ public class Patient extends User {
 		
 		this.patientId = patientId;
 		this.patientIdNumber = patientIdNumber;
-		this.measuresData = null;
+		this.measuredPackages = new LinkedList<BitalinoPackage>();
 	}
 	
 	public Patient(int patientId, String patientIdNumber, User user) {
@@ -33,7 +31,11 @@ public class Patient extends User {
 		
 		this.patientId = patientId;
 		this.patientIdNumber = patientIdNumber;
-		this.measuresData = null;	
+		this.measuredPackages = new LinkedList<BitalinoPackage>();
+	}
+	
+	public void addNewPackage(BitalinoPackage recordPackage) {
+		this.measuredPackages.add(recordPackage);
 	}
 
 	// Getter and Setter methods
@@ -45,13 +47,7 @@ public class Patient extends User {
 	
 	public void setPatientIdNumber(String patientIdNumber) {this.patientIdNumber = patientIdNumber;}
 
-	public List<BitalinoPackage> getMeasuresDates() {return measuresData;}
+	public List<BitalinoPackage> getMeasuredPackages() {return this.measuredPackages;}
 
-	public void setMeasuresDates(List<BitalinoPackage> measuresData) {this.measuresData = measuresData;}
-	
-	public void addMeasuresDates(BitalinoPackage bitalinodata) {
-		this.measuresData.add(bitalinodata);
-		
-	}
+	public void setMeasuredPackages(List<BitalinoPackage> measuredPackages) {this.measuredPackages = measuredPackages;}
 }
-

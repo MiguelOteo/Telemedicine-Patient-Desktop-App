@@ -1,7 +1,6 @@
 package models;
 
 import java.sql.Date;
-import java.time.LocalDateTime;
 
 public class BitalinoPackage {
 
@@ -19,6 +18,16 @@ public class BitalinoPackage {
 		this.recordsDate = now;
 		this.recordsData = recordsData;
 		
+	}
+	
+	public BitalinoPackage(int bitalinoPackageId, int patientId, int recordFreq, Date startingDate, String recordsData) {
+		
+		this.bitalinoPackageId = bitalinoPackageId;
+		
+		this.patientId = patientId;
+		this.recordFreq = recordFreq;
+		this.recordsDate = startingDate;
+		this.recordsData = recordsData;
 	}
 
 	public int getBitalinoPackageId() {return bitalinoPackageId;}
@@ -41,3 +50,4 @@ public class BitalinoPackage {
 
 	public void setRecordsData(String recordsData) {this.recordsData = recordsData;}
 }
+
