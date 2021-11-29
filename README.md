@@ -66,4 +66,11 @@ Depending on your role you can interact with the application in a different way,
 
 4. Once, you, as a Doctor, have an account created you can proceed to do the "Login" process, in the main menu. You only have to introduce your email and the password introduced in the "Sign up" process.
 
-5. When you are 
+5. When you are in, a Doctor number identification is required. This is the id that each Doctor must to have as a professional. The identification number consists of 8 digits following by a capital letter.  
+For example: "12345678L".
+
+<div align="center">
+<img src="DocumentationDependencies/4.png" width="600" border-radius=5% padding=100% />  
+</div>  
+
+6. 
