@@ -91,3 +91,12 @@ For example: "12345678L".
 <div align="center">
 <img src="DocumentationDependencies/3_2.png" width="600" border-radius=5% padding=100% />  
 </div>  
+
+4. Once, you, as a Patient, have an account created you can proceed to do the "Login" process, in the main menu. You only have to introduce your email and the password introduced in the "Sign up" process.
+
+5. When you are in, a Health Insurance number  is required. This is the id that each Patient must to have as a part of a society with healthcare system. The Health Insurance number consists of 8 digits following by a capital letter.  
+For example: "12345678T".
+
+<div align="center">
+<img src="DocumentationDependencies/7.png" width="600" border-radius=5% padding=100% />  
+</div>  
