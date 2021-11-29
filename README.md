@@ -5,6 +5,8 @@
 1. Introduction
 2. Admin & Installation Manual.
 3. User Manual.
+3.1 Doctor Manual.
+3.2 Patient Manual.
 
 -------------------------------
 
@@ -28,5 +30,12 @@ This project uses the following Maven dependencies
 2. json dependency: https://mvnrepository.com/artifact/org.json/json
 3. jfoenix 8.0.8 dependency: https://mvnrepository.com/artifact/com.jfoenix/jfoenix
 
-## 3. User Manual.
+-----------------------------------------
+
+## 3. User Manual  
+
 Once everything has been downloaded, installed and works properly, you only have to run the project and one window with a friendly user interface will be opened, as the following.
+
+Depending on your role you can interact with the application in a different way, you can use the application as a Doctor or as a Patient.
+
+### 3.1 Doctor Manual:
