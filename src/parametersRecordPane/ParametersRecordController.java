@@ -3,9 +3,7 @@ package parametersRecordPane;
 import java.io.FileWriter;
 import java.net.URL;
 import java.sql.Date;
-import java.time.LocalDateTime;
 import java.util.ResourceBundle;
-import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -24,8 +22,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import models.BitalinoPackage;
-
-import javax.bluetooth.RemoteDevice;
 
 
 public class ParametersRecordController implements Initializable {
@@ -82,7 +78,7 @@ public class ParametersRecordController implements Initializable {
 		                //System.out.println("size block: " + frame.length);
 		                
 		                BitalinoPackage bitalinopack = new BitalinoPackage(patientId, SamplingRate, now, frame.toString());
-		                AccountObjectCommunication.getPatient().addMeasuresDates(bitalinopack);
+		                AccountObjectCommunication.getPatient().addNewPackage(bitalinopack);
 
 		            	
 		                //Print the samples
