@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="965.0" styleClass="white_color" stylesheets="@ParametersRecordStyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bitalinoConnectedPane.BitalinoConnectedController">
+<Pane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="965.0" styleClass="white_color" stylesheets="@ParametersRecordStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="parametersRecordPane.ParametersRecordController">
    <children>
       <Label layoutX="106.0" layoutY="25.0" prefHeight="32.0" prefWidth="213.0" text="Parameters Record" textFill="#00000080">
          <font>
@@ -44,7 +44,7 @@
       </Label>
       <Pane fx:id="viewPane" layoutX="61.0" layoutY="118.0" prefHeight="329.0" prefWidth="490.0" />
       <AnchorPane layoutX="145.0" layoutY="506.0" />
-      <JFXButton fx:id="startRecording" layoutX="177.0" layoutY="603.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="204.0" styleClass="add_button" text="START RECORDING!">
+      <JFXButton fx:id="startRecording" layoutX="177.0" layoutY="603.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#startStopRecording" prefHeight="40.0" prefWidth="204.0" styleClass="add_button" text="START RECORDING!">
          <font>
             <Font size="16.0" />
          </font>

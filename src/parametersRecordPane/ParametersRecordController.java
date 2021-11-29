@@ -125,23 +125,21 @@ public class ParametersRecordController implements Initializable {
 		   
 	}
 	
-	//@FXML
-	//private void startStopRecording(MouseEvent event) {
-		//if (recordvalue == true) {
-			//recordvalue = false;
-		//}
-		//else {
-			//recordvalue = true;
-		//}
-		
-//}
+	@FXML
+	private void startStopRecording(MouseEvent event) {
+		if (recordvalue == true) {
+			recordvalue = false;
+		}
+		else {
+			recordvalue = true;
+		}
+	}
 		
 		/*la idea es  usar este boton para empezar a grabar y parar
 		 * dependiendo de una variable hará una cosa o la otra, cambiando a su vez el texto del boton
 		 * 
 		 * Se crea una lista
-
-*/
+		 */
 	
 	
 	@FXML
