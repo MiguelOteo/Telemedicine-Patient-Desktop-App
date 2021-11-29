@@ -13,30 +13,24 @@ public class BitalinoConnection {
 	public BitalinoConnection() {}
 
 	public ArrayList<String> getBitalinosMACs() throws InterruptedException, BluetoothStateException {
+		
 		Vector<RemoteDevice> availableDevices = new Vector<RemoteDevice>();
 		ArrayList<String> MACsList = new ArrayList<String>();
-		String tmp = "";
-		String tmp2 = "";
-		availableDevices = BITalino.findDevices();
+		BITalino bitalino = new BITalino();
+		availableDevices = bitalino.findDevices();
 		
-		System.out.println(availableDevices);
-		for (int i = 0; i < availableDevices.size(); i++) {
-			tmp = availableDevices.elementAt(i).toString();
-			for (int j = 0; j < tmp.length(); j++) {
-				tmp2 = tmp2 + tmp.charAt(j);
-				if (j % 2 != 0) {
-					if (j != (tmp.length() - 1)) {
-						tmp2 = tmp2 + ":";
-					}
-				}
-			}
-			MACsList.add(tmp2);
-			tmp = "";
-			tmp2 = "";
+		/*
+		 *  Adds the : to the MAC address to show it in the UI 
+		 */	
+		for(RemoteDevice device: availableDevices) {
+			String MACAddress = device.getBluetoothAddress();
+			MACsList.add("" + MACAddress.charAt(0) + MACAddress.charAt(1) + ":" + MACAddress.charAt(2) + MACAddress.charAt(3) + ":" +
+					MACAddress.charAt(4) + MACAddress.charAt(5) + ":" + MACAddress.charAt(6) + MACAddress.charAt(7) + ":" + 
+					MACAddress.charAt(8) + MACAddress.charAt(9) + ":" + MACAddress.charAt(10) + MACAddress.charAt(11));
 		}
 		return MACsList;
 	}
-
+	
 	public String getBitalinoMacFromAvailableBitalinosList(int num, ArrayList<String> MACsList) {
 		String mac = "error";
 		if (num >= MACsList.size()) {
