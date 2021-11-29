@@ -18,6 +18,7 @@ import BITalino.Frame;
 import communication.AccountObjectCommunication;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -42,6 +43,8 @@ public class ParametersRecordController implements Initializable {
 	@FXML
 	private Pane pastPane;
 	@FXML
+	private Label nothingtoshow;
+	@FXML
 	private JFXButton startRecording;
 	@FXML
 	private JFXButton comparePast;
@@ -51,7 +54,6 @@ public class ParametersRecordController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		
 			 int patientId = AccountObjectCommunication.getPatient().getPatientId();
-			 
 			 BITalino bitalino = null;
 		        try {
 		            bitalino = new BITalino();
@@ -129,9 +131,11 @@ public class ParametersRecordController implements Initializable {
 	private void startStopRecording(MouseEvent event) {
 		if (recordvalue == true) {
 			recordvalue = false;
+			nothingtoshow.setText("Recording has stopped");
 		}
 		else {
 			recordvalue = true;
+			nothingtoshow.setText("Recording has started");
 		}
 	}
 		
