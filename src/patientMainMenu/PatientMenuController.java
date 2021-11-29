@@ -45,9 +45,7 @@ public class PatientMenuController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 
 		AccountObjectCommunication.setAnchorPane(menuWindow);
-		
 		AccountObjectCommunication.setButtonControl1(openBitalinoRecord);
-		AccountObjectCommunication.setButtonControl2(openPatientAccount);
 		
 		if (AccountObjectCommunication.getPatient().getPatientIdNumber() == null) {
 			Platform.runLater(new Runnable() {

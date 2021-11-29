@@ -17,7 +17,6 @@ public class AccountObjectCommunication {
 	// To set the blur on the whole menu
     private static AnchorPane anchorPane;
     private static JFXButton buttonControl1;
-    private static JFXButton buttonControl2;
    
     public static Patient getPatient() {return patient;}
 
@@ -41,8 +40,4 @@ public class AccountObjectCommunication {
 	public static JFXButton getButtonControl1() {return buttonControl1;}
 
 	public static void setButtonControl1(JFXButton buttonControl) {buttonControl1 = buttonControl;}
-
-	public static JFXButton getButtonControl2() {return buttonControl2;}
-
-	public static void setButtonControl2(JFXButton buttonControl) {buttonControl2 = buttonControl;}
 }

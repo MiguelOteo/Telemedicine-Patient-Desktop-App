@@ -28,7 +28,6 @@ public class BitalinoConnectedController implements Initializable {
 	private void closeConnection() {
 		AccountObjectCommunication.setMAC("");
 		AccountObjectCommunication.getButtonControl1().setDisable(true);
-		AccountObjectCommunication.getButtonControl2().setDisable(true);
 		Pane bitalinoConnectivityPane;
 		try {
 			bitalinoConnectivityPane = FXMLLoader.load(getClass().getResource("/bitalinoConnectionPane/BitalinoConnectionLayout.fxml"));
