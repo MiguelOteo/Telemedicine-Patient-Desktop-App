@@ -50,7 +50,7 @@ Depending on your role you can interact with the application in a different way,
 
 ### 3.1 Doctor Manual:
 
-1. If you haven't got an account created yet, you have to click in the "Sign Up" button, to register a new account. 
+1. If you haven't got an account created yet (keep reading, in the other case go to step 4), you have to click in the "Sign Up" button, to register a new account. 
 
 2. Once you clicking on the button a new tab is shown requesting to know some data to create the new account. It's important to bear in mind that every bound must be filled with the data required. After all was be completed you can click on  
 
@@ -63,3 +63,7 @@ Depending on your role you can interact with the application in a different way,
 <div align="center">
 <img src="DocumentationDependencies/3.png" width="600" border-radius=5% padding=100% />  
 </div>  
+
+4. Once, you, as a Doctor, have an account created you can proceed to do the "Login" process, in the main menu. You only have to introduce your email and the password introduced in the "Sign up" process.
+
+5. When you are 
