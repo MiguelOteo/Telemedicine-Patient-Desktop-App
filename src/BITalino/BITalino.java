@@ -79,7 +79,7 @@ public class BITalino {
 		 */
 		DeviceDiscoverer finder = new DeviceDiscoverer();
 		while (finder.inqStatus == null) {
-			Thread.sleep(200);
+			Thread.sleep(1000);
 		}
 		finder.inqStatus = null;
 		return finder.remoteDevices;
