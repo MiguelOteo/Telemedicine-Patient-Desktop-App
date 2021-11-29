@@ -11,7 +11,7 @@
 1. Introduction
 2. Admin & Installation Manual.
 3. User Manual.  
-3.1 Doctor Manual.
+3.1 Doctor Manual.  
 3.2 Patient Manual.
 
 -------------------------------
@@ -40,7 +40,7 @@ This project uses the following Maven dependencies
 
 ## 3. User Manual  
 
-Once everything has been downloaded, installed and works properly, you only have to run the project and one window with a friendly user interface will be opened, as the following.
+Once everything has been downloaded, installed and works properly, you only have to run the project and one window with a friendly user interface will be opened, as the following:
 
 <div align="center">
 <img src="DocumentationDependencies/1.png" alt="drawing" width="600" padding=100%/>  
@@ -49,3 +49,7 @@ Once everything has been downloaded, installed and works properly, you only have
 Depending on your role you can interact with the application in a different way, you can use the application as a Doctor or as a Patient.
 
 ### 3.1 Doctor Manual:
+
+1. If you haven't got an account created yet, you have to click in the "Sign Up" button, to register a new account. 
+
+2. Once you clicking on the button a new tab is shown requesting to know some data to create the new account.
