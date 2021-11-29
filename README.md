@@ -70,7 +70,7 @@ Depending on your role you can interact with the application in a different way,
 For example: "12345678L".
 
 <div align="center">
-<img src="DocumentationDependencies/4.png" width="600" border-radius=5% padding=100% />  
+<img src="DocumentationDependencies/2.png" width="600" border-radius=5% padding=100% />  
 </div>  
 
 6. In this step you can do a variety of acctions: 
