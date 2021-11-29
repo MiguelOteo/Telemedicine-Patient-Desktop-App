@@ -8,7 +8,7 @@
 ### Index
 1. Introduction
 2. Admin & Installation Manual.
-3. User Manual.
+3. User Manual.  
 3.1 Doctor Manual.
 3.2 Patient Manual.
 
@@ -40,7 +40,9 @@ This project uses the following Maven dependencies
 
 Once everything has been downloaded, installed and works properly, you only have to run the project and one window with a friendly user interface will be opened, as the following.
 
-![ui](/DocumentationDependencies/1.png)
+<div align="center">
+<img src="DocumentationDependencies/1.png" alt="drawing" width="500" padding=100%/>  
+</div>
 
 Depending on your role you can interact with the application in a different way, you can use the application as a Doctor or as a Patient.
 
