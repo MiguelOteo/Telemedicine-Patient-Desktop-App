@@ -115,5 +115,5 @@ Before the application installation and the use of it, it's important to say to 
 For example: "12345678T".
 
 <div align="center">
-<img src="DocumentationDependencies/7.png" width="600" border-radius=5% padding=100% />  
+<img src="DocumentationDependencies/4.png" width="600" border-radius=5% padding=100% />  
 </div>  
