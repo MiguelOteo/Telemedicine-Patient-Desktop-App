@@ -55,5 +55,5 @@ Depending on your role you can interact with the application in a different way,
 2. Once you clicking on the button a new tab is shown requesting to know some data to create the new account. It's important to bear in mind that every bound must be filled with the data required.
 
 <div align="center">
-<img src="DocumentationDependencies/2_1.png" alt="drawing" width="600" padding=100%/>  
+<img src="DocumentationDependencies/2_1.png" width="600" padding=100% border-radius=15px/>  
 </div>
