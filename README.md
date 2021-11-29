@@ -1,5 +1,7 @@
 # Telelepsia  
 ## TelemedicineProject (Java 11)
+
+![logo](/DocumentationDependencies/0.png)
 -------------------------------
 ### Index
 1. Introduction
@@ -35,6 +37,8 @@ This project uses the following Maven dependencies
 ## 3. User Manual  
 
 Once everything has been downloaded, installed and works properly, you only have to run the project and one window with a friendly user interface will be opened, as the following.
+
+![ui](/DocumentationDependencies/1.png)
 
 Depending on your role you can interact with the application in a different way, you can use the application as a Doctor or as a Patient.
 
