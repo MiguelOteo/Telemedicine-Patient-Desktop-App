@@ -18,7 +18,7 @@
 
 ## 1. Introduction
 
-This project is a telemedicine application whose purpose is the supervision from the patient’s home of a chronic disease.
+This project is a telemedicine application whose purpose is the supervision from the patient’s home of a chronic disease, in our case Epilepsy.
 
 The application works recieving data from a BITalino and sending it to a MySQL data base by a connection stablished with a Rest API ([Link to the Rest API used in the project, click on me](https://github.com/MiguelOteo/TelemedicineRestAPI)), as well as allowing the user to create two possible accounts, patients which send the BITalino bio-data and doctors who can see the stored patient's data.
 
@@ -37,6 +37,7 @@ This project uses the following Maven dependencies
 3. jfoenix 8.0.8 dependency: https://mvnrepository.com/artifact/com.jfoenix/jfoenix
 
 -----------------------------------------
+-----------------------------------------
 
 ## 3. User Manual  
 
@@ -47,6 +48,8 @@ Once everything has been downloaded, installed and works properly, you only have
 </div>
 
 Depending on your role you can interact with the application in a different way, you can use the application as a Doctor or as a Patient.
+
+-----
 
 ### 3.1 Doctor Manual:
 
@@ -73,10 +76,24 @@ For example: "12345678L".
 <img src="DocumentationDependencies/2.png" width="600" border-radius=5% padding=100% />  
 </div>  
 
-6. In this step you can do a variety of acctions: 
+6. After introducing your Doctor number identification a workspace is shown, where you can do a variety of actions; for example update your initial data proportioned when you sign up, or change the password often as a good cybersecurity custom. You can see your actual information below the doctor picture.
 
+<div align="center">
+<img src="DocumentationDependencies/5.png" width="600" border-radius=5% padding=100% />  
+</div>  
+
+
+
+
+------
 
 ### 3.1 Patient Manual:
+
+Before the application installation and the use of it, it's important to say to the patient that something to bear in mind is that this system has a Hardware dependency; this application works with the BITalino board to recover physiological data of the patient.
+<div align="center">
+<img src="DocumentationDependencies/bita.jpeg" width="300" border-radius=5% padding=100% />  
+</div>  
+
 
 1. If you haven't got an account created yet (keep reading, in the other case go to step 4), you have to click in the "Sign Up" button, to register a new account. 
 
@@ -90,4 +107,13 @@ For example: "12345678L".
 
 <div align="center">
 <img src="DocumentationDependencies/3_2.png" width="600" border-radius=5% padding=100% />  
+</div>  
+
+4. Once, you, as a Patient, have an account created you can proceed to do the "Login" process, in the main menu. You only have to introduce your email and the password introduced in the "Sign up" process.
+
+5. When you are in, a Health Insurance number  is required. This is the id that each Patient must to have as a part of a society with healthcare system. The Health Insurance number consists of 8 digits following by a capital letter.  
+For example: "12345678T".
+
+<div align="center">
+<img src="DocumentationDependencies/7.png" width="600" border-radius=5% padding=100% />  
 </div>  
