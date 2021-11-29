@@ -5,6 +5,7 @@
 </div>
 
 -------------------------------
+
 ### Index
 1. Introduction
 2. Admin & Installation Manual.
@@ -41,7 +42,7 @@ This project uses the following Maven dependencies
 Once everything has been downloaded, installed and works properly, you only have to run the project and one window with a friendly user interface will be opened, as the following.
 
 <div align="center">
-<img src="DocumentationDependencies/1.png" alt="drawing" width="500" padding=100%/>  
+<img src="DocumentationDependencies/1.png" alt="drawing" width="600" padding=100%/>  
 </div>
 
 Depending on your role you can interact with the application in a different way, you can use the application as a Doctor or as a Patient.
