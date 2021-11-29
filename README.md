@@ -1,7 +1,7 @@
 # Telelepsia  
 ## TelemedicineProject (Java 11)
 
-![logo](/DocumentationDependencies/0.png)
+<img src="DocumentationDependencies/0.png" alt="drawing" width="200" align="center"/>
 -------------------------------
 ### Index
 1. Introduction
