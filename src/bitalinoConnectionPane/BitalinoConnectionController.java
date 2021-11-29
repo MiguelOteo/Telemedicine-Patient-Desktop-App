@@ -75,6 +75,8 @@ public class BitalinoConnectionController implements Initializable {
 		bitalinosMAC.clear();
 		bitalinoObjects.clear();
 		bitalinoTreeView.refresh();
+		AccountObjectCommunication.getButtonControl1().setDisable(true);
+		AccountObjectCommunication.getButtonControl2().setDisable(true);
 		searchBitalinos();
 	}
 	
@@ -95,6 +97,7 @@ public class BitalinoConnectionController implements Initializable {
 						@Override
 						public void run() {
 							bitalinoTreeView.setPlaceholder(new Label("No BITalinos found around you"));
+							AccountObjectCommunication.getButtonControl2().setDisable(false);
 							refreshButton.setDisable(false);
 							loadData();
 						}
@@ -112,6 +115,7 @@ public class BitalinoConnectionController implements Initializable {
 								bitalinoTreeView.setPlaceholder(new Label("Bluetooth is turned off"));
 								openDialog("Remember to turn on the Bluetooth");
 							}
+							AccountObjectCommunication.getButtonControl2().setDisable(false);
 							refreshButton.setDisable(false);
 						}
 					});
@@ -121,6 +125,7 @@ public class BitalinoConnectionController implements Initializable {
 						public void run() {
 							bitalinoTreeView.setPlaceholder(new Label("Error occurred searching for BITalinos"));
 							openDialog("Error occurred searching for BITalinos");
+							AccountObjectCommunication.getButtonControl2().setDisable(false);
 							refreshButton.setDisable(false);
 							exception.printStackTrace();
 						}
