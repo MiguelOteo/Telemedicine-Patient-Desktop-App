@@ -18,7 +18,7 @@
 
 ## 1. Introduction
 
-This project is a telemedicine application whose purpose is the supervision from the patient’s home of a chronic disease.
+This project is a telemedicine application whose purpose is the supervision from the patient’s home of a chronic disease, in our case Epilepsy.
 
 The application works recieving data from a BITalino and sending it to a MySQL data base by a connection stablished with a Rest API ([Link to the Rest API used in the project, click on me](https://github.com/MiguelOteo/TelemedicineRestAPI)), as well as allowing the user to create two possible accounts, patients which send the BITalino bio-data and doctors who can see the stored patient's data.
 
