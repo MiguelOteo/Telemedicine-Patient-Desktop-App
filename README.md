@@ -2,12 +2,17 @@
 ## TelemedicineProject (Java 11)
 -------------------------------
 ### Index
-1. Admin Manual.
-2. User Manual.
+1. Introduction
+2. Admin & Installation Manual.
+3. User Manual.
 
 -------------------------------
 
-Project of an application which recieves data from a BITalino and sends it to a MySQL data base by stablishing a connecton with an Rest API, as well as allowing the user to create two possible accounts, patients which send the BITalino bio-data and doctors who can see the stored patient's data.
+## 1. Introduction:
+
+This project is a telemedicine application whose purpose is the supervision from the patient’s home of a chronic disease.
+
+The application works recieving data from a BITalino and sending it to a MySQL data base by a connection stablished with a Rest API ([Link to the Rest API used in the project, click on me](https://github.com/MiguelOteo/TelemedicineRestAPI)), as well as allowing the user to create two possible accounts, patients which send the BITalino bio-data and doctors who can see the stored patient's data.
 
 This project works together with TelemedicineRestAPI project.
 
