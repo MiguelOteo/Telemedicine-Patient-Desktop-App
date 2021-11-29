@@ -9,10 +9,10 @@ public class BitalinoPackage {
 	
 	private int patientId;
 	private int recordFreq;
-	private LocalDateTime recordsDate;
+	private Date recordsDate;
 	private String recordsData;
 
-	public BitalinoPackage(int patientId, int recordFreq, LocalDateTime now, String recordsData) {
+	public BitalinoPackage(int patientId, int recordFreq, Date now, String recordsData) {
 		
 		this.patientId = patientId;
 		this.recordFreq = recordFreq;
@@ -33,9 +33,9 @@ public class BitalinoPackage {
 
 	public void setRecordFreq(int recordFreq) {this.recordFreq = recordFreq;}
 
-	public LocalDateTime getRecordsDate() {return recordsDate;}
+	public Date getRecordsDate() {return recordsDate;}
 
-	public void setRecordsDate(LocalDateTime recordsDate) {this.recordsDate = recordsDate;}
+	public void setRecordsDate(Date recordsDate) {this.recordsDate = recordsDate;}
 
 	public String getRecordsData() {return recordsData;}
 

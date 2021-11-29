@@ -74,8 +74,11 @@ public class ParametersRecordController implements Initializable {
 		                //Each time read a block of 10 samples 
 		                int block_size=10;
 		                frame = bitalino.read(block_size);
-		                LocalDateTime now = LocalDateTime.now();  
-		                System.out.println("size block: " + frame.length);
+		                //LocalDateTime now = LocalDateTime.now();  
+		                Date now = new Date(block_size);
+		                
+		                //System.out.println("size block: " + frame.length);
+		                
 		                BitalinoPackage bitalinopack = new BitalinoPackage(patientId, SamplingRate, now, frame.toString());
 		                AccountObjectCommunication.getPatient().addMeasuresDates(bitalinopack);
 
