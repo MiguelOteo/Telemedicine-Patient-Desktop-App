@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="965.0" styleClass="white_color" stylesheets="@PatientRecordsStyle.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="patientRecordsPane.PatientRecordsController">
+<Pane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="965.0" stylesheets="@PatientRecordsStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="patientRecordsPane.PatientRecordsController">
    <children>
       <Label layoutX="106.0" layoutY="25.0" text="Patient Records" textFill="#00000080">
          <font>
@@ -41,35 +46,54 @@
             </ImageView>
          </graphic>
       </JFXButton>
-      <Label fx:id="patientName" layoutX="59.0" layoutY="110.0" text="Name: not found" textFill="#00000080">
+      <Label fx:id="patientName" layoutX="59.0" layoutY="97.0" styleClass="label_text" text="Name: not found" textFill="#00000080">
          <font>
             <Font name="Ebrima" size="18.0" />
          </font>
       </Label>
-      <Label fx:id="patientIdNumber" layoutX="59.0" layoutY="150.0" text="Patient ID: not found" textFill="#00000080">
+      <Label fx:id="patientIdNumber" layoutX="59.0" layoutY="137.0" styleClass="label_text" text="Patient ID: not found" textFill="#00000080">
          <font>
             <Font name="Ebrima" size="18.0" />
          </font>
       </Label>
-      <Label fx:id="patientEmail" layoutX="59.0" layoutY="190.0" text="Patient Email: not found" textFill="#00000080">
+      <Label fx:id="patientEmail" layoutX="59.0" layoutY="177.0" styleClass="label_text" text="Patient Email: not found" textFill="#00000080">
          <font>
             <Font name="Ebrima" size="18.0" />
          </font>
       </Label>
-      <Label layoutX="59.0" layoutY="250.0" text="Patient Health Data" textFill="#00000080">
+      <Label layoutX="365.0" layoutY="98.0" text="Patient Health Data" textFill="#00000080">
          <font>
-            <Font name="Ebrima Bold" size="16.0" />
+            <Font name="Ebrima Bold" size="18.0" />
          </font>
       </Label>
-      <Label layoutX="59.0" layoutY="290.0" text="Patient Weight: weight Kg" textFill="#00000080">
+      <Label layoutX="365.0" layoutY="138.0" styleClass="label_text" text="Patient Weight: weight Kg" textFill="#00000080">
          <font>
             <Font name="Ebrima" size="16.0" />
          </font>
       </Label>
-      <Label layoutX="59.0" layoutY="330.0" text="Patient Height: height cm" textFill="#00000080">
+      <Label layoutX="365.0" layoutY="178.0" styleClass="label_text" text="Patient Height: height cm" textFill="#00000080">
          <font>
             <Font name="Ebrima" size="16.0" />
          </font>
       </Label>
+      <LineChart fx:id="ECGChart" layoutX="56.0" layoutY="260.0" prefHeight="200.0" prefWidth="855.0" title="Patient ECG record">
+        <xAxis>
+          <CategoryAxis side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis side="LEFT" />
+        </yAxis>
+      </LineChart>
+      <LineChart fx:id="EMGChart" layoutX="56.0" layoutY="460.0" prefHeight="200.0" prefWidth="855.0" title="Patient EMG record">
+         <xAxis>
+            <CategoryAxis side="BOTTOM" />
+         </xAxis>
+         <yAxis>
+            <NumberAxis side="LEFT" />
+         </yAxis>
+      </LineChart>
+      <Separator layoutX="44.0" layoutY="224.0" prefHeight="0.0" prefWidth="878.0" />
+      <Label layoutX="661.0" layoutY="97.0" styleClass="label_text" text="Select month of the recordings" textFill="#0000007e" />
+      <DatePicker fx:id="datePicker" layoutX="697.0" layoutY="139.0" />
    </children>
 </Pane>

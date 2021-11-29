@@ -12,7 +12,6 @@ import java.net.URLEncoder;
 import java.util.ResourceBundle;
 
 import com.google.gson.Gson;
-
 import commonParams.CommonParams;
 import communication.AccountObjectCommunication;
 import dialogPopUp.DialogPopUpController;
@@ -22,6 +21,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.LineChart;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.effect.BoxBlur;
 import javafx.scene.input.MouseEvent;
@@ -46,6 +47,12 @@ public class PatientRecordsController implements Initializable {
 	private Label patientEmail;
 	@FXML
 	private Label patientIdNumber;
+	@FXML
+	private DatePicker datePicker;
+	@FXML
+	private LineChart<String, Number> ECGChart;
+	@FXML
+	private LineChart<String, Number> EMGChart;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
