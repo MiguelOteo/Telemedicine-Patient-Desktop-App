@@ -72,7 +72,7 @@ public class BITalino {
 	public BITalino() {
 	}
 
-	public static Vector<RemoteDevice> findDevices() throws InterruptedException, BluetoothStateException {
+	public Vector<RemoteDevice> findDevices() throws InterruptedException, BluetoothStateException {
 		/**
 		 * Searches for Bluetooth devices in range. \return a list of found devices with
 		 * the name BITalino
