@@ -1,5 +1,7 @@
 package communication;
 
+import com.jfoenix.controls.JFXButton;
+
 import javafx.scene.layout.AnchorPane;
 import models.Doctor;
 import models.Patient;
@@ -10,49 +12,37 @@ public class AccountObjectCommunication {
     private static Patient patient;
     private static Doctor doctor;
     private static int databaseId;
-    private static String MAC;
+    private static String MAC = "";
    
-   
-
 	// To set the blur on the whole menu
     private static AnchorPane anchorPane;
+    private static JFXButton buttonControl1;
+    private static JFXButton buttonControl2;
    
-    public static Patient getPatient() {
-        return patient;
-    }
+    public static Patient getPatient() {return patient;}
 
-    public static void setPatient(Patient passedPatient) {
-    	patient = passedPatient;
-    }
+    public static void setPatient(Patient passedPatient) {patient = passedPatient;}
     
-    public static Doctor getDoctor() {
-    	return doctor;
-    }
+    public static Doctor getDoctor() {return doctor;}
     
-    public static void setDoctor(Doctor passedDoctor) {
-    	doctor = passedDoctor;
-	}
+    public static void setDoctor(Doctor passedDoctor) {doctor = passedDoctor;}
     
-	public static int getDatabaseId() {
-		return databaseId;
-	}
+	public static int getDatabaseId() {return databaseId;}
 
-	public static void setDatabaseId(int id) {
-		databaseId = id;
-	}
+	public static void setDatabaseId(int id) {databaseId = id;}
     
-    public static AnchorPane getAnchorPane() {
-    	return anchorPane;
-    }
+    public static AnchorPane getAnchorPane() {return anchorPane;}
     
-    public static void setAnchorPane(AnchorPane anchor) {
-    	anchorPane = anchor;
-    }
-    public static String getMAC() {
-		return MAC;
-	}
+    public static void setAnchorPane(AnchorPane anchor) {anchorPane = anchor;}
+    public static String getMAC() {return MAC;}
 
-	public static void setMAC(String mAC) {
-		MAC = mAC;
-	}
+	public static void setMAC(String mAC) {MAC = mAC;}
+
+	public static JFXButton getButtonControl1() {return buttonControl1;}
+
+	public static void setButtonControl1(JFXButton buttonControl) {buttonControl1 = buttonControl;}
+
+	public static JFXButton getButtonControl2() {return buttonControl2;}
+
+	public static void setButtonControl2(JFXButton buttonControl) {buttonControl2 = buttonControl;}
 }

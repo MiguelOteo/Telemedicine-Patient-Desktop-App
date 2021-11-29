@@ -45,7 +45,10 @@ public class PatientMenuController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 
 		AccountObjectCommunication.setAnchorPane(menuWindow);
-
+		
+		AccountObjectCommunication.setButtonControl1(openBitalinoRecord);
+		AccountObjectCommunication.setButtonControl2(openPatientAccount);
+		
 		if (AccountObjectCommunication.getPatient().getPatientIdNumber() == null) {
 			Platform.runLater(new Runnable() {
 				@Override
@@ -56,6 +59,8 @@ public class PatientMenuController implements Initializable {
 		} else {
 			openPatientAccout();
 		}
+		
+		openBitalinoRecord.setDisable(true);
 	}
 
 	@FXML
@@ -103,7 +108,7 @@ public class PatientMenuController implements Initializable {
 
 	@FXML
 	private void openBitalinoConnectivity() {
-		if (AccountObjectCommunication.getMAC() == null) {
+		if (AccountObjectCommunication.getMAC().equals("")) {
 
 			Pane bitalinoConnectivityPane;
 			try {
@@ -112,8 +117,10 @@ public class PatientMenuController implements Initializable {
 				menuMainPane.getChildren().removeAll();
 				menuMainPane.getChildren().setAll(bitalinoConnectivityPane);
 				openPatientAccount.setDisable(false);
-				openBitalinoConnection.setDisable(true);
-				openBitalinoRecord.setDisable(false);
+				openBitalinoConnection.setDisable(true);	
+				if(!AccountObjectCommunication.getMAC().equals("")) {
+					openBitalinoRecord.setDisable(false);
+				}	
 			} catch (IOException error) {
 				error.printStackTrace();
 			}
@@ -126,7 +133,9 @@ public class PatientMenuController implements Initializable {
 				menuMainPane.getChildren().setAll(bitalinoConnectedPane);
 				openPatientAccount.setDisable(false);
 				openBitalinoConnection.setDisable(true);
-				openBitalinoRecord.setDisable(false);
+				if(!AccountObjectCommunication.getMAC().equals("")) {
+					openBitalinoRecord.setDisable(false);
+				}
 			} catch (IOException error) {
 				error.printStackTrace();
 			}

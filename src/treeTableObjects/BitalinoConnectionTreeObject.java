@@ -42,6 +42,7 @@ public class BitalinoConnectionTreeObject extends RecursiveTreeObject<BitalinoCo
 	
 	private void stablishConnection() {
 		AccountObjectCommunication.setMAC(MACAddress);
+		AccountObjectCommunication.getButtonControl1().setDisable(false);
 		loadConnectedPane();
 	}
 	
