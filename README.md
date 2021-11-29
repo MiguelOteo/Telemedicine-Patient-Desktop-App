@@ -52,4 +52,8 @@ Depending on your role you can interact with the application in a different way,
 
 1. If you haven't got an account created yet, you have to click in the "Sign Up" button, to register a new account. 
 
-2. Once you clicking on the button a new tab is shown requesting to know some data to create the new account.
+2. Once you clicking on the button a new tab is shown requesting to know some data to create the new account. It's important to bear in mind that every bound must be filled with the data required.
+
+<div align="center">
+<img src="DocumentationDependencies/2_1.png" alt="drawing" width="600" padding=100%/>  
+</div>
