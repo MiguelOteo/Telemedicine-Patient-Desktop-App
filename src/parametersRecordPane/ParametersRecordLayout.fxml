@@ -2,6 +2,8 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -40,9 +42,9 @@
             <Font name="Ebrima" size="18.0" />
          </font>
       </Label>
-      <Pane fx:id="viewPane" layoutX="33.0" layoutY="89.0" prefHeight="412.0" prefWidth="490.0" />
+      <Pane fx:id="viewPane" layoutX="61.0" layoutY="118.0" prefHeight="329.0" prefWidth="490.0" />
       <AnchorPane layoutX="145.0" layoutY="506.0" />
-      <JFXButton fx:id="startRecording" layoutX="177.0" layoutY="603.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="204.0" styleClass="add_button" text="START RECORDING!">
+      <JFXButton fx:id="startRecording" layoutX="177.0" layoutY="603.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#startStopRecording" prefHeight="40.0" prefWidth="204.0" styleClass="add_button" text="START RECORDING!">
          <font>
             <Font size="16.0" />
          </font>
@@ -58,5 +60,11 @@
             <Font size="16.0" />
          </font>
       </JFXButton>
+      <MenuButton fx:id="channelSelectButton" layoutX="141.0" layoutY="457.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="261.0" text="Select the channel to be displayed:">
+        <items>
+          <MenuItem mnemonicParsing="false" text="ECG channel" />
+          <MenuItem mnemonicParsing="false" text="EMG channel" />
+        </items>
+      </MenuButton>
    </children>
 </Pane>

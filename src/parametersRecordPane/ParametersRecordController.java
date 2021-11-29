@@ -2,6 +2,8 @@ package parametersRecordPane;
 
 import java.io.FileWriter;
 import java.net.URL;
+import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 import java.util.Vector;
 import java.util.logging.Level;
@@ -16,9 +18,11 @@ import BITalino.Frame;
 import communication.AccountObjectCommunication;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.MenuButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import models.BitalinoPackage;
 
 import javax.bluetooth.RemoteDevice;
 
@@ -41,15 +45,13 @@ public class ParametersRecordController implements Initializable {
 	private JFXButton startRecording;
 	@FXML
 	private JFXButton comparePast;
-	
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {}
-	
 	@FXML
-	private void startRecording() {
+	private MenuButton channelSelectButton;
+	
+	public void initialize(URL location, ResourceBundle resources) {
 		
-		if (recordvalue == true){
-			recordvalue = false;
+			 int patientId = AccountObjectCommunication.getPatient().getPatientId();
+			 
 			 BITalino bitalino = null;
 		        try {
 		            bitalino = new BITalino();
@@ -67,26 +69,29 @@ public class ParametersRecordController implements Initializable {
 
 		            //Read in total 10000000 times
 		            //while with boolean that button changes so that it closes	
-		            for (int j = 0; j < 10000000; j++) {
+		            while(recordvalue == true) {
 
 		                //Each time read a block of 10 samples 
 		                int block_size=10;
 		                frame = bitalino.read(block_size);
-
+		                LocalDateTime now = LocalDateTime.now();  
 		                System.out.println("size block: " + frame.length);
+		                BitalinoPackage bitalinopack = new BitalinoPackage(patientId, SamplingRate, now, frame.toString());
+		                AccountObjectCommunication.getPatient().addMeasuresDates(bitalinopack);
 
+		            	
 		                //Print the samples
-		                for (int i = 0; i < frame.length; i++) {
-		                    System.out.println((j * block_size + i) + " seq: " + frame[i].seq + " "
-		                            + frame[i].analog[0] + " "
-		                            + frame[i].analog[1] + " "
+		                //for (int i = 0; i < frame.length; i++) {
+		                    //System.out.println(( block_size + i) + " seq: " + frame[i].seq + " "
+		                            //+ frame[i].analog[0] + " "
+		                            //+ frame[i].analog[1] + " "
 		                    //  + frame[i].analog[2] + " "
 		                    //  + frame[i].analog[3] + " "
 		                    //  + frame[i].analog[4] + " "
 		                    //  + frame[i].analog[5]
-		                    );
+		                    //);
 
-		                }
+		                //}
 		                //write the file to send
 		                
 		                String nombrepaquete = "paquete " + counter;
@@ -114,13 +119,18 @@ public class ParametersRecordController implements Initializable {
 		            }
 		        }
 
-		    }
-			//start recording
-			//bucle
+		   
+	}
+	
+	@FXML
+	private void startStopRecording() {
+		if (recordvalue == true) {
+			recordvalue = false;
+		}
 		else {
-			//end recording
 			recordvalue = true;
 		}
+		
 }
 		
 		/*la idea es  usar este boton para empezar a grabar y parar

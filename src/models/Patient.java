@@ -11,7 +11,7 @@ public class Patient extends User {
 	private String patientIdNumber;
 	
 	//List of the dates he took measures with the BITalino
-	private List<Date> measuresDates;
+	private List<BitalinoPackage> measuresData;
 	
 	// TODO - variables for the heart frequency and muscles activity
 	
@@ -25,7 +25,7 @@ public class Patient extends User {
 		
 		this.patientId = patientId;
 		this.patientIdNumber = patientIdNumber;
-		this.measuresDates = null;
+		this.measuresData = null;
 	}
 	
 	public Patient(int patientId, String patientIdNumber, User user) {
@@ -33,7 +33,7 @@ public class Patient extends User {
 		
 		this.patientId = patientId;
 		this.patientIdNumber = patientIdNumber;
-		this.measuresDates = null;	
+		this.measuresData = null;	
 	}
 
 	// Getter and Setter methods
@@ -45,8 +45,13 @@ public class Patient extends User {
 	
 	public void setPatientIdNumber(String patientIdNumber) {this.patientIdNumber = patientIdNumber;}
 
-	public List<Date> getMeasuresDates() {return measuresDates;}
+	public List<BitalinoPackage> getMeasuresDates() {return measuresData;}
 
-	public void setMeasuresDates(List<Date> measuresDates) {this.measuresDates = measuresDates;}
+	public void setMeasuresDates(List<BitalinoPackage> measuresData) {this.measuresData = measuresData;}
+	
+	public void addMeasuresDates(BitalinoPackage bitalinodata) {
+		this.measuresData.add(bitalinodata);
+		
+	}
 }
 
