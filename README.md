@@ -61,7 +61,7 @@ Depending on your role you can interact with the application in a different way,
 3.  After all were being completed, you can click on the "Create account" button and a message will appear, indicating that the Doctor account have been created, that's mean that everything goes successfully.
 
 <div align="center">
-<img src="DocumentationDependencies/3.png" width="600" border-radius=5% padding=100% />  
+<img src="DocumentationDependencies/3_1.png" width="600" border-radius=5% padding=100% />  
 </div>  
 
 4. Once, you, as a Doctor, have an account created you can proceed to do the "Login" process, in the main menu. You only have to introduce your email and the password introduced in the "Sign up" process.
@@ -81,3 +81,13 @@ For example: "12345678L".
 1. If you haven't got an account created yet (keep reading, in the other case go to step 4), you have to click in the "Sign Up" button, to register a new account. 
 
 2. Once you clicking on the button a new tab is shown requesting to know some data to create the new account. It's important to bear in mind that every bound must be filled with the data required. After all was be completed you can click on the "Create account" button.
+
+<div align="center">
+<img src="DocumentationDependencies/2_2.png" width="600" border-radius=5% padding=100% />  
+</div>  
+
+3.  After all were being completed, you can click on the "Create account" button and a message will appear, indicating that the Patient account have been created, that's mean that everything goes successfully.
+
+<div align="center">
+<img src="DocumentationDependencies/3_2.png" width="600" border-radius=5% padding=100% />  
+</div>  
