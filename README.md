@@ -117,3 +117,15 @@ For example: "12345678T".
 <div align="center">
 <img src="resources/documentationDependencies/patient_id_view.png" width="600" border-radius=5% padding=100% />  
 </div>  
+
+6. [**BITalino Connection**] If everything has gone well, you are now in the main window of the patient. Here you can do a lot of things, but, if it is the first time that you enter you must connect your BITalino board to the application.
+In this process you should have your BITalino board in hand, and follow the next steps:
+6.1 Switch on the board.
+6.2 Enter into the BITalino Connection in Telelepsia Application.
+6.3 Wait 10 seconds while the program search BITalinos around you.
+6.4 Your BITalino should appear on the screen with its corresponding MAC address. 
+
+<div align="center">
+<img src="resources/documentationDependencies/treetableview.png" width="600" border-radius=5% padding=100% />  
+</div>  
+
