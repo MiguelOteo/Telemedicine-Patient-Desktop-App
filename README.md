@@ -1,7 +1,7 @@
 # Telelepsia  
 ## TelemedicineProject (Java 11)
 <div align="center">
-<img src="DocumentationDependencies/0.png" alt="drawing" width="200" padding=100%/>  
+<img src="resources/documentationDependencies/0.png" alt="drawing" width="200" padding=100%/>  
 </div>
 
 -------------------------------
@@ -44,7 +44,7 @@ This project uses the following Maven dependencies
 Once everything has been downloaded, installed and works properly, you only have to run the project and one window with a friendly user interface will be opened, as the following:
 
 <div align="center">
-<img src="DocumentationDependencies/1.png" alt="drawing" width="600" padding=100%/>  
+<img src="resources/documentationDependencies/1.png" alt="drawing" width="600" padding=100%/>  
 </div>
 
 Depending on your role you can interact with the application in a different way, you can use the application as a Doctor or as a Patient.
@@ -58,13 +58,13 @@ Depending on your role you can interact with the application in a different way,
 2. Once you clicking on the button a new tab is shown requesting to know some data to create the new account. It's important to bear in mind that every bound must be filled with the data required. After all was be completed you can click on the "Create account" button.
 
 <div align="center">
-<img src="DocumentationDependencies/2_1.png" width="600" border-radius=5% padding=100% />  
+<img src="resources/documentationDependencies/2_1.png" width="600" border-radius=5% padding=100% />  
 </div>  
 
 3.  After all were being completed, you can click on the "Create account" button and a message will appear, indicating that the Doctor account have been created, that's mean that everything goes successfully.
 
 <div align="center">
-<img src="DocumentationDependencies/3_1.png" width="600" border-radius=5% padding=100% />  
+<img src="resources/documentationDependencies/3_1.png" width="600" border-radius=5% padding=100% />  
 </div>  
 
 4. Once, you, as a Doctor, have an account created you can proceed to do the "Login" process, in the main menu. You only have to introduce your email and the password introduced in the "Sign up" process.
@@ -73,13 +73,13 @@ Depending on your role you can interact with the application in a different way,
 For example: "12345678L".
 
 <div align="center">
-<img src="DocumentationDependencies/2.png" width="600" border-radius=5% padding=100% />  
+<img src="resources/documentationDependencies/2.png" width="600" border-radius=5% padding=100% />  
 </div>  
 
 6. After introducing your Doctor number identification a workspace is shown, where you can do a variety of actions; for example update your initial data proportioned when you sign up, or change the password often as a good cybersecurity custom. You can see your actual information below the doctor picture.
 
 <div align="center">
-<img src="DocumentationDependencies/5.png" width="600" border-radius=5% padding=100% />  
+<img src="resources/documentationDependencies/5.png" width="600" border-radius=5% padding=100% />  
 </div>  
 
 
@@ -91,7 +91,7 @@ For example: "12345678L".
 
 Before the application installation and the use of it, it's important to say to the patient that something to bear in mind is that this system has a Hardware dependency; this application works with the BITalino board to recover physiological data of the patient.
 <div align="center">
-<img src="DocumentationDependencies/bita.jpeg" width="300" border-radius=5% padding=100% />  
+<img src="resources/documentationDependencies/bita.jpeg" width="300" border-radius=5% padding=100% />  
 </div>  
 
 
@@ -100,13 +100,13 @@ Before the application installation and the use of it, it's important to say to 
 2. Once you clicking on the button a new tab is shown requesting to know some data to create the new account. It's important to bear in mind that every bound must be filled with the data required. After all was be completed you can click on the "Create account" button.
 
 <div align="center">
-<img src="DocumentationDependencies/2_2.png" width="600" border-radius=5% padding=100% />  
+<img src="resources/documentationDependencies/2_2.png" width="600" border-radius=5% padding=100% />  
 </div>  
 
 3.  After all were being completed, you can click on the "Create account" button and a message will appear, indicating that the Patient account have been created, that's mean that everything goes successfully.
 
 <div align="center">
-<img src="DocumentationDependencies/3_2.png" width="600" border-radius=5% padding=100% />  
+<img src="resources/documentationDependencies/3_2.png" width="600" border-radius=5% padding=100% />  
 </div>  
 
 4. Once, you, as a Patient, have an account created you can proceed to do the "Login" process, in the main menu. You only have to introduce your email and the password introduced in the "Sign up" process.
@@ -115,5 +115,5 @@ Before the application installation and the use of it, it's important to say to 
 For example: "12345678T".
 
 <div align="center">
-<img src="DocumentationDependencies/4.png" width="600" border-radius=5% padding=100% />  
+<img src="resources/documentationDependencies/4.png" width="600" border-radius=5% padding=100% />  
 </div>  
