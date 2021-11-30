@@ -95,6 +95,10 @@ To monitor the physiological data of a patient you must add it to your control p
 
 There you can select the patients that you want, which will be marked with a tick. When you finish the selection process, click on "Add selected patients" button and the patients will be added. When you have finished, click on cancel operation to exit from the selection window.
 
+Once you close the selection window you can see the patients that you have selected in "Your patients" view.  
+
+In case that you don't want any patient you can click on "Delete assignment" button, and this patient will be removed from your patients.
+
 <div align="center">
 <img src="resources/documentationDependencies/2.png" width="600" border-radius=5% padding=100% />  
 </div> 
