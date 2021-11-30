@@ -9,7 +9,7 @@ import java.net.ConnectException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.time.LocalDate;
+import java.sql.Date;
 import java.util.ResourceBundle;
 
 import org.gillius.jfxutils.chart.ChartZoomManager;
@@ -84,7 +84,7 @@ public class PatientRecordsController implements Initializable {
 		zoomManager.start();
 		
 		datePicker.valueProperty().addListener((observable, oldDate, newDate)->{
-			getPatientDayData(newDate);
+			getPatientDayData(Date.valueOf(newDate));
 		});	
 	}
 	
@@ -174,7 +174,7 @@ public class PatientRecordsController implements Initializable {
 		}
 	}
 	
-	private void getPatientDayData(LocalDate selectedDate) {
+	private void getPatientDayData(Date selectedDate) {
 		
 		Thread threadObject = new Thread("GettingDayData") {
 			public void run() {
