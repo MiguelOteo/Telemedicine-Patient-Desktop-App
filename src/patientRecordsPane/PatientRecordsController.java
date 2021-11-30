@@ -9,9 +9,14 @@ import java.net.ConnectException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
+import org.gillius.jfxutils.chart.ChartZoomManager;
+
 import com.google.gson.Gson;
+import com.jfoenix.controls.JFXButton;
+
 import commonParams.CommonParams;
 import communication.AccountObjectCommunication;
 import dialogPopUp.DialogPopUpController;
@@ -22,12 +27,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.effect.BoxBlur;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -38,9 +46,16 @@ import models.Patient;
 public class PatientRecordsController implements Initializable {
 
 	private Patient patient = new Patient();
+	private boolean isECG = true;
 	
 	@FXML
 	private Pane mainPane;
+	@FXML
+	private JFXButton changeGraph;
+	@FXML
+	private StackPane chartPane;
+	@FXML
+	private Rectangle selectRect;
 	@FXML
 	private Label patientName;
 	@FXML
@@ -50,15 +65,60 @@ public class PatientRecordsController implements Initializable {
 	@FXML
 	private DatePicker datePicker;
 	@FXML
-	private LineChart<String, Number> ECGChart;
-	@FXML
-	private LineChart<String, Number> EMGChart;
+	private LineChart<Number, Number> measuresChart;
+
+	private final XYChart.Series<Number, Number> dataSeries = new XYChart.Series<Number, Number>();
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
+		measuresChart.setTitle("ECG Recordings of the last month");
+		changeGraph.setText("Show EMG Recording");
+		
 		this.patient.setPatientId(AccountObjectCommunication.getDatabaseId());
+
+		ChartZoomManager zoomManager = new ChartZoomManager(chartPane, selectRect, measuresChart);
+		zoomManager.start();
+		
+		datePicker.valueProperty().addListener((observable, oldDate, newDate)->{
+			getPatientMothData(newDate);
+		});
+		
 		getPatientInformation();
+	}
+	
+	@FXML
+	private void changeChart(MouseEvent event) {
+		
+		dataSeries.getData().clear();
+		
+		if(isECG) { // If true then ECG graph has to be change
+			measuresChart.setTitle("EMG Recordings of the last month");
+			changeGraph.setText("Show ECG Recording");
+			isECG = false;
+			dataSeries.getData().add(new XYChart.Data<Number, Number>(1, 24));
+			dataSeries.getData().add(new XYChart.Data<Number, Number>(2, 22));
+			dataSeries.getData().add(new XYChart.Data<Number, Number>(3, 45));
+			dataSeries.getData().add(new XYChart.Data<Number, Number>(4, 23));
+			dataSeries.getData().add(new XYChart.Data<Number, Number>(5, 34));
+			dataSeries.getData().add(new XYChart.Data<Number, Number>(6, 36));
+			dataSeries.getData().add(new XYChart.Data<Number, Number>(7, 14));
+			dataSeries.getData().add(new XYChart.Data<Number, Number>(8, 15));	
+			
+		} else {
+			measuresChart.setTitle("ECG Recordings of the last month");
+			changeGraph.setText("Show EMG Recording");
+			isECG = true;
+			dataSeries.getData().add(new XYChart.Data<Number, Number>(1, 23));
+			dataSeries.getData().add(new XYChart.Data<Number, Number>(2, 14));
+			dataSeries.getData().add(new XYChart.Data<Number, Number>(3, 15));
+			dataSeries.getData().add(new XYChart.Data<Number, Number>(4, 24));
+			dataSeries.getData().add(new XYChart.Data<Number, Number>(5, 34));
+			dataSeries.getData().add(new XYChart.Data<Number, Number>(6, 36));
+			dataSeries.getData().add(new XYChart.Data<Number, Number>(7, 22));
+			dataSeries.getData().add(new XYChart.Data<Number, Number>(8, 45));
+		}
+		measuresChart.getData().add(dataSeries);
 	}
 
 	@FXML
@@ -113,6 +173,56 @@ public class PatientRecordsController implements Initializable {
 		}
 	}
 	
+	private void getPatientMothData(LocalDate selectedDate) {
+		Thread threadObject = new Thread("GettingMonthlyData") {
+			public void run() {
+				
+				try {
+					HttpURLConnection connection = (HttpURLConnection) new URL(CommonParams.BASE_URL + "/getPatientInformation")
+							.openConnection();
+					connection.setRequestMethod("POST");
+					
+					APIRequest requestAPI = new APIRequest();
+					requestAPI.setPatientId(patient.getPatientId());
+					requestAPI.setDate(selectedDate);
+					String postData = "APIRequest=" + URLEncoder.encode(new Gson().toJson(requestAPI), "UTF-8");
+					
+					connection.setDoOutput(true);
+					OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
+					writer.write(postData);
+					writer.flush();
+
+					BufferedReader inputReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+					String inputLine;
+					StringBuffer response = new StringBuffer();
+					while ((inputLine = inputReader.readLine()) != null) {
+						response.append(inputLine);
+					}
+					inputReader.close();
+					
+					APIResponse responseAPI = new Gson().fromJson(response.toString(), APIResponse.class);
+					
+					System.out.println(responseAPI.getAPImessage());
+					// TODO - Finish method
+					
+				} catch (ConnectException | FileNotFoundException conncetionError) {
+					Platform.runLater(new Runnable() {
+						@Override
+						public void run() {
+							conncetionError.printStackTrace();
+							openDialog("Failed to connect to the server");
+						}
+					});
+				} catch (IOException error) {
+					error.printStackTrace();
+				}
+
+				
+			}
+		};
+		threadObject.start();
+	}
+	
 	private void getPatientInformation() {
 		Thread threadObject = new Thread("gettingPatientInfo") {
 			public void run() {
@@ -139,8 +249,7 @@ public class PatientRecordsController implements Initializable {
 					}
 					inputReader.close();
 
-					Gson gsonConverter = new Gson();
-					APIResponse responseAPI = gsonConverter.fromJson(response.toString(), APIResponse.class);
+					APIResponse responseAPI = new Gson().fromJson(response.toString(), APIResponse.class);
 					
 					if (!responseAPI.isError()) {
 						patient = responseAPI.getPatient();

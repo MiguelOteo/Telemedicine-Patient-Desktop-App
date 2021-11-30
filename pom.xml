@@ -34,11 +34,8 @@
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/com.bitalino/bitalino-java-sdk -->
-		<!--  <dependency>
-			<groupId>com.bitalino</groupId>
-			<artifactId>bitalino-java-sdk</artifactId>
-			<version>1.1.0</version>
-		</dependency> -->
+		<!-- <dependency> <groupId>com.bitalino</groupId> <artifactId>bitalino-java-sdk</artifactId> 
+			<version>1.1.0</version> </dependency> -->
 
 		<!-- JavaFx FXML dependencies -->
 
@@ -60,6 +57,12 @@
 			<groupId>org.openjfx</groupId>
 			<artifactId>javafx-fxml</artifactId>
 			<version>18-ea+7</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.github.kerner1000/javafx-chart-zooming -->
+		<dependency>
+			<groupId>org.gillius</groupId>
+			<artifactId>jfxutils</artifactId>
+			<version>1.0</version>
 		</dependency>
 
 	</dependencies>

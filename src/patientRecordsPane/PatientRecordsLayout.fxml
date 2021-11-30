@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.DatePicker?>
@@ -10,90 +9,90 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <Pane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="965.0" stylesheets="@PatientRecordsStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="patientRecordsPane.PatientRecordsController">
-   <children>
-      <Label layoutX="106.0" layoutY="25.0" text="Patient Records" textFill="#00000080">
-         <font>
-            <Font name="Ebrima" size="22.0" />
-         </font>
-      </Label>
-      <JFXButton layoutX="923.0" layoutY="13.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#closeApp" prefHeight="28.0" prefWidth="28.0" styleClass="window_button" text="X">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </JFXButton>
-      <JFXButton layoutX="887.0" layoutY="13.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#minWindow" prefHeight="28.0" prefWidth="28.0" styleClass="window_button" text="_">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </JFXButton>
-      <ImageView fitHeight="45.0" fitWidth="64.0" layoutX="33.0" layoutY="18.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../icons/patient_black.png" />
-         </image>
-      </ImageView>
-      <JFXButton layoutX="905.0" layoutY="660.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#goBack" prefHeight="50.0" prefWidth="50.0" styleClass="window_button" text=" ">
-         <font>
-            <Font size="14.0" />
-         </font>
-         <graphic>
-            <ImageView fitHeight="33.0" fitWidth="33.0" opacity="0.5" pickOnBounds="true" preserveRatio="true" translateX="-2.0" translateY="-1.0">
-               <image>
-                  <Image url="@../icons/go_back.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </JFXButton>
-      <Label fx:id="patientName" layoutX="59.0" layoutY="97.0" styleClass="label_text" text="Name: not found" textFill="#00000080">
-         <font>
-            <Font name="Ebrima" size="18.0" />
-         </font>
-      </Label>
-      <Label fx:id="patientIdNumber" layoutX="59.0" layoutY="137.0" styleClass="label_text" text="Patient ID: not found" textFill="#00000080">
-         <font>
-            <Font name="Ebrima" size="18.0" />
-         </font>
-      </Label>
-      <Label fx:id="patientEmail" layoutX="59.0" layoutY="177.0" styleClass="label_text" text="Patient Email: not found" textFill="#00000080">
-         <font>
-            <Font name="Ebrima" size="18.0" />
-         </font>
-      </Label>
-      <Label layoutX="365.0" layoutY="98.0" text="Patient Health Data" textFill="#00000080">
-         <font>
-            <Font name="Ebrima Bold" size="18.0" />
-         </font>
-      </Label>
-      <Label layoutX="365.0" layoutY="138.0" styleClass="label_text" text="Patient Weight: weight Kg" textFill="#00000080">
-         <font>
-            <Font name="Ebrima" size="16.0" />
-         </font>
-      </Label>
-      <Label layoutX="365.0" layoutY="178.0" styleClass="label_text" text="Patient Height: height cm" textFill="#00000080">
-         <font>
-            <Font name="Ebrima" size="16.0" />
-         </font>
-      </Label>
-      <LineChart fx:id="ECGChart" layoutX="56.0" layoutY="260.0" prefHeight="200.0" prefWidth="855.0" title="Patient ECG record">
-        <xAxis>
-          <CategoryAxis side="BOTTOM" />
-        </xAxis>
-        <yAxis>
-          <NumberAxis side="LEFT" />
-        </yAxis>
-      </LineChart>
-      <LineChart fx:id="EMGChart" layoutX="56.0" layoutY="460.0" prefHeight="200.0" prefWidth="855.0" title="Patient EMG record">
-         <xAxis>
-            <CategoryAxis side="BOTTOM" />
-         </xAxis>
-         <yAxis>
-            <NumberAxis side="LEFT" />
-         </yAxis>
-      </LineChart>
-      <Separator layoutX="44.0" layoutY="224.0" prefHeight="0.0" prefWidth="878.0" />
-      <Label layoutX="661.0" layoutY="97.0" styleClass="label_text" text="Select month of the recordings" textFill="#0000007e" />
-      <DatePicker fx:id="datePicker" layoutX="697.0" layoutY="139.0" />
-   </children>
+	<children>
+		<Label layoutX="106.0" layoutY="25.0" text="Patient Records" textFill="#00000080">
+			<font>
+				<Font name="Ebrima" size="22.0" />
+			</font>
+		</Label>
+		<JFXButton layoutX="923.0" layoutY="13.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#closeApp" prefHeight="28.0" prefWidth="28.0" styleClass="window_button" text="X">
+			<font>
+				<Font size="14.0" />
+			</font>
+		</JFXButton>
+		<JFXButton layoutX="887.0" layoutY="13.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#minWindow" prefHeight="28.0" prefWidth="28.0" styleClass="window_button" text="_">
+			<font>
+				<Font size="14.0" />
+			</font>
+		</JFXButton>
+		<ImageView fitHeight="45.0" fitWidth="64.0" layoutX="33.0" layoutY="18.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+			<image>
+				<Image url="@../icons/patient_black.png" />
+			</image>
+		</ImageView>
+		<JFXButton layoutX="905.0" layoutY="660.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#goBack" prefHeight="50.0" prefWidth="50.0" styleClass="window_button" text=" ">
+			<font>
+				<Font size="14.0" />
+			</font>
+			<graphic>
+				<ImageView fitHeight="33.0" fitWidth="33.0" opacity="0.5" pickOnBounds="true" preserveRatio="true" translateX="-2.0" translateY="-1.0">
+					<image>
+						<Image url="@../icons/go_back.png" />
+					</image>
+				</ImageView>
+			</graphic>
+		</JFXButton>
+		<Label fx:id="patientName" layoutX="59.0" layoutY="97.0" styleClass="label_text" text="Name: not found" textFill="#00000080">
+			<font>
+				<Font name="Ebrima" size="18.0" />
+			</font>
+		</Label>
+		<Label fx:id="patientIdNumber" layoutX="59.0" layoutY="137.0" styleClass="label_text" text="Patient ID: not found" textFill="#00000080">
+			<font>
+				<Font name="Ebrima" size="18.0" />
+			</font>
+		</Label>
+		<Label fx:id="patientEmail" layoutX="59.0" layoutY="177.0" styleClass="label_text" text="Patient Email: not found" textFill="#00000080">
+			<font>
+				<Font name="Ebrima" size="18.0" />
+			</font>
+		</Label>
+		<Label layoutX="365.0" layoutY="98.0" text="Patient Health Data" textFill="#00000080">
+			<font>
+				<Font name="Ebrima Bold" size="18.0" />
+			</font>
+		</Label>
+		<Label layoutX="365.0" layoutY="138.0" styleClass="label_text" text="Patient Weight: weight Kg" textFill="#00000080">
+			<font>
+				<Font name="Ebrima" size="16.0" />
+			</font>
+		</Label>
+		<Label layoutX="365.0" layoutY="178.0" styleClass="label_text" text="Patient Height: height cm" textFill="#00000080">
+			<font>
+				<Font name="Ebrima" size="16.0" />
+			</font>
+		</Label>
+		<Separator layoutX="44.0" layoutY="224.0" prefHeight="0.0" prefWidth="878.0" />
+		<Label layoutX="661.0" layoutY="97.0" styleClass="label_text" text="Select month of the recordings" textFill="#0000007e" />
+		<DatePicker fx:id="datePicker" layoutX="697.0" layoutY="139.0" />
+		<StackPane fx:id="chartPane" alignment="CENTER" layoutX="68.0" layoutY="238.0" prefHeight="400.0" prefWidth="830.0">
+         <children>
+            <LineChart fx:id="measuresChart" animated="false" legendVisible="false">
+              <xAxis>
+                <NumberAxis animated="false" side="BOTTOM" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis animated="false" side="LEFT" />
+              </yAxis>
+            </LineChart>
+            <Rectangle fx:id="selectRect" fill="DODGERBLUE" height="0.0" mouseTransparent="true" opacity="0.3" stroke="#002966" strokeType="INSIDE" strokeWidth="3.0" width="0.0" x="0.0" y="0.0" StackPane.alignment="TOP_LEFT" />
+         </children>
+		</StackPane>
+      <JFXButton fx:id="changeGraph" layoutX="382.0" layoutY="651.0" onMouseClicked="#changeChart" prefHeight="34.0" prefWidth="202.0" styleClass="change_graph_button" text="Button text" />
+	</children>
 </Pane>

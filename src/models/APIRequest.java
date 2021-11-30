@@ -1,5 +1,6 @@
 package models;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class APIRequest {
@@ -14,6 +15,7 @@ public class APIRequest {
 	
 	private int doctorId;
 	private int patientId;
+	private LocalDate date;
 	private String doctorIdentification;
 	private String patientIdNumber;
 	
@@ -67,5 +69,9 @@ public class APIRequest {
 
 	public int getUserId() {return userId;}
 
-	public void setUserId(int userId) {this.userId = userId;}		
+	public void setUserId(int userId) {this.userId = userId;}
+
+	public LocalDate getDate() {return date;}
+
+	public void setDate(LocalDate date) {this.date = date;}		
 }
