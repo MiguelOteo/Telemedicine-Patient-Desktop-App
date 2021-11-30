@@ -72,7 +72,7 @@ public class PatientRecordsController implements Initializable {
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		
+	
 		measuresChart.setTitle("ECG Recordings of the selected day");
 		changeGraph.setText("Show EMG Recording");
 		
@@ -119,6 +119,7 @@ public class PatientRecordsController implements Initializable {
 			dataSeries.getData().add(new XYChart.Data<Number, Number>(7, 22));
 			dataSeries.getData().add(new XYChart.Data<Number, Number>(8, 45));
 		}
+		measuresChart.getData().clear();
 		measuresChart.getData().add(dataSeries);
 	}
 
