@@ -3,25 +3,43 @@ package parametersRecordPane;
 import java.io.FileWriter;
 import java.net.URL;
 import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.google.gson.Gson;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTreeTableColumn;
+import com.jfoenix.controls.JFXTreeTableView;
+import com.jfoenix.controls.RecursiveTreeItem;
+import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 
 import BITalino.BITalino;
 import BITalino.BITalinoException;
 import BITalino.Frame;
 import communication.AccountObjectCommunication;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
+import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeTableColumn;
+import javafx.scene.control.TreeTableColumn.CellDataFeatures;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import models.BitalinoPackage;
+import treeTableObjects.PastBitalinoValuesTreeObject;
 
 
 public class ParametersRecordController implements Initializable {
@@ -37,8 +55,6 @@ public class ParametersRecordController implements Initializable {
 	@FXML
 	private Pane viewPane;
 	@FXML
-	private Pane pastPane;
-	@FXML
 	private Label nothingtoshow;
 	@FXML
 	private JFXButton startRecording;
@@ -46,17 +62,33 @@ public class ParametersRecordController implements Initializable {
 	private JFXButton comparePast;
 	@FXML
 	private MenuButton channelSelectButton;
+	@FXML
+	private JFXTreeTableView<PastBitalinoValuesTreeObject> pastValuesTreeView;
+	@FXML
+	private final ObservableList<PastBitalinoValuesTreeObject> recordsObjects = FXCollections.observableArrayList();
+	
+	private List<String> packetIds = new ArrayList<String>(); 
+	
+	private List<String> packetDates = new ArrayList<String>(); 
+	
+	private int idvalue = 0;
+	
+	private int SamplingRate = 10;
 	
 	public void initialize(URL location, ResourceBundle resources) {
 		
 			 int patientId = AccountObjectCommunication.getPatient().getPatientId();
 			 BITalino bitalino = null;
+			 
+             DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");  
+
+             
 		        try {
 		            bitalino = new BITalino();
 
 		            
 		            //Sampling rate, should be 10, 100 or 1000
-		            int SamplingRate = 10;
+		            //int SamplingRate = 10;
 		            String MAC = AccountObjectCommunication.getMAC();
 		            bitalino.open(MAC, SamplingRate);
 
@@ -73,26 +105,19 @@ public class ParametersRecordController implements Initializable {
 		                int block_size=10;
 		                frame = bitalino.read(block_size);
 		                //LocalDateTime now = LocalDateTime.now();  
-		                Date now = new Date(block_size);
-		                
+		                Date now = (Date) Calendar.getInstance().getTime();  
+		                String strDate = dateFormat.format(now);
 		                //System.out.println("size block: " + frame.length);
 		                
 		                BitalinoPackage bitalinopack = new BitalinoPackage(patientId, SamplingRate, now, frame.toString());
 		                AccountObjectCommunication.getPatient().addNewPackage(bitalinopack);
-
-		            	
-		                //Print the samples
-		                //for (int i = 0; i < frame.length; i++) {
-		                    //System.out.println(( block_size + i) + " seq: " + frame[i].seq + " "
-		                            //+ frame[i].analog[0] + " "
-		                            //+ frame[i].analog[1] + " "
-		                    //  + frame[i].analog[2] + " "
-		                    //  + frame[i].analog[3] + " "
-		                    //  + frame[i].analog[4] + " "
-		                    //  + frame[i].analog[5]
-		                    //);
-
-		                //}
+		                
+		                //kk id identification
+		                packetIds.add(Integer.toString(idvalue));
+		                idvalue++;
+		                packetDates.add(strDate);
+		                
+		                
 		                //write the file to send
 		                
 		                String nombrepaquete = "paquete " + counter;
@@ -141,7 +166,67 @@ public class ParametersRecordController implements Initializable {
 		 * Se crea una lista
 		 */
 	
+	@SuppressWarnings("unused")
+	private void loadData() {
+		int count = 1;
+		String rate = Integer.toString(SamplingRate);
+		recordsObjects.clear();
+		for (String packetIds: packetIds) {
+			recordsObjects.add(new PastBitalinoValuesTreeObject(mainPane, packetIds, "placeholder fecha", rate));
+			count++;
+		}
+		pastValuesTreeView.refresh();
+	}
 	
+	@SuppressWarnings("unused")
+	private void loadTreeTable() {
+		
+		JFXTreeTableColumn<PastBitalinoValuesTreeObject, String> packetId = new JFXTreeTableColumn<>("Packet ID");
+		//bitalinoName.setPrefWidth(155);
+		packetId.setCellValueFactory(new Callback<JFXTreeTableColumn.CellDataFeatures<PastBitalinoValuesTreeObject,String>, ObservableValue<String>>() {
+			@Override
+			public ObservableValue<String> call(CellDataFeatures<PastBitalinoValuesTreeObject, String> param) {
+				return param.getValue().getValue().getTreePacketid();
+			}
+		});
+		packetId.setResizable(false);
+		
+		JFXTreeTableColumn<PastBitalinoValuesTreeObject, String> packetDate = new JFXTreeTableColumn<>("Date of Recording");
+		//bitalinoMAC.setPrefWidth(200);
+		packetDate.setCellValueFactory(new Callback<JFXTreeTableColumn.CellDataFeatures<PastBitalinoValuesTreeObject,String>, ObservableValue<String>>() {
+			@Override
+			public ObservableValue<String> call(CellDataFeatures<PastBitalinoValuesTreeObject, String> param) {
+				return param.getValue().getValue().getTreePacketdate();
+			}
+		});
+		packetDate.setResizable(false);
+		
+		JFXTreeTableColumn<PastBitalinoValuesTreeObject, String> samplingRate = new JFXTreeTableColumn<>("Sampling Rate");
+		//bitalinoMAC.setPrefWidth(200);
+		samplingRate.setCellValueFactory(new Callback<JFXTreeTableColumn.CellDataFeatures<PastBitalinoValuesTreeObject,String>, ObservableValue<String>>() {
+			@Override
+			public ObservableValue<String> call(CellDataFeatures<PastBitalinoValuesTreeObject, String> param) {
+				return param.getValue().getValue().getTreeSamplingRate();
+			}
+		});
+		samplingRate.setResizable(false);
+		
+		JFXTreeTableColumn<PastBitalinoValuesTreeObject, JFXButton> visualize = new JFXTreeTableColumn<>("Visualize");
+		//establishConnection.setPrefWidth(165);
+		visualize.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<PastBitalinoValuesTreeObject, JFXButton>, ObservableValue<JFXButton>>() {
+			@Override
+			public ObservableValue<JFXButton> call(CellDataFeatures<PastBitalinoValuesTreeObject, JFXButton> param) {
+				return param.getValue().getValue().getViewRecord();
+			}
+		});
+		visualize.setResizable(false);
+		
+		TreeItem<PastBitalinoValuesTreeObject> root = new RecursiveTreeItem<PastBitalinoValuesTreeObject>(recordsObjects, RecursiveTreeObject::getChildren);
+		pastValuesTreeView.setSelectionModel(null);
+		pastValuesTreeView.getColumns().setAll(Arrays.asList(packetId, packetDate, samplingRate, visualize));
+		pastValuesTreeView.setRoot(root);
+		pastValuesTreeView.setShowRoot(false);
+	}
 	@FXML
 	private void minWindow(MouseEvent event) {
 		Stage stage = (Stage) mainPane.getScene().getWindow();

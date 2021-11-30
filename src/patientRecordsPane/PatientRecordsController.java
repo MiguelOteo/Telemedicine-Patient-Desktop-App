@@ -259,7 +259,6 @@ public class PatientRecordsController implements Initializable {
 								loadInformation();
 							}
 						});
-						
 					} else {
 						openDialog(responseAPI.getAPImessage());
 					}
