@@ -72,7 +72,7 @@ public class PatientRecordsController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
-		measuresChart.setTitle("ECG Recordings of the last month");
+		measuresChart.setTitle("ECG Recordings of the selected day");
 		changeGraph.setText("Show EMG Recording");
 		
 		this.patient.setPatientId(AccountObjectCommunication.getDatabaseId());
@@ -81,7 +81,7 @@ public class PatientRecordsController implements Initializable {
 		zoomManager.start();
 		
 		datePicker.valueProperty().addListener((observable, oldDate, newDate)->{
-			getPatientMothData(newDate);
+			getPatientDayData(newDate);
 		});
 		
 		getPatientInformation();
@@ -93,7 +93,7 @@ public class PatientRecordsController implements Initializable {
 		dataSeries.getData().clear();
 		
 		if(isECG) { // If true then ECG graph has to be change
-			measuresChart.setTitle("EMG Recordings of the last month");
+			measuresChart.setTitle("EMG Recordings of the selected day");
 			changeGraph.setText("Show ECG Recording");
 			isECG = false;
 			dataSeries.getData().add(new XYChart.Data<Number, Number>(1, 24));
@@ -106,7 +106,7 @@ public class PatientRecordsController implements Initializable {
 			dataSeries.getData().add(new XYChart.Data<Number, Number>(8, 15));	
 			
 		} else {
-			measuresChart.setTitle("ECG Recordings of the last month");
+			measuresChart.setTitle("ECG Recordings of the selected day");
 			changeGraph.setText("Show EMG Recording");
 			isECG = true;
 			dataSeries.getData().add(new XYChart.Data<Number, Number>(1, 23));
@@ -173,12 +173,12 @@ public class PatientRecordsController implements Initializable {
 		}
 	}
 	
-	private void getPatientMothData(LocalDate selectedDate) {
-		Thread threadObject = new Thread("GettingMonthlyData") {
+	private void getPatientDayData(LocalDate selectedDate) {
+		Thread threadObject = new Thread("GettingDayData") {
 			public void run() {
 				
 				try {
-					HttpURLConnection connection = (HttpURLConnection) new URL(CommonParams.BASE_URL + "/getPatientInformation")
+					HttpURLConnection connection = (HttpURLConnection) new URL(CommonParams.BASE_URL + "/GetPatientDayRecords")
 							.openConnection();
 					connection.setRequestMethod("POST");
 					
