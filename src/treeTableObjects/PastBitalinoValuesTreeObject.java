@@ -1,6 +1,7 @@
 package treeTableObjects;
 
 import java.io.IOException;
+import java.sql.Date;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
@@ -17,51 +18,95 @@ import javafx.scene.layout.Pane;
 public class PastBitalinoValuesTreeObject extends RecursiveTreeObject<BitalinoConnectionTreeObject> {
 
 	private Pane pane;
-	private String MACAddress;
+	private String packetid;
+	private String packetdate;
+	private String samplingRate;
 	
-	private StringProperty bitalinoName;
-	private StringProperty bitalinoMAC;
-	private ObjectProperty<JFXButton> stablishConnection;
 	
-	public PastBitalinoValuesTreeObject(Pane pane, String name, String MACAddress) {
+	private StringProperty treePacketid;
+	private StringProperty treePacketdate;
+	private StringProperty treeSamplingRate;
+	
+	private ObjectProperty<JFXButton> viewRecord;
+	
+	public PastBitalinoValuesTreeObject(Pane pane, String packetid, String packetdate, String samplingRate) {
 		
-		this.MACAddress = MACAddress;
+		this.packetid = packetid;
+		this.packetdate = packetid;
+		this.samplingRate = samplingRate;
 		this.pane = pane;
 		
-		this.bitalinoName = new SimpleStringProperty(name);
-		this.bitalinoMAC = new SimpleStringProperty(MACAddress);
+		this.treePacketid = new SimpleStringProperty(packetid);
+		this.treePacketdate = new SimpleStringProperty(packetid);
+		this.treeSamplingRate = new SimpleStringProperty(samplingRate);
 		
-		JFXButton stablishConnection = new JFXButton("Select");
-		stablishConnection.getStyleClass().add("tree_table_button");
-		stablishConnection.setOnAction((ActionEvent event) -> {
-			stablishConnection();
+		JFXButton viewRecord = new JFXButton("View");
+		viewRecord.getStyleClass().add("tree_table_button");
+		viewRecord.setOnAction((ActionEvent event) -> {
+			viewRecord();
 		});
 		
-		this.stablishConnection = new SimpleObjectProperty<JFXButton>(stablishConnection);
+		this.viewRecord = new SimpleObjectProperty<JFXButton>(viewRecord);
 	}
 	
-	private void stablishConnection() {
-		AccountObjectCommunication.setMAC(MACAddress);
-		AccountObjectCommunication.getButtonControl1().setDisable(false);
-		loadConnectedPane();
+	private void viewRecord() {
+
 	}
 	
-	private void loadConnectedPane() {
-		Pane bitalinoConnectedPane;
-		try {
-			bitalinoConnectedPane = FXMLLoader.load(getClass().getResource("/bitalinoConnectedPane/BitalinoConnectedLayout.fxml"));
-			pane.getChildren().removeAll();
-			pane.getChildren().setAll(bitalinoConnectedPane);
-		} catch (IOException error) {
-			error.printStackTrace();
-		}
+
+	public String getPacketid() {
+		return packetid;
 	}
 
-	public StringProperty getBitalinoName() {return bitalinoName;}
+	public void setPacketid(String packetid) {
+		this.packetid = packetid;
+	}
 
-	public StringProperty getBitalinoMAC() {return bitalinoMAC;}
+	public String getPacketdate() {
+		return packetdate;
+	}
 
-	public ObjectProperty<JFXButton> getStablishConnection() {return stablishConnection;}
+	public void setPacketdate(String packetdate) {
+		this.packetdate = packetdate;
+	}
 
-	public String getMACAddress() {return MACAddress;}
+	public String getSamplingRate() {
+		return samplingRate;
+	}
+
+	public void setSamplingRate(String samplingRate) {
+		this.samplingRate = samplingRate;
+	}
+
+	public StringProperty getTreePacketid() {
+		return treePacketid;
+	}
+
+	public void setTreePacketid(StringProperty treePacketid) {
+		this.treePacketid = treePacketid;
+	}
+
+	public StringProperty getTreePacketdate() {
+		return treePacketdate;
+	}
+
+	public void setTreePacketdate(StringProperty treePacketdate) {
+		this.treePacketdate = treePacketdate;
+	}
+
+	public StringProperty getTreeSamplingRate() {
+		return treeSamplingRate;
+	}
+
+	public void setTreeSamplingRate(StringProperty treeSamplingRate) {
+		this.treeSamplingRate = treeSamplingRate;
+	}
+
+	public ObjectProperty<JFXButton> getViewRecord() {
+		return viewRecord;
+	}
+
+	public void setViewRecord(ObjectProperty<JFXButton> viewRecord) {
+		this.viewRecord = viewRecord;
+	}
 }
