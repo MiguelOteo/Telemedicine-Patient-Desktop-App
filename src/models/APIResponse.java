@@ -11,6 +11,7 @@ public class APIResponse {
 	private int APIresponseId;
 	private Doctor doctor;
 	private Patient patient;
+	private List<BitalinoPackage> dayRecords;
 	private List<Patient> noDoctorPatients;
 	private String encryptedPassword;
 	private String userName;
@@ -67,5 +68,9 @@ public class APIResponse {
 
 	public String getUserEmail() {return userEmail;}
 
-	public void setUserEmail(String userEmail) {this.userEmail = userEmail;}	
+	public void setUserEmail(String userEmail) {this.userEmail = userEmail;}
+
+	public List<BitalinoPackage> getDayRecords() {return dayRecords;}
+
+	public void setDayRecords(List<BitalinoPackage> dayRecords) {this.dayRecords = dayRecords;}	
 }
