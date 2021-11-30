@@ -76,13 +76,28 @@ For example: "12345678L".
 <img src="resources/documentationDependencies/doctor_id_view.png" width="600" border-radius=5% padding=100% />  
 </div>  
 
-6. After introducing your Doctor number identification a workspace is shown, where you can do a variety of actions; for example update your initial data proportioned when you sign up, or change the password often as a good cybersecurity custom. You can see your actual information below the doctor picture.
+6. [**Modify Own Data**]After introducing your Doctor number identification a workspace is shown, where you can do a variety of actions; for example update your initial data proportioned when you sign up, or change the password often as a good cybersecurity custom. You can see your actual information below the doctor picture.
 
 <div align="center">
 <img src="resources/documentationDependencies/doctor_account_view.png" width="600" border-radius=5% padding=100% />  
 </div>  
 
+7. [**Monitoring Patients Physiological Paramenters**]
+To monitor the physiological data of a patient you must add it to your control patients panel, in the "Your patients" view. To do that click on "Add new patients" button, and a new window will be opened.
 
+<div align="center">
+<img src="resources/documentationDependencies/your_patients_view.png" width="600" border-radius=5% padding=100% />  
+</div> 
+
+<div align="center">
+<img src="resources/documentationDependencies/1.png" width="600" border-radius=5% padding=100% />  
+</div> 
+
+There you can select the patients that you want, which will be marked with a tick. When you finish the selection process, click on "Add selected patients" button and the patients will be added. When you have finished, click on cancel operation to exit from the selection window.
+
+<div align="center">
+<img src="resources/documentationDependencies/2.png" width="600" border-radius=5% padding=100% />  
+</div> 
 
 
 ------
@@ -132,3 +147,5 @@ For example: "12345678T".
 
 7.[**BITalino Recording**]
 To start to recover your physiological data you have to connect your BITalino first. So if you don't, back to the last step to do it.
+
+
