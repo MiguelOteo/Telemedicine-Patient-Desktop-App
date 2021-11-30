@@ -184,7 +184,7 @@ public class PatientRecordsController implements Initializable {
 					
 					APIRequest requestAPI = new APIRequest();
 					requestAPI.setPatientId(patient.getPatientId());
-					requestAPI.setDate(selectedDate);
+					//requestAPI.setDate(selectedDate);
 					String postData = "APIRequest=" + URLEncoder.encode(new Gson().toJson(requestAPI), "UTF-8");
 					
 					connection.setDoOutput(true);
@@ -202,9 +202,21 @@ public class PatientRecordsController implements Initializable {
 					
 					APIResponse responseAPI = new Gson().fromJson(response.toString(), APIResponse.class);
 					
-					System.out.println(responseAPI.getAPImessage());
-					// TODO - Finish method
-					
+					if (!responseAPI.isError()) {
+						Platform.runLater(new Runnable() {
+							@Override
+							public void run() {
+								// TODO - Send data to arrays
+							}
+						});
+					} else {
+						Platform.runLater(new Runnable() {
+							@Override
+							public void run() {
+								openDialog(responseAPI.getAPImessage());
+							}
+						});
+					}
 				} catch (ConnectException | FileNotFoundException conncetionError) {
 					Platform.runLater(new Runnable() {
 						@Override
@@ -260,9 +272,13 @@ public class PatientRecordsController implements Initializable {
 							}
 						});
 					} else {
-						openDialog(responseAPI.getAPImessage());
+						Platform.runLater(new Runnable() {
+							@Override
+							public void run() {
+								openDialog(responseAPI.getAPImessage());
+							}
+						});
 					}
-					
 				} catch (ConnectException | FileNotFoundException conncetionError) {
 					Platform.runLater(new Runnable() {
 						@Override
