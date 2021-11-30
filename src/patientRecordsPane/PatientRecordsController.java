@@ -41,6 +41,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import models.APIRequest;
 import models.APIResponse;
+import models.BitalinoPackage;
 import models.Patient;
 
 public class PatientRecordsController implements Initializable {
@@ -77,14 +78,14 @@ public class PatientRecordsController implements Initializable {
 		
 		this.patient.setPatientId(AccountObjectCommunication.getDatabaseId());
 
+		getPatientInformation();
+		
 		ChartZoomManager zoomManager = new ChartZoomManager(chartPane, selectRect, measuresChart);
 		zoomManager.start();
 		
 		datePicker.valueProperty().addListener((observable, oldDate, newDate)->{
 			getPatientDayData(newDate);
-		});
-		
-		getPatientInformation();
+		});	
 	}
 	
 	@FXML
@@ -174,6 +175,7 @@ public class PatientRecordsController implements Initializable {
 	}
 	
 	private void getPatientDayData(LocalDate selectedDate) {
+		
 		Thread threadObject = new Thread("GettingDayData") {
 			public void run() {
 				
@@ -184,7 +186,7 @@ public class PatientRecordsController implements Initializable {
 					
 					APIRequest requestAPI = new APIRequest();
 					requestAPI.setPatientId(patient.getPatientId());
-					//requestAPI.setDate(selectedDate);
+					requestAPI.setDate(selectedDate);
 					String postData = "APIRequest=" + URLEncoder.encode(new Gson().toJson(requestAPI), "UTF-8");
 					
 					connection.setDoOutput(true);
@@ -206,7 +208,13 @@ public class PatientRecordsController implements Initializable {
 						Platform.runLater(new Runnable() {
 							@Override
 							public void run() {
-								// TODO - Send data to arrays
+								patient.getMeasuredPackages().clear();
+								patient.setMeasuredPackages(responseAPI.getDayRecords());
+								
+								// TODO - Insert data into the arrays
+								for(BitalinoPackage pack: patient.getMeasuredPackages()) {
+									System.out.println(pack.getRecordsData());
+								}
 							}
 						});
 					} else {
@@ -227,9 +235,7 @@ public class PatientRecordsController implements Initializable {
 					});
 				} catch (IOException error) {
 					error.printStackTrace();
-				}
-
-				
+				}		
 			}
 		};
 		threadObject.start();
