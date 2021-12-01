@@ -10,7 +10,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.sql.Date;
-import java.sql.Timestamp;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
@@ -74,6 +73,8 @@ public class PatientRecordsController implements Initializable {
  
 	private LocalTime[] dayTimeVector;
 	
+	private int[] dayDadaVector;
+	
 	private final XYChart.Series<Number, Number> dataSeries = new XYChart.Series<Number, Number>();
 	
 	@Override
@@ -86,7 +87,8 @@ public class PatientRecordsController implements Initializable {
 
 		getPatientInformation();
 		
-		createDayArray(1000);
+		createDayAndDataArray(1000);
+		turnStringToIntArray(null);
 		
 		ChartZoomManager zoomManager = new ChartZoomManager(chartPane, selectRect, measuresChart);
 		zoomManager.start();
@@ -187,32 +189,50 @@ public class PatientRecordsController implements Initializable {
 		}
 	}
 	
-	@SuppressWarnings("unused")
 	private void turnStringToIntArray(BitalinoPackage bitalinoPackage) {
 
-		String data = "";//bitalinoPackage.getRecordsData();
+		String ECGdata = "[2,3,4,5,1,4,2,5,3,5,3,5,4,3,5,3,3,5,3,3,5,3,5,3,5,3,3,5,4,6,4,6,4,6,4,3,3,2,4,4]";
 		
-		int[] dataArray = Arrays.stream(data.substring(1, data.length()-1).split(","))
+		int[] ECGdataArray = Arrays.stream(ECGdata.substring(1, ECGdata.length()-1).split(","))
 			    .map(String::trim).mapToInt(Integer::parseInt).toArray();
 		
-		Timestamp packageStartingDate = bitalinoPackage.getRecordsDate();
+		LocalTime startingDate = bitalinoPackage.getRecordsDate().toLocalDateTime().toLocalTime();
+		
+		int timePos = 0;
+		
+		for(timePos = 0; timePos < dayTimeVector.length; timePos++) {
+			if(dayTimeVector[timePos].equals(startingDate)) {
+				break;
+			}
+		}
+		
+		for(int n = timePos; n < timePos + ECGdataArray.length; n++) {
+			dayDadaVector[n] = ECGdataArray[n - timePos];
+		}
+		
+		for(timePos = 0; timePos < dayTimeVector.length; timePos++) {
+			System.out.println("Data Value: " + dayDadaVector[timePos] + " | Data Time: " + dayTimeVector[timePos]);
+		}
 	}
 	 
-	private void createDayArray(int frequency) {
+	private void createDayAndDataArray(int frequency) {
 		
 		Thread threadObject = new Thread("CreatingDayArray") {
 			public void run() {
 				
 				// Samples in a day
-				int samples = frequency * 24 * 60 * 60;
+				int samples = frequency; //* 24 * 60 * 60;
 				
 				dayTimeVector = new LocalTime[samples];
+				dayDadaVector = new int[samples];
 				
 				LocalTime time = LocalTime.MIN;
-				int gap = (1/frequency) * 1000;
 				
-				for(int n = 0; n < samples; n++) {
-					dayTimeVector[n] = time.plus(gap, ChronoUnit.MILLIS);
+				dayTimeVector[0] = time;
+				for(int n = 1; n < samples; n++) {
+					time = time.plus(1, ChronoUnit.MILLIS);
+					dayTimeVector[n] = time;
+					dayDadaVector[n] = 0;
 				}
 			}
 		};
