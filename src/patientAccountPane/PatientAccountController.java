@@ -173,7 +173,7 @@ public class PatientAccountController implements Initializable {
 					connection.setRequestMethod("POST");
 					APIRequest requestAPI = new APIRequest();
 					
-					requestAPI.setUserId(AccountObjectCommunication.getDoctor().getUserId());
+					requestAPI.setUserId(AccountObjectCommunication.getPatient().getUserId());
 					if(emailUpdate) {
 						
 						String userEmail = userEmailField.getText();
