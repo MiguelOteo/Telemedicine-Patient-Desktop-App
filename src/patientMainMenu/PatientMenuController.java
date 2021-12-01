@@ -58,7 +58,8 @@ public class PatientMenuController implements Initializable {
 			openPatientAccout();
 		}
 		
-		openBitalinoRecord.setDisable(true);
+		openBitalinoRecord.setDisable(false);
+		openBitalinoConnection.setDisable(false);
 	}
 
 	@FXML
@@ -82,13 +83,23 @@ public class PatientMenuController implements Initializable {
 
 	@FXML
 	private void openPatientAccout() {
-		// TODO - Load a patient account pane
-		openPatientAccount.setDisable(true);
-		openBitalinoConnection.setDisable(false);
+		
 		if (!AccountObjectCommunication.getMAC().equals("")) {
 			openBitalinoRecord.setDisable(false);
+		Pane patientAccountPane;
+			try {
+				patientAccountPane = FXMLLoader.load(getClass().getResource("/patientAccountPane/PatientAccountLayout.fxml"));
+				menuMainPane.getChildren().removeAll();
+				menuMainPane.getChildren().setAll(patientAccountPane);
+				openPatientAccount.setDisable(true);
+				openBitalinoConnection.setDisable(false);
+				openBitalinoRecord.setDisable(false);
+			} catch (IOException error) {
+				error.printStackTrace();
+				}
 		}
-	}
+			
+		}
 
 	@FXML
 	private void openBitalinoRecord() {
