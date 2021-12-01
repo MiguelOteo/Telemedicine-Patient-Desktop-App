@@ -1,19 +1,16 @@
 package parametersRecordPane;
 
-import java.io.FileWriter;
 import java.net.URL;
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.google.gson.Gson;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTreeTableColumn;
 import com.jfoenix.controls.JFXTreeTableView;
@@ -106,7 +103,7 @@ public class ParametersRecordController implements Initializable {
 		                int block_size=10;
 		                frame = bitalino.read(block_size);
 		                //LocalDateTime now = LocalDateTime.now();  
-		                Date now = new Date(2021);
+		                Timestamp now = new Timestamp(2021);
 		                
 		                String strDate = dateFormat.format(now);
 		                //System.out.println("size block: " + frame.length);

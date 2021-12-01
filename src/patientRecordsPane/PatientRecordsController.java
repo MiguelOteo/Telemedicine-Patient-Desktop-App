@@ -10,6 +10,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.sql.Date;
+import java.sql.Timestamp;
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.ResourceBundle;
 
@@ -68,7 +71,9 @@ public class PatientRecordsController implements Initializable {
 	private DatePicker datePicker;
 	@FXML
 	private LineChart<Number, Number> measuresChart;
-
+ 
+	private LocalTime[] dayTimeVector;
+	
 	private final XYChart.Series<Number, Number> dataSeries = new XYChart.Series<Number, Number>();
 	
 	@Override
@@ -80,6 +85,8 @@ public class PatientRecordsController implements Initializable {
 		this.patient.setPatientId(AccountObjectCommunication.getDatabaseId());
 
 		getPatientInformation();
+		
+		createDayArray(1000);
 		
 		ChartZoomManager zoomManager = new ChartZoomManager(chartPane, selectRect, measuresChart);
 		zoomManager.start();
@@ -180,11 +187,35 @@ public class PatientRecordsController implements Initializable {
 		}
 	}
 	
-	private int[] turnStringToIntArray(String data) {
+	private void turnStringToIntArray(BitalinoPackage bitalinoPackage) {
 
-		int[] arr = Arrays.stream(data/*.substring(1, data.length()-1)*/.split(","))
+		String data = "";//bitalinoPackage.getRecordsData();
+		
+		int[] dataArray = Arrays.stream(data.substring(1, data.length()-1).split(","))
 			    .map(String::trim).mapToInt(Integer::parseInt).toArray();
-		return arr;
+		
+		Timestamp packageStartingDate = bitalinoPackage.getRecordsDate();
+	}
+	 
+	private void createDayArray(int frequency) {
+		
+		Thread threadObject = new Thread("CreatingDayArray") {
+			public void run() {
+				
+				// Samples in a day
+				int samples = frequency * 24 * 60 * 60;
+				
+				dayTimeVector = new LocalTime[samples];
+				
+				LocalTime time = LocalTime.MIN;
+				int gap = (1/frequency) * 1000;
+				
+				for(int n = 0; n < samples; n++) {
+					dayTimeVector[n] = time.plus(gap, ChronoUnit.MILLIS);
+				}
+			}
+		};
+		threadObject.start();
 	}
 	
 	private void getPatientDayData(Date selectedDate) {
@@ -225,14 +256,10 @@ public class PatientRecordsController implements Initializable {
 								patient.setMeasuredPackages(responseAPI.getDayRecords());
 								
 								// TODO - Insert data into the arrays
-								for(BitalinoPackage pack: patient.getMeasuredPackages()) {
-									int[] data = turnStringToIntArray(pack.getRecordsData());
-									
-									for(int n = 0; n < data.length; n++) {
-										System.out.println(data[n]);
-									}
-									System.out.println("New array");
-								}
+								//for(BitalinoPackage pack: patient.getMeasuredPackages()) {
+									//int[] data = turnStringToIntArray(pack.getRecordsData());
+									//System.out.println(data.toString());
+								//}
 							}
 						});
 					} else {
