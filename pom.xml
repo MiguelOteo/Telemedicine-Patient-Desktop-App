@@ -33,10 +33,6 @@
 			<version>2.1.1</version>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/com.bitalino/bitalino-java-sdk -->
-		<!-- <dependency> <groupId>com.bitalino</groupId> <artifactId>bitalino-java-sdk</artifactId> 
-			<version>1.1.0</version> </dependency> -->
-
 		<!-- JavaFx FXML dependencies -->
 
 		<!-- https://mvnrepository.com/artifact/com.jfoenix/jfoenix -->
@@ -46,6 +42,27 @@
 			<artifactId>jfoenix</artifactId>
 			<version>9.0.1</version>
 		</dependency>
+
+		<!-- Due to a low performance in the JavaFX graphs we used a library of 
+			charts designed to work with big data sets -->
+		<dependency>
+			<groupId>de.gsi.chart</groupId>
+			<artifactId>chartfx-chart</artifactId>
+			<version>11.1.5</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-simple</artifactId>
+			<version>2.0.0-alpha0</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.webjars/font-awesome -->
+		<dependency>
+			<groupId>org.controlsfx</groupId>
+			<artifactId>controlsfx</artifactId>
+			<version>11.1.0</version>
+		</dependency>
+
+
 		<!-- https://mvnrepository.com/artifact/org.openjfx/javafx-controls -->
 		<dependency>
 			<groupId>org.openjfx</groupId>

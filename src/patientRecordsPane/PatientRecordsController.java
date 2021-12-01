@@ -10,18 +10,18 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.sql.Date;
-import java.time.LocalTime;
-import java.time.temporal.ChronoUnit;
-import java.util.Arrays;
 import java.util.ResourceBundle;
-
-import org.gillius.jfxutils.chart.ChartZoomManager;
 
 import com.google.gson.Gson;
 import com.jfoenix.controls.JFXButton;
 
 import commonParams.CommonParams;
 import communication.AccountObjectCommunication;
+import de.gsi.chart.axes.spi.DefaultNumericAxis;
+import de.gsi.chart.plugins.Zoomer;
+import de.gsi.chart.ui.geometry.Side;
+import de.gsi.dataset.spi.DoubleDataSet;
+import de.gsi.chart.XYChart;
 import dialogPopUp.DialogPopUpController;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -29,8 +29,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.chart.LineChart;
-import javafx.scene.chart.XYChart;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.effect.BoxBlur;
@@ -44,20 +42,19 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import models.APIRequest;
 import models.APIResponse;
-import models.BitalinoPackage;
 import models.Patient;
 
 public class PatientRecordsController implements Initializable {
 
 	private Patient patient = new Patient();
 	private boolean isECG = true;
-	
+
 	@FXML
 	private Pane mainPane;
 	@FXML
-	private JFXButton changeGraph;
-	@FXML
 	private StackPane chartPane;
+	@FXML
+	private JFXButton changeGraph;
 	@FXML
 	private Rectangle selectRect;
 	@FXML
@@ -68,69 +65,75 @@ public class PatientRecordsController implements Initializable {
 	private Label patientIdNumber;
 	@FXML
 	private DatePicker datePicker;
-	@FXML
-	private LineChart<Number, Number> measuresChart;
- 
-	private LocalTime[] dayTimeVector;
 	
-	private int[] dayDadaVector;
+	private XYChart dataChart;
 	
-	private final XYChart.Series<Number, Number> dataSeries = new XYChart.Series<Number, Number>();
+	private final DoubleDataSet ECGdataSet = new DoubleDataSet("ECG Records");
 	
+    private final DoubleDataSet EMGdataSet = new DoubleDataSet("EMG Records");
+    
+    private DefaultNumericAxis xAxis = new DefaultNumericAxis("Time", "Seconds");
+    
+    private DefaultNumericAxis yAxis = new DefaultNumericAxis("Records", "mV");
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-	
-		measuresChart.setTitle("ECG Recordings of the selected day");
+		
 		changeGraph.setText("Show EMG Recording");
-		
 		this.patient.setPatientId(AccountObjectCommunication.getDatabaseId());
-
 		getPatientInformation();
-		
-		createDayAndDataArray(1000);
-		turnStringToIntArray(null);
-		
-		ChartZoomManager zoomManager = new ChartZoomManager(chartPane, selectRect, measuresChart);
-		zoomManager.start();
-		
-		datePicker.valueProperty().addListener((observable, oldDate, newDate)->{
+
+		datePicker.valueProperty().addListener((observable, oldDate, newDate) -> {
 			getPatientDayData(Date.valueOf(newDate));
-		});	
+		});
+		
+		xAxis.setSide(Side.BOTTOM);
+		yAxis.setSide(Side.LEFT);
+		
+		dataChart = new XYChart(xAxis, yAxis);
+		final Zoomer zoom = new Zoomer();
+		dataChart.getPlugins().add(zoom);
+		chartPane.getChildren().add(dataChart);
 	}
-	
+
 	@FXML
 	private void changeChart(MouseEvent event) {
 		
-		dataSeries.getData().clear();
-		
-		if(isECG) { // If true then ECG graph has to be change
-			measuresChart.setTitle("EMG Recordings of the selected day");
+		if (isECG) { // If true then ECG graph has to be change
 			changeGraph.setText("Show ECG Recording");
 			isECG = false;
-			dataSeries.getData().add(new XYChart.Data<Number, Number>(1, 24));
-			dataSeries.getData().add(new XYChart.Data<Number, Number>(2, 22));
-			dataSeries.getData().add(new XYChart.Data<Number, Number>(3, 45));
-			dataSeries.getData().add(new XYChart.Data<Number, Number>(4, 23));
-			dataSeries.getData().add(new XYChart.Data<Number, Number>(5, 34));
-			dataSeries.getData().add(new XYChart.Data<Number, Number>(6, 36));
-			dataSeries.getData().add(new XYChart.Data<Number, Number>(7, 14));
-			dataSeries.getData().add(new XYChart.Data<Number, Number>(8, 15));	
 			
+			final int N_SAMPLES = 3000;
+			
+			final double[] xValues = new double[N_SAMPLES];
+		    final double[] yValues2 = new double[N_SAMPLES];
+		    for (int n = 0; n < N_SAMPLES; n++) {
+		    	xValues[n] = n;
+		        yValues2[n] = Math.sin(Math.toRadians(10.0 * n));
+		    }
+		    EMGdataSet.set(xValues, yValues2);
+
+		    dataChart.getDatasets().clear();
+		    dataChart.getDatasets().add(EMGdataSet);
+		    
 		} else {
-			measuresChart.setTitle("ECG Recordings of the selected day");
+
 			changeGraph.setText("Show EMG Recording");
-			isECG = true;
-			dataSeries.getData().add(new XYChart.Data<Number, Number>(1, 23));
-			dataSeries.getData().add(new XYChart.Data<Number, Number>(2, 14));
-			dataSeries.getData().add(new XYChart.Data<Number, Number>(3, 15));
-			dataSeries.getData().add(new XYChart.Data<Number, Number>(4, 24));
-			dataSeries.getData().add(new XYChart.Data<Number, Number>(5, 34));
-			dataSeries.getData().add(new XYChart.Data<Number, Number>(6, 36));
-			dataSeries.getData().add(new XYChart.Data<Number, Number>(7, 22));
-			dataSeries.getData().add(new XYChart.Data<Number, Number>(8, 45));
+			isECG = true;	
+			
+			final int N_SAMPLES = 3000;
+			
+			final double[] xValues = new double[N_SAMPLES];
+		    final double[] yValues1 = new double[N_SAMPLES];
+		    for (int n = 0; n < N_SAMPLES; n++) {
+		    	xValues[n] = n;
+		        yValues1[n] = Math.cos(Math.toRadians(10.0 * n));
+		    }
+		    ECGdataSet.set(xValues, yValues1);
+		    
+		    dataChart.getDatasets().clear();
+		    dataChart.getDatasets().add(ECGdataSet);
 		}
-		measuresChart.getData().clear();
-		measuresChart.getData().add(dataSeries);
 	}
 
 	@FXML
@@ -138,34 +141,35 @@ public class PatientRecordsController implements Initializable {
 		Stage stage = (Stage) mainPane.getScene().getWindow();
 		stage.setIconified(true);
 	}
-	
+
 	@FXML
 	private void closeApp(MouseEvent event) {
 		System.exit(0);
 	}
-	
+
 	@FXML
 	private void goBack(MouseEvent event) {
 		Pane doctorPatientsPane;
 		try {
-			doctorPatientsPane = FXMLLoader.load(getClass().getResource("/doctorPatientsPane/DoctorPatientsLayout.fxml"));
+			doctorPatientsPane = FXMLLoader
+					.load(getClass().getResource("/doctorPatientsPane/DoctorPatientsLayout.fxml"));
 			mainPane.getChildren().removeAll();
 			mainPane.getChildren().setAll(doctorPatientsPane);
 		} catch (IOException error) {
 			error.printStackTrace();
 		}
 	}
-	
+
 	private void loadInformation() {
 		patientName.setText("Name: " + patient.getName());
-		if(patient.getPatientIdNumber() != null) {
+		if (patient.getPatientIdNumber() != null) {
 			patientIdNumber.setText("Patient ID: " + patient.getPatientIdNumber());
 		} else {
 			patientIdNumber.setText("Patient ID: not inserted");
 		}
 		patientEmail.setText("Patient email: " + patient.getEmail());
 	}
-	
+
 	// Displays any error returned form the Rest API
 	private void openDialog(String message) {
 		try {
@@ -182,78 +186,90 @@ public class PatientRecordsController implements Initializable {
 			AccountObjectCommunication.getAnchorPane().setEffect(new BoxBlur(4, 4, 4));
 			stage.show();
 			stage.setOnHiding(event -> {
-					AccountObjectCommunication.getAnchorPane().setEffect(null);
+				AccountObjectCommunication.getAnchorPane().setEffect(null);
 			});
 		} catch (IOException exception) {
 			exception.printStackTrace();
 		}
 	}
-	
-	private void turnStringToIntArray(BitalinoPackage bitalinoPackage) {
 
-		String ECGdata = "[2,3,4,5,1,4,2,5,3,5,3,5,4,3,5,3,3,5,3,3,5,3,5,3,5,3,3,5,4,6,4,6,4,6,4,3,3,2,4,4]";
+	/*private void addBitalinoDataToGraphArrays(BitalinoPackage bitalinoPackage) {
+
+		String ECGdata = bitalinoPackage.getecgData();
+		String EMGdata = bitalinoPackage.getemgData();
 		
-		int[] ECGdataArray = Arrays.stream(ECGdata.substring(1, ECGdata.length()-1).split(","))
-			    .map(String::trim).mapToInt(Integer::parseInt).toArray();
-		
-		LocalTime startingDate = bitalinoPackage.getRecordsDate().toLocalDateTime().toLocalTime();
-		
-		int timePos = 0;
-		
-		for(timePos = 0; timePos < dayTimeVector.length; timePos++) {
-			if(dayTimeVector[timePos].equals(startingDate)) {
-				break;
-			}
-		}
-		
-		for(int n = timePos; n < timePos + ECGdataArray.length; n++) {
-			dayDadaVector[n] = ECGdataArray[n - timePos];
-		}
-		
-		for(timePos = 0; timePos < dayTimeVector.length; timePos++) {
-			System.out.println("Data Value: " + dayDadaVector[timePos] + " | Data Time: " + dayTimeVector[timePos]);
-		}
-	}
-	 
-	private void createDayAndDataArray(int frequency) {
-		
-		Thread threadObject = new Thread("CreatingDayArray") {
+		Thread threadObject = new Thread("AddingData") {
 			public void run() {
 				
-				// Samples in a day
-				int samples = frequency; //* 24 * 60 * 60;
-				
-				dayTimeVector = new LocalTime[samples];
-				dayDadaVector = new int[samples];
-				
-				LocalTime time = LocalTime.MIN;
-				
-				dayTimeVector[0] = time;
-				for(int n = 1; n < samples; n++) {
-					time = time.plus(1, ChronoUnit.MILLIS);
-					dayTimeVector[n] = time;
-					dayDadaVector[n] = 0;
+				int[] ECGdataArray = Arrays.stream(ECGdata.substring(1, ECGdata.length() - 1).split(","))
+						.map(String::trim).mapToInt(Integer::parseInt).toArray();
+
+				int[] EMGdataArray = Arrays.stream(EMGdata.substring(1, EMGdata.length() - 1).split(","))
+						.map(String::trim).mapToInt(Integer::parseInt).toArray();
+
+				LocalTime startingDate = bitalinoPackage.getRecordsDate().toLocalDateTime().toLocalTime();
+
+				int timePos = 0;
+
+				for (timePos = 0; timePos < dayTimeVector.length; timePos++) {
+					if (dayTimeVector[timePos].equals(startingDate)) {
+						break;
+					}
+				}
+
+				for (int n = timePos; n < timePos + ECGdataArray.length; n++) {
+					dayECGDadaVector[n] = ECGdataArray[n - timePos];
+					dayEMGDadaVector[n] = EMGdataArray[n - timePos];
 				}
 			}
 		};
 		threadObject.start();
-	}
-	
+	}*/
+
+	/*@SuppressWarnings("unused")
+	private void createDayAndDataArray(int frequency) {
+
+		Thread threadObject = new Thread("CreatingDayArray") {
+			public void run() {
+
+				// Samples in a half an hour
+				int samples = frequency * 30 * 60;
+
+				dayTimeVector = new LocalTime[samples];
+				dayECGDadaVector = new int[samples];
+				dayEMGDadaVector = new int[samples];
+
+				LocalTime time = LocalTime.MIN;
+
+				dayTimeVector[0] = time;
+				dayECGDadaVector[0] = 0;
+				dayEMGDadaVector[0] = 0;
+				for (int n = 1; n < samples; n++) {
+					time = time.plus(1, ChronoUnit.MILLIS);
+					dayTimeVector[n] = time;
+					dayECGDadaVector[n] = 0;
+					dayEMGDadaVector[n] = 0;
+				}
+			}
+		};
+		threadObject.start();
+	}*/
+
 	private void getPatientDayData(Date selectedDate) {
-		
+
 		Thread threadObject = new Thread("GettingDayData") {
 			public void run() {
-				
+
 				try {
-					HttpURLConnection connection = (HttpURLConnection) new URL(CommonParams.BASE_URL + "/GetPatientDayRecords")
-							.openConnection();
+					HttpURLConnection connection = (HttpURLConnection) new URL(
+							CommonParams.BASE_URL + "/GetPatientDayRecords").openConnection();
 					connection.setRequestMethod("POST");
-					
+
 					APIRequest requestAPI = new APIRequest();
 					requestAPI.setPatientId(patient.getPatientId());
 					requestAPI.setDate(selectedDate);
 					String postData = "APIRequest=" + URLEncoder.encode(new Gson().toJson(requestAPI), "UTF-8");
-					
+
 					connection.setDoOutput(true);
 					OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
 					writer.write(postData);
@@ -266,20 +282,18 @@ public class PatientRecordsController implements Initializable {
 						response.append(inputLine);
 					}
 					inputReader.close();
-					
+
 					APIResponse responseAPI = new Gson().fromJson(response.toString(), APIResponse.class);
-					
+
 					if (!responseAPI.isError()) {
 						Platform.runLater(new Runnable() {
 							@Override
 							public void run() {
 								patient.getMeasuredPackages().clear();
 								patient.setMeasuredPackages(responseAPI.getDayRecords());
-								
-								// TODO - Insert data into the arrays
-								//for(BitalinoPackage pack: patient.getMeasuredPackages()) {
-									//int[] data = turnStringToIntArray(pack.getRecordsData());
-									//System.out.println(data.toString());
+
+								//for (BitalinoPackage pack : patient.getMeasuredPackages()) {
+									//addBitalinoDataToGraphArrays(pack);
 								//}
 							}
 						});
@@ -301,25 +315,25 @@ public class PatientRecordsController implements Initializable {
 					});
 				} catch (IOException error) {
 					error.printStackTrace();
-				}		
+				}
 			}
 		};
 		threadObject.start();
 	}
-	
+
 	private void getPatientInformation() {
 		Thread threadObject = new Thread("gettingPatientInfo") {
 			public void run() {
 				try {
-					HttpURLConnection connection = (HttpURLConnection) new URL(CommonParams.BASE_URL + "/getPatientInformation")
-							.openConnection();
+					HttpURLConnection connection = (HttpURLConnection) new URL(
+							CommonParams.BASE_URL + "/getPatientInformation").openConnection();
 
 					connection.setRequestMethod("POST");
-					
+
 					APIRequest requestAPI = new APIRequest();
 					requestAPI.setPatientId(patient.getPatientId());
 					String postData = "APIRequest=" + URLEncoder.encode(new Gson().toJson(requestAPI), "UTF-8");
-					
+
 					connection.setDoOutput(true);
 					OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
 					writer.write(postData);
@@ -334,7 +348,7 @@ public class PatientRecordsController implements Initializable {
 					inputReader.close();
 
 					APIResponse responseAPI = new Gson().fromJson(response.toString(), APIResponse.class);
-					
+
 					if (!responseAPI.isError()) {
 						patient = responseAPI.getPatient();
 						Platform.runLater(new Runnable() {
