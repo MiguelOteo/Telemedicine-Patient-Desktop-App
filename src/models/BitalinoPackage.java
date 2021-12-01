@@ -1,6 +1,8 @@
 package models;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BitalinoPackage {
 
@@ -9,25 +11,28 @@ public class BitalinoPackage {
 	private int patientId;
 	private int recordFreq;
 	private Date recordsDate;
-	private String recordsData;
+	private String emgData;
+	private String ecgData;
 
-	public BitalinoPackage(int patientId, int recordFreq, Date now, String recordsData) {
+	public BitalinoPackage(int patientId, int recordFreq, Date now, String emgData, String ecgData) {
 		
 		this.patientId = patientId;
 		this.recordFreq = recordFreq;
 		this.recordsDate = now;
-		this.recordsData = recordsData;
+		this.emgData = emgData;
+		this.ecgData = ecgData;
 		
 	}
 	
-	public BitalinoPackage(int bitalinoPackageId, int patientId, int recordFreq, Date startingDate, String recordsData) {
+	public BitalinoPackage(int bitalinoPackageId, int patientId, int recordFreq, Date startingDate, String emgData, String ecgData) {
 		
 		this.bitalinoPackageId = bitalinoPackageId;
 		
 		this.patientId = patientId;
 		this.recordFreq = recordFreq;
 		this.recordsDate = startingDate;
-		this.recordsData = recordsData;
+		this.emgData = emgData;
+		this.ecgData = ecgData;
 	}
 
 	public int getBitalinoPackageId() {return bitalinoPackageId;}
@@ -46,8 +51,12 @@ public class BitalinoPackage {
 
 	public void setRecordsDate(Date recordsDate) {this.recordsDate = recordsDate;}
 
-	public String getRecordsData() {return recordsData;}
+	public String getemgData() {return emgData;}
 
-	public void setRecordsData(String recordsData) {this.recordsData = recordsData;}
+	public void setemgData(String emgData) {this.emgData = emgData;}
+	
+	public String getecgData() {return ecgData;}
+
+	public void setecgData(String ecgData) {this.ecgData = ecgData;}
 }
 

@@ -45,7 +45,7 @@ import treeTableObjects.PastBitalinoValuesTreeObject;
 public class ParametersRecordController implements Initializable {
 
 	
-	private boolean recordvalue = false;
+	private boolean recordvalue = true;
 	
 	private int counter = 0;
 	
@@ -76,7 +76,8 @@ public class ParametersRecordController implements Initializable {
 	private int SamplingRate = 10;
 	
 	public void initialize(URL location, ResourceBundle resources) {
-		
+			
+			 pastValuesTreeView.refresh();
 			 int patientId = AccountObjectCommunication.getPatient().getPatientId();
 			 BITalino bitalino = null;
 			 
@@ -100,31 +101,52 @@ public class ParametersRecordController implements Initializable {
 		            //Read in total 10000000 times
 		            //while with boolean that button changes so that it closes	
 		            while(recordvalue == true) {
-
+		    			nothingtoshow.setText("Recording has started");
 		                //Each time read a block of 10 samples 
 		                int block_size=10;
 		                frame = bitalino.read(block_size);
 		                //LocalDateTime now = LocalDateTime.now();  
-		                Date now = (Date) Calendar.getInstance().getTime();  
+		                Date now = new Date(2021);
+		                
 		                String strDate = dateFormat.format(now);
 		                //System.out.println("size block: " + frame.length);
 		                
-		                BitalinoPackage bitalinopack = new BitalinoPackage(patientId, SamplingRate, now, frame.toString());
-		                AccountObjectCommunication.getPatient().addNewPackage(bitalinopack);
 		                
 		                //kk id identification
 		                packetIds.add(Integer.toString(idvalue));
 		                idvalue++;
 		                packetDates.add(strDate);
-		                
+		                pastValuesTreeView.refresh();
+		                String emgValues = "[";
+		                String ecgValues = "[";
+		                for (int i = 0; i < frame.length; i++) {
+		                	
+		                	emgValues = emgValues + frame[i].analog[0]+ ","; 
+		                	ecgValues = ecgValues + frame[i].analog[1] + ",";
+		                	
+
+
+		                }
+		                emgValues = emgValues.substring(0, emgValues.length() - 1);
+		                ecgValues = ecgValues.substring(0, emgValues.length() - 1);
+		                emgValues = emgValues + "]";
+		                ecgValues = ecgValues + "]";
+		                System.out.println(emgValues);
+		                System.out.println(ecgValues);
+		                BitalinoPackage bitalinopack = new BitalinoPackage(patientId, SamplingRate, now, emgValues, ecgValues);
+		                AccountObjectCommunication.getPatient().addNewPackage(bitalinopack);
 		                
 		                //write the file to send
 		                
-		                String nombrepaquete = "paquete " + counter;
-		                counter++;
-		                FileWriter fileWriter = new FileWriter(nombrepaquete);
-		                fileWriter.write(new Gson().toJson(frame));
-		                fileWriter.close();
+		                //String nombrepaquete = "paquete " + counter;
+		                //counter++;
+		                //FileWriter fileWriter = new FileWriter(nombrepaquete);
+		                //fileWriter.write(new Gson().toJson(frame));
+		                //fileWriter.close();
+		                
+		                if (idvalue == 10) {
+		                	recordvalue = false;
+		                }
 		                
 		                
 		            }
@@ -156,7 +178,6 @@ public class ParametersRecordController implements Initializable {
 		}
 		else {
 			recordvalue = true;
-			nothingtoshow.setText("Recording has started");
 		}
 	}
 		
