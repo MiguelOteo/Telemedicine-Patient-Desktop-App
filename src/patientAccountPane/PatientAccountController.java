@@ -1,4 +1,4 @@
-package patientAccount;
+package patientAccountPane;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
