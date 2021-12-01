@@ -187,6 +187,7 @@ public class PatientRecordsController implements Initializable {
 		}
 	}
 	
+	@SuppressWarnings("unused")
 	private void turnStringToIntArray(BitalinoPackage bitalinoPackage) {
 
 		String data = "";//bitalinoPackage.getRecordsData();
