@@ -128,7 +128,7 @@ public class ParametersRecordController implements Initializable {
 
 		                }
 		                emgValues = emgValues.substring(0, emgValues.length() - 1);
-		                ecgValues = ecgValues.substring(0, emgValues.length() - 1);
+		                ecgValues = ecgValues.substring(0, ecgValues.length() - 1);
 		                emgValues = emgValues + "]";
 		                ecgValues = ecgValues + "]";
 		                System.out.println(emgValues);
