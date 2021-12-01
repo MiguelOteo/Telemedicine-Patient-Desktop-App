@@ -10,6 +10,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.sql.Date;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
 import org.gillius.jfxutils.chart.ChartZoomManager;
@@ -148,7 +149,11 @@ public class PatientRecordsController implements Initializable {
 	
 	private void loadInformation() {
 		patientName.setText("Name: " + patient.getName());
-		patientIdNumber.setText("Patient ID: " + patient.getPatientIdNumber());
+		if(patient.getPatientIdNumber() != null) {
+			patientIdNumber.setText("Patient ID: " + patient.getPatientIdNumber());
+		} else {
+			patientIdNumber.setText("Patient ID: not inserted");
+		}
 		patientEmail.setText("Patient email: " + patient.getEmail());
 	}
 	
@@ -173,6 +178,13 @@ public class PatientRecordsController implements Initializable {
 		} catch (IOException exception) {
 			exception.printStackTrace();
 		}
+	}
+	
+	private int[] turnStringToIntArray(String data) {
+
+		int[] arr = Arrays.stream(data/*.substring(1, data.length()-1)*/.split(","))
+			    .map(String::trim).mapToInt(Integer::parseInt).toArray();
+		return arr;
 	}
 	
 	private void getPatientDayData(Date selectedDate) {
@@ -214,7 +226,12 @@ public class PatientRecordsController implements Initializable {
 								
 								// TODO - Insert data into the arrays
 								for(BitalinoPackage pack: patient.getMeasuredPackages()) {
-									System.out.println(pack.getRecordsData());
+									int[] data = turnStringToIntArray(pack.getRecordsData());
+									
+									for(int n = 0; n < data.length; n++) {
+										System.out.println(data[n]);
+									}
+									System.out.println("New array");
 								}
 							}
 						});

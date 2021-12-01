@@ -82,7 +82,7 @@
 		<DatePicker fx:id="datePicker" editable="false" layoutX="670.0" layoutY="165.0" prefHeight="32.0" prefWidth="229.0" promptText="Select a day" styleClass="date-chooser" />
 		<StackPane fx:id="chartPane" alignment="CENTER" layoutX="68.0" layoutY="238.0" prefHeight="400.0" prefWidth="830.0">
          <children>
-            <LineChart fx:id="measuresChart" animated="false" legendVisible="false">
+            <LineChart fx:id="measuresChart" animated="false" legendVisible="false" title="Display graph title">
               <xAxis>
                 <NumberAxis animated="false" side="BOTTOM" />
               </xAxis>
@@ -94,7 +94,7 @@
          </children>
 		</StackPane>
       <JFXButton fx:id="changeGraph" layoutX="382.0" layoutY="651.0" onMouseClicked="#changeChart" prefHeight="34.0" prefWidth="202.0" styleClass="change_graph_button" text="Button text" />
-      <Label alignment="CENTER" layoutX="657.0" layoutY="125.0" prefHeight="23.0" prefWidth="255.0" text="To display the patient's records" textFill="#0000007e">
+      <Label alignment="CENTER" layoutX="657.0" layoutY="125.0" prefHeight="23.0" prefWidth="255.0" styleClass="label_text" text="To display the patient's records" textFill="#0000007e">
          <font>
             <Font size="16.0" />
          </font>
