@@ -75,7 +75,7 @@ public class PatientRecordsController implements Initializable {
     private DefaultNumericAxis xAxis = new DefaultNumericAxis("Time", "Seconds");
     
     private DefaultNumericAxis yAxis = new DefaultNumericAxis("Records", "mV");
-
+    
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
@@ -92,6 +92,8 @@ public class PatientRecordsController implements Initializable {
 		
 		dataChart = new XYChart(xAxis, yAxis);
 		final Zoomer zoom = new Zoomer();
+		zoom.omitAxisZoomList().add(yAxis);
+		zoom.setSliderVisible(false);
 		dataChart.getPlugins().add(zoom);
 		chartPane.getChildren().add(dataChart);
 	}
@@ -99,41 +101,53 @@ public class PatientRecordsController implements Initializable {
 	@FXML
 	private void changeChart(MouseEvent event) {
 		
-		if (isECG) { // If true then ECG graph has to be change
-			changeGraph.setText("Show ECG Recording");
-			isECG = false;
-			
-			final int N_SAMPLES = 3000;
-			
-			final double[] xValues = new double[N_SAMPLES];
-		    final double[] yValues2 = new double[N_SAMPLES];
-		    for (int n = 0; n < N_SAMPLES; n++) {
-		    	xValues[n] = n;
-		        yValues2[n] = Math.sin(Math.toRadians(10.0 * n));
-		    }
-		    EMGdataSet.set(xValues, yValues2);
+		Thread threadObject = new Thread("Creating data set and showing it") {
+			public void run() {
+				
+				if (isECG) { // If true then ECG graph has to be change
+					isECG = false;
+					final int N_SAMPLES = 60000;
+					
+					final double[] xValues = new double[N_SAMPLES];
+				    final double[] yValues2 = new double[N_SAMPLES];
+				    for (int n = 0; n < N_SAMPLES; n++) {
+				    	xValues[n] = n;
+				        yValues2[n] = Math.sin(Math.toRadians(10.0 * n));
+				    }
+				    EMGdataSet.set(xValues, yValues2);
 
-		    dataChart.getDatasets().clear();
-		    dataChart.getDatasets().add(EMGdataSet);
-		    
-		} else {
-
-			changeGraph.setText("Show EMG Recording");
-			isECG = true;	
-			
-			final int N_SAMPLES = 3000;
-			
-			final double[] xValues = new double[N_SAMPLES];
-		    final double[] yValues1 = new double[N_SAMPLES];
-		    for (int n = 0; n < N_SAMPLES; n++) {
-		    	xValues[n] = n;
-		        yValues1[n] = Math.cos(Math.toRadians(10.0 * n));
-		    }
-		    ECGdataSet.set(xValues, yValues1);
-		    
-		    dataChart.getDatasets().clear();
-		    dataChart.getDatasets().add(ECGdataSet);
-		}
+				    Platform.runLater(new Runnable() {
+						@Override
+						public void run() {
+							changeGraph.setText("Show ECG Recording");
+						    dataChart.getDatasets().clear();
+						    dataChart.getDatasets().add(EMGdataSet);
+						}
+					}); 
+				} else {
+					isECG = true;	
+					final int N_SAMPLES = 60000;
+					
+					final double[] xValues = new double[N_SAMPLES];
+				    final double[] yValues1 = new double[N_SAMPLES];
+				    for (int n = 0; n < N_SAMPLES; n++) {
+				    	xValues[n] = n;
+				        yValues1[n] = Math.cos(Math.toRadians(10.0 * n));
+				    }
+				    ECGdataSet.set(xValues, yValues1);
+				    
+				    Platform.runLater(new Runnable() {
+						@Override
+						public void run() {
+							changeGraph.setText("Show EMG Recording");
+						    dataChart.getDatasets().clear();
+						    dataChart.getDatasets().add(ECGdataSet);
+						}
+					});
+				}
+			}
+		};
+		threadObject.start();
 	}
 
 	@FXML
