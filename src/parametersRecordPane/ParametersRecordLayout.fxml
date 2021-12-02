@@ -70,7 +70,7 @@
           <MenuItem mnemonicParsing="false" text="EMG channel" />
         </items>
       </MenuButton>
-      <JFXTreeTableView fx:id="pastValuesTreeView" layoutX="561.0" layoutY="89.0" prefHeight="230.0" prefWidth="362.0" styleClass="tree_view">
+      <JFXTreeTableView fx:id="pastValuesTreeView" layoutX="537.0" layoutY="89.0" prefHeight="230.0" prefWidth="386.0" styleClass="tree_view">
          <columnResizePolicy>
             <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>

@@ -63,7 +63,7 @@ import treeTableObjects.PastBitalinoValuesTreeObject;
 public class ParametersRecordController implements Initializable {
 
 	
-	private boolean recordvalue = true;
+	private boolean recordvalue = false;
 	
 	private int counter = 0;
 	
@@ -94,18 +94,27 @@ public class ParametersRecordController implements Initializable {
 	private int SamplingRate = 100;
 	
 	public void initialize(URL location, ResourceBundle resources) {
-			
+			loadTreeTable();
 			
 	}
 	
 	@FXML
 	private void startStopRecording(MouseEvent event) {
 		
+		if (recordvalue == true) {
+			recordvalue = false;
+			nothingtoshow.setText("Recording has stopped");
+		}
+		else {
+			recordvalue = true;
+		}
+		
+		 idvalue=0;
 		 pastValuesTreeView.refresh();
 		 int patientId = AccountObjectCommunication.getPatient().getPatientId();
 		 BITalino bitalino = null;
 		 
-         DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");  
+         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");  
 
          
 	        try {
@@ -125,12 +134,12 @@ public class ParametersRecordController implements Initializable {
 	            //Read in total 10000000 times
 	            //while with boolean that button changes so that it closes	
 	            while(recordvalue == true) {
-	    			nothingtoshow.setText("Recording has started");
+	    			nothingtoshow.setText("Recording has started, please wait");
 	                //Each time read a block of 10 samples 
 	                int block_size=10;
 	                frame = bitalino.read(block_size);
 	                //LocalDateTime now = LocalDateTime.now();  
-	                Timestamp now = new Timestamp(2021);
+	                Timestamp now = new Timestamp(System.currentTimeMillis());
 	                
 	                String strDate = dateFormat.format(now);
 	                //System.out.println("size block: " + frame.length);
@@ -140,7 +149,6 @@ public class ParametersRecordController implements Initializable {
 	                packetIds.add(Integer.toString(idvalue));
 	                idvalue++;
 	                packetDates.add(strDate);
-	                pastValuesTreeView.refresh();
 	                String emgValues = "[";
 	                String ecgValues = "[";
 	                for (int i = 0; i < frame.length; i++) {
@@ -228,9 +236,12 @@ public class ParametersRecordController implements Initializable {
 	                //FileWriter fileWriter = new FileWriter(nombrepaquete);
 	                //fileWriter.write(new Gson().toJson(frame));
 	                //fileWriter.close();
+	                loadData();
+	                pastValuesTreeView.refresh();
 	                
-	                if (idvalue == 1) {
+	                if (idvalue == 2) {
 	                	recordvalue = false;
+	        			nothingtoshow.setText("Recording has stopped");
 	                }
 	                
 	                
@@ -253,13 +264,7 @@ public class ParametersRecordController implements Initializable {
 	        }
 
 	   
-		//if (recordvalue == true) {
-			//recordvalue = false;
-			//nothingtoshow.setText("Recording has stopped");
-		//}
-		//else {
-			//recordvalue = true;
-		//}
+
 	}
 		
 		/*la idea es  usar este boton para empezar a grabar y parar
@@ -268,19 +273,19 @@ public class ParametersRecordController implements Initializable {
 		 * Se crea una lista
 		 */
 	
-	@SuppressWarnings("unused")
+
 	private void loadData() {
-		int count = 1;
+		int count = 0;
 		String rate = Integer.toString(SamplingRate);
 		recordsObjects.clear();
 		for (String packetIds: packetIds) {
-			recordsObjects.add(new PastBitalinoValuesTreeObject(mainPane, packetIds, "placeholder fecha", rate));
+			String date = packetDates.get(count);
+			recordsObjects.add(new PastBitalinoValuesTreeObject(mainPane, packetIds, date, rate));
 			count++;
 		}
 		pastValuesTreeView.refresh();
 	}
 	
-	@SuppressWarnings("unused")
 	private void loadTreeTable() {
 		
 		JFXTreeTableColumn<PastBitalinoValuesTreeObject, String> packetId = new JFXTreeTableColumn<>("Packet ID");
@@ -294,7 +299,7 @@ public class ParametersRecordController implements Initializable {
 		packetId.setResizable(false);
 		
 		JFXTreeTableColumn<PastBitalinoValuesTreeObject, String> packetDate = new JFXTreeTableColumn<>("Date of Recording");
-		//bitalinoMAC.setPrefWidth(200);
+		packetDate.setPrefWidth(160);
 		packetDate.setCellValueFactory(new Callback<JFXTreeTableColumn.CellDataFeatures<PastBitalinoValuesTreeObject,String>, ObservableValue<String>>() {
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<PastBitalinoValuesTreeObject, String> param) {
