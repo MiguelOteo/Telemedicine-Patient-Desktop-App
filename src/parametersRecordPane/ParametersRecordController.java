@@ -1,6 +1,14 @@
 package parametersRecordPane;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.ConnectException;
+import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -11,6 +19,7 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.google.gson.Gson;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTreeTableColumn;
 import com.jfoenix.controls.JFXTreeTableView;
@@ -20,21 +29,33 @@ import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import BITalino.BITalino;
 import BITalino.BITalinoException;
 import BITalino.Frame;
+import commonParams.CommonParams;
 import communication.AccountObjectCommunication;
+import dialogPopUp.DialogPopUpController;
+import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTableColumn.CellDataFeatures;
+import javafx.scene.effect.BoxBlur;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Callback;
+import models.APIRequest;
+import models.APIResponse;
 import models.BitalinoPackage;
 import treeTableObjects.PastBitalinoValuesTreeObject;
 
@@ -70,112 +91,175 @@ public class ParametersRecordController implements Initializable {
 	
 	private int idvalue = 0;
 	
-	private int SamplingRate = 10;
+	private int SamplingRate = 100;
 	
 	public void initialize(URL location, ResourceBundle resources) {
 			
-			 pastValuesTreeView.refresh();
-			 int patientId = AccountObjectCommunication.getPatient().getPatientId();
-			 BITalino bitalino = null;
-			 
-             DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");  
-
-             
-		        try {
-		            bitalino = new BITalino();
-
-		            
-		            //Sampling rate, should be 10, 100 or 1000
-		            //int SamplingRate = 10;
-		            String MAC = AccountObjectCommunication.getMAC();
-		            bitalino.open(MAC, SamplingRate);
-
-		            // Start acquisition on analog channels A1 and A2
-		            // For example, If you want A1, A3 and A4 you should use {0,2,3}
-		            int[] channelsToAcquire = {0, 1};
-		            bitalino.start(channelsToAcquire);
-
-		            //Read in total 10000000 times
-		            //while with boolean that button changes so that it closes	
-		            while(recordvalue == true) {
-		    			nothingtoshow.setText("Recording has started");
-		                //Each time read a block of 10 samples 
-		                int block_size=10;
-		                frame = bitalino.read(block_size);
-		                //LocalDateTime now = LocalDateTime.now();  
-		                Timestamp now = new Timestamp(2021);
-		                
-		                String strDate = dateFormat.format(now);
-		                //System.out.println("size block: " + frame.length);
-		                
-		                
-		                //kk id identification
-		                packetIds.add(Integer.toString(idvalue));
-		                idvalue++;
-		                packetDates.add(strDate);
-		                pastValuesTreeView.refresh();
-		                String emgValues = "[";
-		                String ecgValues = "[";
-		                for (int i = 0; i < frame.length; i++) {
-		                	
-		                	emgValues = emgValues + frame[i].analog[0]+ ","; 
-		                	ecgValues = ecgValues + frame[i].analog[1] + ",";
-		                	
-
-
-		                }
-		                emgValues = emgValues.substring(0, emgValues.length() - 1);
-		                ecgValues = ecgValues.substring(0, ecgValues.length() - 1);
-		                emgValues = emgValues + "]";
-		                ecgValues = ecgValues + "]";
-		                System.out.println(emgValues);
-		                System.out.println(ecgValues);
-		                BitalinoPackage bitalinopack = new BitalinoPackage(patientId, SamplingRate, now, emgValues, ecgValues);
-		                AccountObjectCommunication.getPatient().addNewPackage(bitalinopack);
-		                
-		                //write the file to send
-		                
-		                //String nombrepaquete = "paquete " + counter;
-		                //counter++;
-		                //FileWriter fileWriter = new FileWriter(nombrepaquete);
-		                //fileWriter.write(new Gson().toJson(frame));
-		                //fileWriter.close();
-		                
-		                if (idvalue == 10) {
-		                	recordvalue = false;
-		                }
-		                
-		                
-		            }
-		            //stop acquisition
-		            bitalino.stop();
-		        } catch (BITalinoException ex) {
-		            Logger.getLogger(ParametersRecordController.class.getName()).log(Level.SEVERE, null, ex);
-		        } catch (Throwable ex) {
-		            Logger.getLogger(ParametersRecordController.class.getName()).log(Level.SEVERE, null, ex);
-		        } finally {
-		            try {
-		                //close bluetooth connection
-		                if (bitalino != null) {
-		                    bitalino.close();
-		                }
-		            } catch (BITalinoException ex) {
-		                Logger.getLogger(ParametersRecordController.class.getName()).log(Level.SEVERE, null, ex);
-		            }
-		        }
-
-		   
+			
 	}
 	
 	@FXML
 	private void startStopRecording(MouseEvent event) {
-		if (recordvalue == true) {
-			recordvalue = false;
-			nothingtoshow.setText("Recording has stopped");
-		}
-		else {
-			recordvalue = true;
-		}
+		
+		 pastValuesTreeView.refresh();
+		 int patientId = AccountObjectCommunication.getPatient().getPatientId();
+		 BITalino bitalino = null;
+		 
+         DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");  
+
+         
+	        try {
+	            bitalino = new BITalino();
+
+	            
+	            //Sampling rate, should be 10, 100 or 1000
+	            //int SamplingRate = 10;
+	            String MAC = AccountObjectCommunication.getMAC();
+	            bitalino.open(MAC, SamplingRate);
+
+	            // Start acquisition on analog channels A1 and A2
+	            // For example, If you want A1, A3 and A4 you should use {0,2,3}
+	            int[] channelsToAcquire = {0, 1};
+	            bitalino.start(channelsToAcquire);
+
+	            //Read in total 10000000 times
+	            //while with boolean that button changes so that it closes	
+	            while(recordvalue == true) {
+	    			nothingtoshow.setText("Recording has started");
+	                //Each time read a block of 10 samples 
+	                int block_size=10;
+	                frame = bitalino.read(block_size);
+	                //LocalDateTime now = LocalDateTime.now();  
+	                Timestamp now = new Timestamp(2021);
+	                
+	                String strDate = dateFormat.format(now);
+	                //System.out.println("size block: " + frame.length);
+	                
+	                
+	                //kk id identification
+	                packetIds.add(Integer.toString(idvalue));
+	                idvalue++;
+	                packetDates.add(strDate);
+	                pastValuesTreeView.refresh();
+	                String emgValues = "[";
+	                String ecgValues = "[";
+	                for (int i = 0; i < frame.length; i++) {
+	                	
+	                	emgValues = emgValues + frame[i].analog[0]+ ","; 
+	                	ecgValues = ecgValues + frame[i].analog[1] + ",";
+	                	
+
+
+	                }
+	                emgValues = emgValues.substring(0, emgValues.length() - 1);
+	                ecgValues = ecgValues.substring(0, ecgValues.length() - 1);
+	                emgValues = emgValues + "]";
+	                ecgValues = ecgValues + "]";
+	                System.out.println(emgValues);
+	                System.out.println(ecgValues);
+	                BitalinoPackage bitalinopack = new BitalinoPackage(patientId, SamplingRate, now, emgValues, ecgValues);
+	                AccountObjectCommunication.getPatient().addNewPackage(bitalinopack);
+	                
+	                try {
+						HttpURLConnection connection = (HttpURLConnection) new URL(CommonParams.BASE_URL + "/addPacketsToPatient")
+								.openConnection();
+						
+						connection.setRequestMethod("POST");
+						
+						Gson gsonConverter = new Gson();
+						APIRequest requestAPI = new APIRequest();
+						requestAPI.setBitalinopackage(bitalinopack);
+						
+						String postData = "APIRequest=" + URLEncoder.encode(gsonConverter.toJson(requestAPI), "UTF-8");
+						
+						connection.setDoOutput(true);
+						OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
+						writer.write(postData);
+						writer.flush();
+						
+						BufferedReader inputReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+						String inputLine;
+						StringBuffer response = new StringBuffer();
+						while ((inputLine = inputReader.readLine()) != null) {
+							response.append(inputLine);
+						}
+						inputReader.close();
+
+						APIResponse responseAPI = gsonConverter.fromJson(response.toString(), APIResponse.class);
+						
+						if (!responseAPI.isError()){
+							Platform.runLater(new Runnable() {
+								@Override
+								public void run() {
+									openDialog(responseAPI.getAPImessage());
+
+								}
+							});
+						}
+						else{
+							Platform.runLater(new Runnable() {
+								@Override
+								public void run() {
+									openDialog(responseAPI.getAPImessage());
+
+								}
+							});
+						}
+						
+			
+					} catch (ConnectException | FileNotFoundException conncetionError) {
+						Platform.runLater(new Runnable() {
+							@Override
+							public void run() {
+								openDialog("Failed to connect to the server");
+								conncetionError.printStackTrace();
+							}
+						});
+					} catch (IOException error) {
+						error.printStackTrace();
+					}
+				
+	                
+	                
+	                //write the file to send
+	                
+	                //String nombrepaquete = "paquete " + counter;
+	                //counter++;
+	                //FileWriter fileWriter = new FileWriter(nombrepaquete);
+	                //fileWriter.write(new Gson().toJson(frame));
+	                //fileWriter.close();
+	                
+	                if (idvalue == 1) {
+	                	recordvalue = false;
+	                }
+	                
+	                
+	            }
+	            //stop acquisition
+	            bitalino.stop();
+	        } catch (BITalinoException ex) {
+	            Logger.getLogger(ParametersRecordController.class.getName()).log(Level.SEVERE, null, ex);
+	        } catch (Throwable ex) {
+	            Logger.getLogger(ParametersRecordController.class.getName()).log(Level.SEVERE, null, ex);
+	        } finally {
+	            try {
+	                //close bluetooth connection
+	                if (bitalino != null) {
+	                    bitalino.close();
+	                }
+	            } catch (BITalinoException ex) {
+	                Logger.getLogger(ParametersRecordController.class.getName()).log(Level.SEVERE, null, ex);
+	            }
+	        }
+
+	   
+		//if (recordvalue == true) {
+			//recordvalue = false;
+			//nothingtoshow.setText("Recording has stopped");
+		//}
+		//else {
+			//recordvalue = true;
+		//}
 	}
 		
 		/*la idea es  usar este boton para empezar a grabar y parar
@@ -245,6 +329,29 @@ public class ParametersRecordController implements Initializable {
 		pastValuesTreeView.setRoot(root);
 		pastValuesTreeView.setShowRoot(false);
 	}
+	
+	private void openDialog(String message) {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/dialogPopUp/dialogPopUpLayout.fxml"));
+			Parent root = (Parent) loader.load();
+			DialogPopUpController controler = loader.getController();
+			controler.setMessage(message);
+			Stage stage = new Stage();
+			Scene scene = new Scene(root);
+			scene.setFill(Color.TRANSPARENT);
+			stage.setScene(scene);
+			stage.initStyle(StageStyle.TRANSPARENT);
+			stage.initModality(Modality.APPLICATION_MODAL);
+			AccountObjectCommunication.getAnchorPane().setEffect(new BoxBlur(4, 4, 4));
+			stage.show();
+			stage.setOnHiding(event -> {
+				AccountObjectCommunication.getAnchorPane().setEffect(null);
+			});
+		} catch (IOException error) {
+			error.printStackTrace();
+		}
+	}
+	
 	@FXML
 	private void minWindow(MouseEvent event) {
 		Stage stage = (Stage) mainPane.getScene().getWindow();
