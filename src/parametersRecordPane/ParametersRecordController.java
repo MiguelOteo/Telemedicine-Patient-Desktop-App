@@ -31,6 +31,11 @@ import BITalino.BITalinoException;
 import BITalino.Frame;
 import commonParams.CommonParams;
 import communication.AccountObjectCommunication;
+import de.gsi.chart.XYChart;
+import de.gsi.chart.axes.spi.DefaultNumericAxis;
+import de.gsi.chart.plugins.Zoomer;
+import de.gsi.chart.ui.geometry.Side;
+import de.gsi.dataset.spi.DoubleDataSet;
 import dialogPopUp.DialogPopUpController;
 import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
@@ -49,6 +54,7 @@ import javafx.scene.control.TreeTableColumn.CellDataFeatures;
 import javafx.scene.effect.BoxBlur;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -71,7 +77,7 @@ public class ParametersRecordController implements Initializable {
 	@FXML
 	private Pane mainPane;
 	@FXML
-	private Pane viewPane;
+	private StackPane viewPane;
 	@FXML
 	private Label nothingtoshow;
 	@FXML
@@ -93,8 +99,34 @@ public class ParametersRecordController implements Initializable {
 	
 	private int SamplingRate = 100;
 	
+	private XYChart dataChart;
+	
+	private final DoubleDataSet ECGdataSet = new DoubleDataSet("ECG Records");
+	
+    private final DoubleDataSet EMGdataSet = new DoubleDataSet("EMG Records");
+    
+    private DefaultNumericAxis xAxis = new DefaultNumericAxis("Time", "Seconds");
+    
+    private DefaultNumericAxis yAxis = new DefaultNumericAxis("Records", "mV");
+    
+    private int lastgraphvalue = 0;
+    
+	private final int N_SAMPLES = 60000;
+	
+	private final double[] xValues = new double[N_SAMPLES];
+	
+    private final double[] yValues2 = new double[N_SAMPLES];
+	
 	public void initialize(URL location, ResourceBundle resources) {
 			loadTreeTable();
+			xAxis.setSide(Side.BOTTOM);
+			yAxis.setSide(Side.LEFT);
+			dataChart = new XYChart(xAxis, yAxis);
+			final Zoomer zoom = new Zoomer();
+			zoom.omitAxisZoomList().add(yAxis);
+			zoom.setSliderVisible(false);
+			dataChart.getPlugins().add(zoom);
+			viewPane.getChildren().add(dataChart);
 			
 	}
 	
@@ -238,7 +270,25 @@ public class ParametersRecordController implements Initializable {
 	                //fileWriter.close();
 	                loadData();
 	                pastValuesTreeView.refresh();
-	                
+
+			    	String graphecg = bitalinopack.getecgData();
+			    	graphecg = graphecg.substring(0, graphecg.length() - 1); //delete last ]
+			    	graphecg = graphecg.substring(1, graphecg.length());  //delete first [
+			    	ArrayList<String> graphecglist = new ArrayList<>(Arrays.asList(graphecg.split(",")));
+			    	
+				    for (int n = 0; n < block_size; n++) {
+				    	
+				    	xValues[n+lastgraphvalue] = n+lastgraphvalue;
+				    	System.out.println("x: " + xValues[n+lastgraphvalue]);
+				    	double yvalue = Double.parseDouble(graphecglist.get(n)); 
+				    	System.out.println("y: " + yvalue);
+				    	
+				       yValues2[n+lastgraphvalue] = yvalue;
+				    }
+				    lastgraphvalue = block_size+lastgraphvalue;
+				    ECGdataSet.add(xValues, yValues2);
+				    dataChart.getDatasets().clear();
+				    dataChart.getDatasets().add(ECGdataSet);
 	                if (idvalue == 2) {
 	                	recordvalue = false;
 	        			nothingtoshow.setText("Recording has stopped");

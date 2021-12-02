@@ -10,6 +10,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
 <Pane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="965.0" styleClass="white_color" stylesheets="@ParametersRecordStyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="parametersRecordPane.ParametersRecordController">
@@ -44,10 +45,6 @@
             <Font name="Ebrima" size="18.0" />
          </font>
       </Label>
-      <Pane fx:id="viewPane" layoutX="61.0" layoutY="118.0" prefHeight="329.0" prefWidth="490.0">
-         <children>
-            <Label fx:id="nothingtoshow" layoutX="100.0" layoutY="156.0" text="Nothing to show, please click on Start Recording!" textAlignment="CENTER" />
-         </children></Pane>
       <AnchorPane layoutX="145.0" layoutY="506.0" />
       <JFXButton fx:id="startRecording" layoutX="177.0" layoutY="603.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#startStopRecording" prefHeight="40.0" prefWidth="204.0" styleClass="add_button" text="START RECORDING!">
          <font>
@@ -75,5 +72,10 @@
             <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </JFXTreeTableView>
+      <StackPane fx:id="viewPane" layoutX="88.0" layoutY="111.0" prefHeight="311.0" prefWidth="399.0">
+         <children>
+            <Label fx:id="nothingtoshow" text="Nothing to show, please click on Start Recording!" textAlignment="CENTER" />
+         </children>
+      </StackPane>
    </children>
 </Pane>
