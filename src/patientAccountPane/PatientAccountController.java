@@ -184,6 +184,37 @@ public class PatientAccountController implements Initializable {
 		}
 	}
 	
+	@SuppressWarnings("unused")
+	private void updatePatientAccount() {
+		
+		Thread threadObject = new Thread("Updating Patient Account") {
+			public void run() {
+				try {
+					
+					HttpURLConnection connection = (HttpURLConnection) new URL(CommonParams.BASE_URL + "/updatePatientData").openConnection();
+					connection.setRequestMethod("POST");
+					APIRequest requestAPI = new APIRequest();
+					
+					// Add to the request model a float for weight and height then ass the getter and setters
+					// Copy the request model into the RestAPI (they have to be identical)
+					// Then on the servlet UpdatePatientDataServlet you need to get the data do the SQL UPDATE and send a response
+					
+				} catch (ConnectException | FileNotFoundException conncetionError) {
+					Platform.runLater(new Runnable() {
+						@Override
+						public void run() {
+							openDialog("Failed to connect to the server");
+						}
+					});
+				} catch (IOException error) {
+					error.printStackTrace();
+				}	
+				
+			};
+		};
+		threadObject.start();
+	}
+	
 	private void updateAccount(boolean emailUpdate) {
 		
 		Thread threadObject = new Thread("Updating Account") {
@@ -236,9 +267,6 @@ public class PatientAccountController implements Initializable {
 									AccountObjectCommunication.getPatient().setName(responseAPI.getUserName());
 									userNameLabel.setText("Name: " +responseAPI.getUserName());
 									userNameField.setText("");
-									//AccountObjectCommunication.getPatient().setWeight(responseAPI.getUserName());
-									//userNameLabel.setText("Weight: " +responseAPI.getUserName());
-									//userNameField.setText("");
 								}
 								openDialog(responseAPI.getAPImessage());
 							}

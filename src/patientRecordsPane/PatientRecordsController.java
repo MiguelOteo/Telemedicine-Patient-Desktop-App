@@ -311,7 +311,7 @@ public class PatientRecordsController implements Initializable {
 
 				try {
 					HttpURLConnection connection = (HttpURLConnection) new URL(
-							CommonParams.BASE_URL + "/GetPatientDayRecords").openConnection();
+							CommonParams.BASE_URL + "/getPatientDayRecords").openConnection();
 					connection.setRequestMethod("POST");
 
 					APIRequest requestAPI = new APIRequest();
