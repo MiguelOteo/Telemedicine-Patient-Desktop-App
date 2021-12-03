@@ -43,10 +43,11 @@ public class PatientTreeObject extends RecursiveTreeObject<PatientTreeObject> {
 	private StringProperty patientName;
 	private StringProperty patientEmail;
 	private StringProperty patientIdNumber;
+	private StringProperty patientWeight;
 	private ObjectProperty<JFXButton> showBITalinoRecords;
 	private ObjectProperty<JFXButton> unsignPatient;
 
-	public PatientTreeObject(int patientId, String patientName, String patientEmail, String patientIdNumber, Pane pane) {
+	public PatientTreeObject(int patientId, String patientName, String patientEmail, String patientIdNumber, String patientWeight, Pane pane) {
 		
 		this.mainPane = pane;
 		this.patientId = patientId;
@@ -54,6 +55,7 @@ public class PatientTreeObject extends RecursiveTreeObject<PatientTreeObject> {
 		this.patientName = new SimpleStringProperty(patientName);
 		this.patientEmail = new SimpleStringProperty(patientEmail);
 		this.patientIdNumber = new SimpleStringProperty(patientIdNumber);
+		this.setPatientWeight(new SimpleStringProperty(patientWeight));
 		
 		JFXButton showDetails = new JFXButton("Show details");
 		showDetails.getStyleClass().add("tree_table_button");
@@ -182,4 +184,8 @@ public class PatientTreeObject extends RecursiveTreeObject<PatientTreeObject> {
 	public ObjectProperty<JFXButton> getShowBITalinoRecords() {return showBITalinoRecords;}
 
 	public ObjectProperty<JFXButton> getUnsignPatient() {return unsignPatient;}
+
+	public StringProperty getPatientWeight() {return patientWeight;}
+
+	public void setPatientWeight(StringProperty patientWeight) {this.patientWeight = patientWeight;}
 }
