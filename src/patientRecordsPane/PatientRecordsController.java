@@ -9,15 +9,8 @@ import java.net.ConnectException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.sql.Time;
 import java.sql.Timestamp;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalTime;
-import java.time.temporal.ChronoUnit;
-import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.ResourceBundle;
 
 import com.google.gson.Gson;
@@ -29,7 +22,6 @@ import communication.AccountObjectCommunication;
 import de.gsi.chart.axes.spi.DefaultNumericAxis;
 import de.gsi.chart.plugins.Zoomer;
 import de.gsi.chart.ui.geometry.Side;
-import de.gsi.dataset.spi.DoubleDataSet;
 import de.gsi.dataset.spi.FloatDataSet;
 import de.gsi.chart.XYChart;
 import dialogPopUp.DialogPopUpController;
@@ -260,13 +252,20 @@ public class PatientRecordsController implements Initializable {
 				
 				Calendar calendar = Calendar.getInstance();
 				
-				Timestamp time = Timestamp.valueOf("2021-09-08 07:15:35.82");
+				Timestamp time = Timestamp.valueOf("2021-09-08 07:45:35.82");
 				
 				calendar.setTime(time);
 				
-				int hundredth = (((calendar.get(Calendar.MINUTE) * 60) + calendar.get(Calendar.SECOND)) * 100) + (calendar.get(Calendar.MILLISECOND)/10);
+				// Get the minutes in the 20 minutes segments (45 minutes -> 5 minutes form 40 to 60) 
+				int minutes = calendar.get(Calendar.MINUTE)%20;
+				
+				int seconds = calendar.get(Calendar.SECOND);
+				
+				int hundredth = ((minutes * 60) + seconds) * 100;
 				
 				int timePos = 0;
+				
+				System.out.println("Centesima: " + hundredth);
 
 				for (timePos = 0; timePos < time20Array.length; timePos++) {
 					if (time20Array[timePos] == hundredth) {
