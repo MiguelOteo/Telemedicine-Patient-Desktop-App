@@ -31,6 +31,11 @@ import BITalino.BITalinoException;
 import BITalino.Frame;
 import commonParams.CommonParams;
 import communication.AccountObjectCommunication;
+import de.gsi.chart.XYChart;
+import de.gsi.chart.axes.spi.DefaultNumericAxis;
+import de.gsi.chart.plugins.Zoomer;
+import de.gsi.chart.ui.geometry.Side;
+import de.gsi.dataset.spi.DoubleDataSet;
 import dialogPopUp.DialogPopUpController;
 import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
@@ -49,6 +54,7 @@ import javafx.scene.control.TreeTableColumn.CellDataFeatures;
 import javafx.scene.effect.BoxBlur;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -63,7 +69,7 @@ import treeTableObjects.PastBitalinoValuesTreeObject;
 public class ParametersRecordController implements Initializable {
 
 	
-	private boolean recordvalue = true;
+	private boolean recordvalue = false;
 	
 	private int counter = 0;
 	
@@ -71,7 +77,7 @@ public class ParametersRecordController implements Initializable {
 	@FXML
 	private Pane mainPane;
 	@FXML
-	private Pane viewPane;
+	private StackPane viewPane;
 	@FXML
 	private Label nothingtoshow;
 	@FXML
@@ -93,19 +99,54 @@ public class ParametersRecordController implements Initializable {
 	
 	private int SamplingRate = 100;
 	
+	private XYChart dataChart;
+	
+	private final DoubleDataSet ECGdataSet = new DoubleDataSet("ECG Records");
+	
+    private final DoubleDataSet EMGdataSet = new DoubleDataSet("EMG Records");
+    
+    private DefaultNumericAxis xAxis = new DefaultNumericAxis("Time", "Seconds");
+    
+    private DefaultNumericAxis yAxis = new DefaultNumericAxis("Records", "mV");
+    
+    private int lastgraphvalue = 0;
+    
+	private final int N_SAMPLES = 60000;
+	
+	private final double[] xValues = new double[N_SAMPLES];
+	
+    private final double[] yValues2 = new double[N_SAMPLES];
+	
 	public void initialize(URL location, ResourceBundle resources) {
-			
+			loadTreeTable();
+			xAxis.setSide(Side.BOTTOM);
+			yAxis.setSide(Side.LEFT);
+			dataChart = new XYChart(xAxis, yAxis);
+			final Zoomer zoom = new Zoomer();
+			zoom.omitAxisZoomList().add(yAxis);
+			zoom.setSliderVisible(false);
+			dataChart.getPlugins().add(zoom);
+			viewPane.getChildren().add(dataChart);
 			
 	}
 	
 	@FXML
 	private void startStopRecording(MouseEvent event) {
 		
+		if (recordvalue == true) {
+			recordvalue = false;
+			nothingtoshow.setText("Recording has stopped");
+		}
+		else {
+			recordvalue = true;
+		}
+		
+		 idvalue=0;
 		 pastValuesTreeView.refresh();
 		 int patientId = AccountObjectCommunication.getPatient().getPatientId();
 		 BITalino bitalino = null;
 		 
-         DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");  
+         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");  
 
          
 	        try {
@@ -125,12 +166,12 @@ public class ParametersRecordController implements Initializable {
 	            //Read in total 10000000 times
 	            //while with boolean that button changes so that it closes	
 	            while(recordvalue == true) {
-	    			nothingtoshow.setText("Recording has started");
+	    			nothingtoshow.setText("Recording has started, please wait");
 	                //Each time read a block of 10 samples 
 	                int block_size=10;
 	                frame = bitalino.read(block_size);
 	                //LocalDateTime now = LocalDateTime.now();  
-	                Timestamp now = new Timestamp(2021);
+	                Timestamp now = new Timestamp(System.currentTimeMillis());
 	                
 	                String strDate = dateFormat.format(now);
 	                //System.out.println("size block: " + frame.length);
@@ -140,7 +181,6 @@ public class ParametersRecordController implements Initializable {
 	                packetIds.add(Integer.toString(idvalue));
 	                idvalue++;
 	                packetDates.add(strDate);
-	                pastValuesTreeView.refresh();
 	                String emgValues = "[";
 	                String ecgValues = "[";
 	                for (int i = 0; i < frame.length; i++) {
@@ -228,9 +268,30 @@ public class ParametersRecordController implements Initializable {
 	                //FileWriter fileWriter = new FileWriter(nombrepaquete);
 	                //fileWriter.write(new Gson().toJson(frame));
 	                //fileWriter.close();
-	                
-	                if (idvalue == 1) {
+	                loadData();
+	                pastValuesTreeView.refresh();
+
+			    	String graphecg = bitalinopack.getecgData();
+			    	graphecg = graphecg.substring(0, graphecg.length() - 1); //delete last ]
+			    	graphecg = graphecg.substring(1, graphecg.length());  //delete first [
+			    	ArrayList<String> graphecglist = new ArrayList<>(Arrays.asList(graphecg.split(",")));
+			    	
+				    for (int n = 0; n < block_size; n++) {
+				    	
+				    	xValues[n+lastgraphvalue] = n+lastgraphvalue;
+				    	System.out.println("x: " + xValues[n+lastgraphvalue]);
+				    	double yvalue = Double.parseDouble(graphecglist.get(n)); 
+				    	System.out.println("y: " + yvalue);
+				    	
+				       yValues2[n+lastgraphvalue] = yvalue;
+				    }
+				    lastgraphvalue = block_size+lastgraphvalue;
+				    ECGdataSet.add(xValues, yValues2);
+				    dataChart.getDatasets().clear();
+				    dataChart.getDatasets().add(ECGdataSet);
+	                if (idvalue == 2) {
 	                	recordvalue = false;
+	        			nothingtoshow.setText("Recording has stopped");
 	                }
 	                
 	                
@@ -253,13 +314,7 @@ public class ParametersRecordController implements Initializable {
 	        }
 
 	   
-		//if (recordvalue == true) {
-			//recordvalue = false;
-			//nothingtoshow.setText("Recording has stopped");
-		//}
-		//else {
-			//recordvalue = true;
-		//}
+
 	}
 		
 		/*la idea es  usar este boton para empezar a grabar y parar
@@ -268,19 +323,19 @@ public class ParametersRecordController implements Initializable {
 		 * Se crea una lista
 		 */
 	
-	@SuppressWarnings("unused")
+
 	private void loadData() {
-		int count = 1;
+		int count = 0;
 		String rate = Integer.toString(SamplingRate);
 		recordsObjects.clear();
 		for (String packetIds: packetIds) {
-			recordsObjects.add(new PastBitalinoValuesTreeObject(mainPane, packetIds, "placeholder fecha", rate));
+			String date = packetDates.get(count);
+			recordsObjects.add(new PastBitalinoValuesTreeObject(mainPane, packetIds, date, rate));
 			count++;
 		}
 		pastValuesTreeView.refresh();
 	}
 	
-	@SuppressWarnings("unused")
 	private void loadTreeTable() {
 		
 		JFXTreeTableColumn<PastBitalinoValuesTreeObject, String> packetId = new JFXTreeTableColumn<>("Packet ID");
@@ -294,7 +349,7 @@ public class ParametersRecordController implements Initializable {
 		packetId.setResizable(false);
 		
 		JFXTreeTableColumn<PastBitalinoValuesTreeObject, String> packetDate = new JFXTreeTableColumn<>("Date of Recording");
-		//bitalinoMAC.setPrefWidth(200);
+		packetDate.setPrefWidth(160);
 		packetDate.setCellValueFactory(new Callback<JFXTreeTableColumn.CellDataFeatures<PastBitalinoValuesTreeObject,String>, ObservableValue<String>>() {
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<PastBitalinoValuesTreeObject, String> param) {

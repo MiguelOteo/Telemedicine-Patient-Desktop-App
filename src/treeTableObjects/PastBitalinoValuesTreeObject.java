@@ -33,7 +33,7 @@ public class PastBitalinoValuesTreeObject extends RecursiveTreeObject<PastBitali
 		this.pane = pane;
 		
 		this.treePacketid = new SimpleStringProperty(packetid);
-		this.treePacketdate = new SimpleStringProperty(packetid);
+		this.treePacketdate = new SimpleStringProperty(packetdate);
 		this.treeSamplingRate = new SimpleStringProperty(samplingRate);
 		
 		JFXButton viewRecord = new JFXButton("View");
