@@ -16,6 +16,7 @@ public class APIResponse {
 	private String encryptedPassword;
 	private String userName;
 	private String userEmail;
+	private String patientWeight;
 	
 	// Return the API message (Error message if error boolean is true)
 	private String APImessage;
@@ -72,5 +73,9 @@ public class APIResponse {
 
 	public List<BitalinoPackage> getDayRecords() {return dayRecords;}
 
-	public void setDayRecords(List<BitalinoPackage> dayRecords) {this.dayRecords = dayRecords;}	
+	public void setDayRecords(List<BitalinoPackage> dayRecords) {this.dayRecords = dayRecords;}
+
+	public String getPatientWeight() {return patientWeight;}
+
+	public void setPatientWeight(String patientWeight) {this.patientWeight = patientWeight;}	
 }

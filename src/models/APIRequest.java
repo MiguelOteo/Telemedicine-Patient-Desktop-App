@@ -15,6 +15,7 @@ public class APIRequest {
 	
 	private int doctorId;
 	private int patientId;
+	private String patientWeight;
 	private Timestamp date;
 	private String doctorIdentification;
 	private String patientIdNumber;
@@ -78,5 +79,9 @@ public class APIRequest {
 
 	public BitalinoPackage getBitalinopackage() {return bitalinopackage;}
 
-	public void setBitalinopackage(BitalinoPackage bitalinopackage) {this.bitalinopackage = bitalinopackage;}		
+	public void setBitalinopackage(BitalinoPackage bitalinopackage) {this.bitalinopackage = bitalinopackage;}
+
+	public String getPatientWeight() {return patientWeight;}
+
+	public void setPatientWeight(String patientWeight) {this.patientWeight = patientWeight;}		
 }
