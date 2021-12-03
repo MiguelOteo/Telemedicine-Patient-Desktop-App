@@ -50,13 +50,19 @@ public class PatientAccountController implements Initializable {
 	@FXML
 	private Label userIDLabel;
 	@FXML
+	private Label userWeightLabel;
+	@FXML
 	private JFXButton updateEmail;
 	@FXML
 	private JFXButton updateName;
 	@FXML
+	private JFXButton updateWeight;
+	@FXML
 	private JFXTextField userNameField;
 	@FXML
 	private JFXTextField userEmailField;
+	@FXML
+	private JFXTextField userWeightField;
 	@FXML
 	private JFXPasswordField userOldPassword;
 	@FXML
@@ -67,6 +73,7 @@ public class PatientAccountController implements Initializable {
 		userNameLabel.setText("Name: " + AccountObjectCommunication.getPatient().getName());
 		userEmailLabel.setText("User Email: " + AccountObjectCommunication.getPatient().getEmail());
 		userIDLabel.setText("Patient ID: " + AccountObjectCommunication.getPatient().getPatientIdNumber());
+		userWeightLabel.setText("Weight: " + AccountObjectCommunication.getPatient().getPatientWeight());
 		
 		RegexValidator validator = new RegexValidator();
 		validator.setRegexPattern("^[_A-Za-z0-9-+]+(\\.[_A-Za-z0-9-]+)*@"
@@ -85,6 +92,15 @@ public class PatientAccountController implements Initializable {
 		userNameField.focusedProperty().addListener((o, oldVal, newVal) ->{
 			if(!newVal) {
 				userNameField.validate();
+			}
+		});
+		
+		RequiredFieldValidator validatorEmpty4 = new RequiredFieldValidator(); 
+		validatorEmpty4.setMessage("User weight cannot be empty");
+		userWeightField.getValidators().add(validatorEmpty4);
+		userWeightField.focusedProperty().addListener((o, oldVal, newVal) ->{
+			if(!newVal) {
+				userWeightField.validate();
 			}
 		});
 		
@@ -114,6 +130,11 @@ public class PatientAccountController implements Initializable {
 		
 		updateName.setOnAction((ActionEvent event) -> {
 			if(userNameField.validate()) {
+				updateAccount(false);
+			}
+		});
+		updateWeight.setOnAction((ActionEvent event) -> {
+			if(userWeightField.validate()) {
 				updateAccount(false);
 			}
 		});
@@ -182,6 +203,8 @@ public class PatientAccountController implements Initializable {
 					} else {
 						
 						String userName = userNameField.getText();
+						if(!userName.equals("")) {requestAPI.setUserName(userName);}
+						String userWeight = userWeightField.getText();
 						if(!userName.equals("")) {requestAPI.setUserName(userName);}
 					}
 					

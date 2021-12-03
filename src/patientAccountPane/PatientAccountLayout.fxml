@@ -86,11 +86,16 @@
          </font>
       </JFXPasswordField>
       <JFXButton fx:id="updateEmail" layoutX="134.0" layoutY="188.0" prefWidth="220.0" styleClass="change_button" text="Update Email" />
-      <JFXTextField fx:id="userNameField1" focusColor="#0193bb" labelFloat="true" layoutX="137.0" layoutY="321.0" prefHeight="35.0" prefWidth="240.0" promptText="Weight" styleClass="text-field" stylesheets="@../userRegistration/RegistrationStyle.css" unFocusColor="#00000080">
+      <JFXTextField fx:id="userWeightField" focusColor="#0193bb" labelFloat="true" layoutX="137.0" layoutY="321.0" prefHeight="35.0" prefWidth="240.0" promptText="Weight" styleClass="text-field" stylesheets="@../userRegistration/RegistrationStyle.css" unFocusColor="#00000080">
          <font>
             <Font name="Ebrima" size="14.0" />
          </font>
       </JFXTextField>
-      <JFXButton fx:id="updateName1" layoutX="138.0" layoutY="383.0" prefWidth="220.0" styleClass="change_button" text="Update Weight" />
+      <JFXButton fx:id="updateWeight" layoutX="138.0" layoutY="383.0" prefWidth="220.0" styleClass="change_button" text="Update Weight" />
+      <Label fx:id="userWeightLabel" layoutX="605.0" layoutY="575.0" styleClass="label_text2" text="Weight: not found" textFill="#00000080">
+         <font>
+            <Font name="Ebrima" size="18.0" />
+         </font>
+      </Label>
    </children>
 </Pane>
