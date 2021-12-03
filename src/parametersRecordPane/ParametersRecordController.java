@@ -113,9 +113,15 @@ public class ParametersRecordController implements Initializable {
     
 	private final int N_SAMPLES = 60000;
 	
-	private final double[] xValues = new double[N_SAMPLES];
+	private final List<String> xValues = new ArrayList<String>(); 
 	
-    private final double[] yValues2 = new double[N_SAMPLES];
+	private final List<String> yValues = new ArrayList<String>(); 
+	
+	private int xvaluesSize = 0;
+	
+	private int yvaluesSize = 0;
+	
+	private int block_size=10;
 	
 	public void initialize(URL location, ResourceBundle resources) {
 			loadTreeTable();
@@ -127,6 +133,9 @@ public class ParametersRecordController implements Initializable {
 			zoom.setSliderVisible(false);
 			dataChart.getPlugins().add(zoom);
 			viewPane.getChildren().add(dataChart);
+			xAxis.setForceZeroInRange(false);
+			yAxis.setForceZeroInRange(false);
+		    ECGdataSet.resize(xvaluesSize);
 			
 	}
 	
@@ -168,7 +177,7 @@ public class ParametersRecordController implements Initializable {
 	            while(recordvalue == true) {
 	    			nothingtoshow.setText("Recording has started, please wait");
 	                //Each time read a block of 10 samples 
-	                int block_size=10;
+
 	                frame = bitalino.read(block_size);
 	                //LocalDateTime now = LocalDateTime.now();  
 	                Timestamp now = new Timestamp(System.currentTimeMillis());
@@ -278,18 +287,33 @@ public class ParametersRecordController implements Initializable {
 			    	
 				    for (int n = 0; n < block_size; n++) {
 				    	
-				    	xValues[n+lastgraphvalue] = n+lastgraphvalue;
-				    	System.out.println("x: " + xValues[n+lastgraphvalue]);
-				    	double yvalue = Double.parseDouble(graphecglist.get(n)); 
-				    	System.out.println("y: " + yvalue);
+				    	xValues.add(Integer.toString(n+lastgraphvalue));
+				    	//double yvalue = Double.parseDouble(graphecglist.get(n)); 
 				    	
-				       yValues2[n+lastgraphvalue] = yvalue;
+				       yValues.add(graphecglist.get(n));
 				    }
 				    lastgraphvalue = block_size+lastgraphvalue;
-				    ECGdataSet.add(xValues, yValues2);
+				    
+				    xvaluesSize = xValues.size();
+				    yvaluesSize = yValues.size();
+				    
+					final double[] xValues2 = new double[xvaluesSize];
+					
+				    final double[] yValues2 = new double[yvaluesSize];
+				    
+				    for (int n = 0; n < xvaluesSize; n++) {
+				    	
+				    	xValues2[n] = Integer.parseInt(xValues.get(n));
+				    	//double yvalue = Double.parseDouble(graphecglist.get(n)); 
+				    	
+				    	yValues2[n] = Integer.parseInt(yValues.get(n));
+				    }
+				    ECGdataSet.resize(xvaluesSize);
+				    ECGdataSet.add(xValues2, yValues2);
 				    dataChart.getDatasets().clear();
 				    dataChart.getDatasets().add(ECGdataSet);
-	                if (idvalue == 2) {
+
+	                if (idvalue == 1) {
 	                	recordvalue = false;
 	        			nothingtoshow.setText("Recording has stopped");
 	                }
