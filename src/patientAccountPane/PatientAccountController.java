@@ -204,8 +204,7 @@ public class PatientAccountController implements Initializable {
 						
 						String userName = userNameField.getText();
 						if(!userName.equals("")) {requestAPI.setUserName(userName);}
-						String userWeight = userWeightField.getText();
-						if(!userName.equals("")) {requestAPI.setUserName(userName);}
+						
 					}
 					
 					String postData = "APIRequest=" + URLEncoder.encode(new Gson().toJson(requestAPI), "UTF-8");
