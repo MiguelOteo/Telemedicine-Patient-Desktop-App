@@ -9,11 +9,20 @@ import java.net.ConnectException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.sql.Date;
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 import com.google.gson.Gson;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 
 import commonParams.CommonParams;
 import communication.AccountObjectCommunication;
@@ -21,6 +30,7 @@ import de.gsi.chart.axes.spi.DefaultNumericAxis;
 import de.gsi.chart.plugins.Zoomer;
 import de.gsi.chart.ui.geometry.Side;
 import de.gsi.dataset.spi.DoubleDataSet;
+import de.gsi.dataset.spi.FloatDataSet;
 import de.gsi.chart.XYChart;
 import dialogPopUp.DialogPopUpController;
 import javafx.application.Platform;
@@ -42,6 +52,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import models.APIRequest;
 import models.APIResponse;
+import models.BitalinoPackage;
 import models.Patient;
 
 public class PatientRecordsController implements Initializable {
@@ -56,6 +67,8 @@ public class PatientRecordsController implements Initializable {
 	@FXML
 	private JFXButton changeGraph;
 	@FXML
+	private JFXComboBox<String> timeSelection;
+	@FXML
 	private Rectangle selectRect;
 	@FXML
 	private Label patientName;
@@ -68,23 +81,47 @@ public class PatientRecordsController implements Initializable {
 	
 	private XYChart dataChart;
 	
-	private final DoubleDataSet ECGdataSet = new DoubleDataSet("ECG Records");
+	private final FloatDataSet ECGdataSet = new FloatDataSet("ECG Records");
 	
-    private final DoubleDataSet EMGdataSet = new DoubleDataSet("EMG Records");
+    private final FloatDataSet EMGdataSet = new FloatDataSet("EMG Records");
     
-    private DefaultNumericAxis xAxis = new DefaultNumericAxis("Time", "Seconds");
+    private DefaultNumericAxis xAxis = new DefaultNumericAxis("Time", "Milliseconds");
     
     private DefaultNumericAxis yAxis = new DefaultNumericAxis("Records", "mV");
+    
+    // Array to store the 20 minutes gap in milliseconds
+    private int[] time20Array;
+    
+    // Arrays to store all the recording data form the BITalino packages request
+    private float[] ECGdataArray;
+    
+    private float[] EMGdataArray;
     
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
+		// Creates the time values for the time combo box 
+		for(int hour = 0; hour < 10; hour++) {
+			timeSelection.getItems().addAll(" 0" + hour + ":00", " 0" + hour + ":20", " 0" + hour + ":40");
+		}
+		for(int hour = 10; hour < 24; hour++) {
+			timeSelection.getItems().addAll(" " + hour + ":00", " " + hour + ":20", " " + hour + ":40");
+		}
+		timeSelection.setDisable(true);
+		
 		changeGraph.setText("Show EMG Recording");
 		this.patient.setPatientId(AccountObjectCommunication.getDatabaseId());
 		getPatientInformation();
+		createSamplesArrays();
 
+		// When a new date is selected then unable the time combo box
 		datePicker.valueProperty().addListener((observable, oldDate, newDate) -> {
-			getPatientDayData(Date.valueOf(newDate));
+			timeSelection.setDisable(false);
+		});
+		
+		// Every time a new time is selected then a request is sent
+		timeSelection.valueProperty().addListener((observable, oldTime, newTime) -> {
+			getPatientDayData(Timestamp.valueOf(datePicker.getValue() + newTime + ":00.000"));
 		});
 		
 		xAxis.setSide(Side.BOTTOM);
@@ -106,13 +143,13 @@ public class PatientRecordsController implements Initializable {
 				
 				if (isECG) { // If true then ECG graph has to be change
 					isECG = false;
-					final int N_SAMPLES = 60000;
+					final int N_SAMPLES = 120000;
 					
-					final double[] xValues = new double[N_SAMPLES];
-				    final double[] yValues2 = new double[N_SAMPLES];
+					final float[] xValues = new float[N_SAMPLES];
+				    final float[] yValues2 = new float[N_SAMPLES];
 				    for (int n = 0; n < N_SAMPLES; n++) {
 				    	xValues[n] = n;
-				        yValues2[n] = Math.sin(Math.toRadians(10.0 * n));
+				        yValues2[n] = (float) Math.sin(Math.toRadians(10.0 * n));
 				    }
 				    EMGdataSet.set(xValues, yValues2);
 
@@ -126,13 +163,13 @@ public class PatientRecordsController implements Initializable {
 					}); 
 				} else {
 					isECG = true;	
-					final int N_SAMPLES = 60000;
+					final int N_SAMPLES = 120000;
 					
-					final double[] xValues = new double[N_SAMPLES];
-				    final double[] yValues1 = new double[N_SAMPLES];
+					final float[] xValues = new float[N_SAMPLES];
+				    final float[] yValues1 = new float[N_SAMPLES];
 				    for (int n = 0; n < N_SAMPLES; n++) {
 				    	xValues[n] = n;
-				        yValues1[n] = Math.cos(Math.toRadians(10.0 * n));
+				    	 yValues1[n] = (float) Math.sin(Math.toRadians(10.0 * n));
 				    }
 				    ECGdataSet.set(xValues, yValues1);
 				    
@@ -207,69 +244,68 @@ public class PatientRecordsController implements Initializable {
 		}
 	}
 
-	/*private void addBitalinoDataToGraphArrays(BitalinoPackage bitalinoPackage) {
+	private void addBitalinoDataToGraphArrays(BitalinoPackage bitalinoPackage) {
 
-		String ECGdata = bitalinoPackage.getecgData();
-		String EMGdata = bitalinoPackage.getemgData();
+		//String ECGdata = bitalinoPackage.getecgData();
+		//String EMGdata = bitalinoPackage.getemgData();
 		
 		Thread threadObject = new Thread("AddingData") {
 			public void run() {
 				
-				int[] ECGdataArray = Arrays.stream(ECGdata.substring(1, ECGdata.length() - 1).split(","))
+				/*int[] ECGdataPackage = Arrays.stream(ECGdata.substring(1, ECGdata.length() - 1).split(","))
 						.map(String::trim).mapToInt(Integer::parseInt).toArray();
 
-				int[] EMGdataArray = Arrays.stream(EMGdata.substring(1, EMGdata.length() - 1).split(","))
-						.map(String::trim).mapToInt(Integer::parseInt).toArray();
-
-				LocalTime startingDate = bitalinoPackage.getRecordsDate().toLocalDateTime().toLocalTime();
-
+				int[] EMGdataPackage = Arrays.stream(EMGdata.substring(1, EMGdata.length() - 1).split(","))
+						.map(String::trim).mapToInt(Integer::parseInt).toArray();*/
+				
+				Calendar calendar = Calendar.getInstance();
+				
+				Timestamp time = Timestamp.valueOf("2021-09-08 07:15:35.82");
+				
+				calendar.setTime(time);
+				
+				int hundredth = (((calendar.get(Calendar.MINUTE) * 60) + calendar.get(Calendar.SECOND)) * 100) + (calendar.get(Calendar.MILLISECOND)/10);
+				
 				int timePos = 0;
 
-				for (timePos = 0; timePos < dayTimeVector.length; timePos++) {
-					if (dayTimeVector[timePos].equals(startingDate)) {
+				for (timePos = 0; timePos < time20Array.length; timePos++) {
+					if (time20Array[timePos] == hundredth) {
+						System.out.println("Centesima: " + hundredth + " y Posición: " + timePos);	
 						break;
 					}
 				}
 
 				for (int n = timePos; n < timePos + ECGdataArray.length; n++) {
-					dayECGDadaVector[n] = ECGdataArray[n - timePos];
-					dayEMGDadaVector[n] = EMGdataArray[n - timePos];
+					
 				}
 			}
 		};
 		threadObject.start();
-	}*/
+	}
 
-	/*@SuppressWarnings("unused")
-	private void createDayAndDataArray(int frequency) {
+	private void createSamplesArrays() {
 
-		Thread threadObject = new Thread("CreatingDayArray") {
+		Thread threadObject = new Thread("CreatingArrays") {
 			public void run() {
 
-				// Samples in a half an hour
-				int samples = frequency * 30 * 60;
+				// Samples in a 20 minutes
+				int samples = 100 * 30 * 20;
 
-				dayTimeVector = new LocalTime[samples];
-				dayECGDadaVector = new int[samples];
-				dayEMGDadaVector = new int[samples];
+				time20Array = new int[samples];
+				ECGdataArray = new float[samples];
+				EMGdataArray = new float[samples];
 
-				LocalTime time = LocalTime.MIN;
-
-				dayTimeVector[0] = time;
-				dayECGDadaVector[0] = 0;
-				dayEMGDadaVector[0] = 0;
-				for (int n = 1; n < samples; n++) {
-					time = time.plus(1, ChronoUnit.MILLIS);
-					dayTimeVector[n] = time;
-					dayECGDadaVector[n] = 0;
-					dayEMGDadaVector[n] = 0;
+				for (int n = 0; n < samples; n++) {
+					time20Array[n] = n;
+					ECGdataArray[n] = 0;
+					EMGdataArray[n] = 0;
 				}
 			}
 		};
 		threadObject.start();
-	}*/
+	}
 
-	private void getPatientDayData(Date selectedDate) {
+	private void getPatientDayData(Timestamp selectedDate) {
 
 		Thread threadObject = new Thread("GettingDayData") {
 			public void run() {
@@ -306,9 +342,9 @@ public class PatientRecordsController implements Initializable {
 								patient.getMeasuredPackages().clear();
 								patient.setMeasuredPackages(responseAPI.getDayRecords());
 
-								//for (BitalinoPackage pack : patient.getMeasuredPackages()) {
-									//addBitalinoDataToGraphArrays(pack);
-								//}
+								for (BitalinoPackage pack : patient.getMeasuredPackages()) {
+									addBitalinoDataToGraphArrays(pack);
+								}
 							}
 						});
 					} else {

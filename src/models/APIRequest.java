@@ -1,7 +1,6 @@
 package models;
 
-
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 public class APIRequest {
@@ -16,7 +15,7 @@ public class APIRequest {
 	
 	private int doctorId;
 	private int patientId;
-	private Date date;
+	private Timestamp date;
 	private String doctorIdentification;
 	private String patientIdNumber;
 	private BitalinoPackage bitalinopackage;
@@ -73,9 +72,9 @@ public class APIRequest {
 
 	public void setUserId(int userId) {this.userId = userId;}
 
-	public Date getDate() {return date;}
+	public Timestamp getDate() {return date;}
 
-	public void setDate(Date date) {this.date = date;}
+	public void setDate(Timestamp date) {this.date = date;}
 
 	public BitalinoPackage getBitalinopackage() {return bitalinopackage;}
 
