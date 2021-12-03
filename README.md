@@ -28,6 +28,24 @@ It is important to emphasize that this project works together with TelemedicineR
 
 ## 2. Admin & Instalation Manual
 
+### About the programming languages:
+
+* Java 11
+* JavaFX
+
+### About the Data Base:
+Type of database used, JBDC or JPA.
+More details of the data base as langeage used (MySQL)
+
+### About the Server:
+Tomcat (version ?) more details...
+
+### About the operation system:
+This application can run in every operation system (Windows, OSX, Linux...) but the connection with BITalino only works in Windows, becasue the libraries. If this program will run in a Doctor computer this will not be a problem, but if the program need th BITalino connection to register data, as in Patients computers, only can be used with Windows.
+
+### About the BITalino:
+There is a Library needed for the BITalino connection "bluecove-2.1.1.jar". (For Windows).
+
 ## JavaFX Project Maven dependencies
 
 This project uses the following Maven dependencies
