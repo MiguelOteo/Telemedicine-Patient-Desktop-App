@@ -10,7 +10,7 @@ public class Patient extends User {
 	// Id of the patient (Documentation)
 	private String patientIdNumber;
 	
-	private String patientWeight;
+	private float patientWeight;
 	private float patientHeight;
 	
 	//List of the packages with BITalino measures
@@ -20,23 +20,23 @@ public class Patient extends User {
 	public Patient() {}
 
 	// Constructor
-	public Patient(int userId, int patientId, String patientName, String patientEmail, String patientWeight, String patientEncryptedPassword, String userSalt, String patientIdNumber) {
+	public Patient(int userId, int patientId, String patientName, String patientEmail, String patientEncryptedPassword, String userSalt, String patientIdNumber) {
 		
 		super(userId, patientName, patientEmail, patientEncryptedPassword, userSalt);
 		
 		this.patientId = patientId;
 		this.patientIdNumber = patientIdNumber;
 		this.measuredPackages = new LinkedList<BitalinoPackage>();
-		this.patientWeight = patientWeight;
 	}
 	
-	public Patient(int patientId, String patientIdNumber, User user, String patientWeight) {
+	public Patient(int patientId, String patientIdNumber,  float patientHeight, float patientWeight, User user) {
 		super(user.getUserId(), user.getName(), user.getEmail(), user.getEncryptedPassword(), user.getUserSalt());
 		
 		this.patientId = patientId;
 		this.patientIdNumber = patientIdNumber;
-		this.measuredPackages = new LinkedList<BitalinoPackage>();
+		this.patientHeight = patientHeight;
 		this.patientWeight = patientWeight;
+		this.measuredPackages = new LinkedList<BitalinoPackage>();
 	}
 	
 	public void addNewPackage(BitalinoPackage recordPackage) {
@@ -56,21 +56,12 @@ public class Patient extends User {
 
 	public void setMeasuredPackages(List<BitalinoPackage> measuredPackages) {this.measuredPackages = measuredPackages;}
 
-	public String getPatientWeight() {return patientWeight;}
+	public float getPatientWeight() {return patientWeight;}
 
-	public void setPatientWeight(String patientWeight) {this.patientWeight = patientWeight;}
-
-	
-
-		
-	
+	public void setPatientWeight(float patientWeight) {this.patientWeight = patientWeight;}
 
 	public float getPatientHeight() {return patientHeight;}
 
 	public void setPatientHeight(float patientHeight) {this.patientHeight = patientHeight;}
-
-	public void setPatientWeight(float patientWeight2) {
-		// TODO Auto-generated method stub
-		
-	}
 }
+

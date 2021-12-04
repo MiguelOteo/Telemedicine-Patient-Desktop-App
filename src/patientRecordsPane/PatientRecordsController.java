@@ -72,6 +72,10 @@ public class PatientRecordsController implements Initializable {
 	@FXML
 	private Label patientIdNumber;
 	@FXML
+	private Label patientWeight;
+	@FXML
+	private Label patientHeight;
+	@FXML
 	private DatePicker datePicker;
 
 	private XYChart dataChart;
@@ -185,6 +189,17 @@ public class PatientRecordsController implements Initializable {
 		}
 		patientEmail.setText("Patient email: " + patient.getEmail());
 		
+		if(patient.getPatientWeight() != 0.0f) {
+			patientWeight.setText("Patient weight: " + patient.getPatientWeight() + " Kg");
+		} else {
+			patientWeight.setText("Patient weight: not inserted");
+		}
+		
+		if(patient.getPatientHeight() != 0.0f) {
+			patientHeight.setText("Patient height: " +  patient.getPatientHeight() + " cm");
+		} else {
+			patientHeight.setText("Patient height: not inserted");
+		}
 	}
 
 	// Displays any error returned form the Rest API
