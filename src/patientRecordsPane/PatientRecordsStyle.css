@@ -64,6 +64,19 @@
 	-fx-border-color: linear-gradient(to bottom left, #00A9CC, #020024);
 }
 
+.comboBox {
+	-fx-font-size: 10pt;
+	-fx-text-fill: #00000080;
+	-fx-font-weight: normal;
+    -fx-font-family: "Ebrima";
+}
+.comboBox .list-view .list-cell {
+	-fx-font-size: 10pt;
+	-fx-text-fill: #00000080;
+	-fx-font-weight: normal;
+    -fx-font-family: "Ebrima";
+}
+
 .date-picker {
 	 -fx-background-color: d3d3d3; 
      -fx-faint-focus-color: transparent;

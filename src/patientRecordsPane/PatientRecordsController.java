@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 
@@ -74,7 +75,7 @@ public class PatientRecordsController implements Initializable {
 	private DatePicker datePicker;
 
 	private XYChart dataChart;
-
+	
 	private final FloatDataSet ECGdataSet = new FloatDataSet("ECG Records");
 
 	private final FloatDataSet EMGdataSet = new FloatDataSet("EMG Records");
@@ -123,6 +124,7 @@ public class PatientRecordsController implements Initializable {
 
 		dataChart = new XYChart(xAxis, yAxis);
 		dataChart.setLegendVisible(false);
+		dataChart.getDatasets().add(ECGdataSet);
 		dataChart.autosize();
 		final Zoomer zoom = new Zoomer();
 		zoom.omitAxisZoomList().add(yAxis);
@@ -324,7 +326,8 @@ public class PatientRecordsController implements Initializable {
 					}
 					inputReader.close();
 
-					APIResponse responseAPI = new Gson().fromJson(response.toString(), APIResponse.class);
+					Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SS'Z'").create();
+					APIResponse responseAPI = gson.fromJson(response.toString(), APIResponse.class);
 
 					if (!responseAPI.isError()) {
 						Platform.runLater(new Runnable() {
