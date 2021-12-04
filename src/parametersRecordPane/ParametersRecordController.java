@@ -71,6 +71,7 @@ public class ParametersRecordController implements Initializable {
 	
 	private boolean recordvalue = false;
 	
+	@SuppressWarnings("unused")
 	private int counter = 0;
 	
     private static Frame[] frame;
@@ -103,7 +104,8 @@ public class ParametersRecordController implements Initializable {
 	
 	private final DoubleDataSet ECGdataSet = new DoubleDataSet("ECG Records");
 	
-    private final DoubleDataSet EMGdataSet = new DoubleDataSet("EMG Records");
+    @SuppressWarnings("unused")
+	private final DoubleDataSet EMGdataSet = new DoubleDataSet("EMG Records");
     
     private DefaultNumericAxis xAxis = new DefaultNumericAxis("Time", "Seconds");
     
@@ -111,6 +113,7 @@ public class ParametersRecordController implements Initializable {
     
     private int lastgraphvalue = 0;
     
+	@SuppressWarnings("unused")
 	private final int N_SAMPLES = 60000;
 	
 	private final List<String> xValues = new ArrayList<String>(); 
@@ -313,7 +316,7 @@ public class ParametersRecordController implements Initializable {
 				    dataChart.getDatasets().clear();
 				    dataChart.getDatasets().add(ECGdataSet);
 
-	                if (idvalue == 1) {
+	                if (idvalue == 10) {
 	                	recordvalue = false;
 	        			nothingtoshow.setText("Recording has stopped");
 	                }
