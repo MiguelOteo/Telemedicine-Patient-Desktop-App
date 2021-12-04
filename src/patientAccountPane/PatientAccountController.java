@@ -260,12 +260,12 @@ public class PatientAccountController implements Initializable {
 							@Override
 							public void run() {
 								if(weightUpdate) {
-									AccountObjectCommunication.getPatient().setPatientWeight(responseAPI.getPatientWeight());
-									userWeightLabel.setText("Patient's Weight: " + responseAPI.getPatientWeight());
+									AccountObjectCommunication.getPatient().setPatientWeight(Float.parseFloat(userWeightField.getText()));
+									userWeightLabel.setText("Patient's Weight: " + Float.parseFloat(userWeightField.getText()));
 									userWeightField.setText("");
 								} else {
-									AccountObjectCommunication.getPatient().setPatientHeight(responseAPI.getPatientHeight());
-									userHeightLabel.setText("Patient's Height: " +responseAPI.getPatientHeight());
+									AccountObjectCommunication.getPatient().setPatientHeight(Float.parseFloat(userHeightField.getText()));
+									userHeightLabel.setText("Patient's Height: " +Float.parseFloat(userHeightField.getText()));
 									userHeightField.setText("");
 								}
 								openDialog(responseAPI.getAPImessage());
