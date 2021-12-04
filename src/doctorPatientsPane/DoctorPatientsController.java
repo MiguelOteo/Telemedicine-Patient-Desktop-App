@@ -195,7 +195,7 @@ public class DoctorPatientsController implements Initializable {
 		
 		patientsObjects.clear();
 		for (Patient patient: patientsList) {
-			patientsObjects.add(new PatientTreeObject(patient.getPatientId(), patient.getName(), patient.getEmail(), patient.getPatientWeight(), patient.getPatientIdNumber(), mainPane));
+			patientsObjects.add(new PatientTreeObject(patient.getPatientId(), patient.getName(), patient.getEmail(), patient.getPatientIdNumber(), mainPane));
 		}
 		patientsTreeView.refresh();
 	}
