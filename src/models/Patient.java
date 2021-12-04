@@ -11,6 +11,7 @@ public class Patient extends User {
 	private String patientIdNumber;
 	
 	private String patientWeight;
+	private float patientHeight;
 	
 	//List of the packages with BITalino measures
 	private List<BitalinoPackage> measuredPackages;
@@ -58,4 +59,18 @@ public class Patient extends User {
 	public String getPatientWeight() {return patientWeight;}
 
 	public void setPatientWeight(String patientWeight) {this.patientWeight = patientWeight;}
+
+	
+
+		
+	
+
+	public float getPatientHeight() {return patientHeight;}
+
+	public void setPatientHeight(float patientHeight) {this.patientHeight = patientHeight;}
+
+	public void setPatientWeight(float patientWeight2) {
+		// TODO Auto-generated method stub
+		
+	}
 }

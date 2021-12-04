@@ -3,6 +3,7 @@ package models;
 import java.sql.Timestamp;
 import java.util.List;
 
+
 public class APIRequest {
 
 	private int userId;
@@ -15,7 +16,8 @@ public class APIRequest {
 	
 	private int doctorId;
 	private int patientId;
-	private String patientWeight;
+	private float patientWeight;
+	private float patientHeight;
 	private Timestamp date;
 	private String doctorIdentification;
 	private String patientIdNumber;
@@ -81,7 +83,11 @@ public class APIRequest {
 
 	public void setBitalinopackage(BitalinoPackage bitalinopackage) {this.bitalinopackage = bitalinopackage;}
 
-	public String getPatientWeight() {return patientWeight;}
+	public float getPatientWeight() {return patientWeight;}
 
-	public void setPatientWeight(String patientWeight) {this.patientWeight = patientWeight;}		
+	public void setPatientWeight(float patientWeight) {this.patientWeight = patientWeight;}
+
+	public float getPatientHeight() {return patientHeight;}
+
+	public void setPatientHeight(float patientHeight) {this.patientHeight = patientHeight;	}		
 }

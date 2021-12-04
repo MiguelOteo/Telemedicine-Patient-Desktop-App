@@ -52,17 +52,23 @@ public class PatientAccountController implements Initializable {
 	@FXML
 	private Label userWeightLabel;
 	@FXML
+	private Label userHeightLabel;
+	@FXML
 	private JFXButton updateEmail;
 	@FXML
 	private JFXButton updateName;
 	@FXML
 	private JFXButton updateWeight;
 	@FXML
+	private JFXButton updateHeight;
+	@FXML
 	private JFXTextField userNameField;
 	@FXML
 	private JFXTextField userEmailField;
 	@FXML
 	private JFXTextField userWeightField;
+	@FXML
+	private JFXTextField userHeightField;
 	@FXML
 	private JFXPasswordField userOldPassword;
 	@FXML
@@ -74,6 +80,7 @@ public class PatientAccountController implements Initializable {
 		userEmailLabel.setText("User Email: " + AccountObjectCommunication.getPatient().getEmail());
 		userIDLabel.setText("Patient ID: " + AccountObjectCommunication.getPatient().getPatientIdNumber());
 		userWeightLabel.setText("Weight: " + AccountObjectCommunication.getPatient().getPatientWeight());
+		userHeightLabel.setText("Height: " + AccountObjectCommunication.getPatient().getPatientHeight());
 		
 		RegexValidator validator = new RegexValidator();
 		validator.setRegexPattern("^[_A-Za-z0-9-+]+(\\.[_A-Za-z0-9-]+)*@"
@@ -101,6 +108,15 @@ public class PatientAccountController implements Initializable {
 		userWeightField.focusedProperty().addListener((o, oldVal, newVal) ->{
 			if(!newVal) {
 				userWeightField.validate();
+			}
+		});
+		
+		RequiredFieldValidator validatorEmpty5 = new RequiredFieldValidator(); 
+		validatorEmpty5.setMessage("User height cannot be empty");
+		userHeightField.getValidators().add(validatorEmpty5);
+		userHeightField.focusedProperty().addListener((o, oldVal, newVal) ->{
+			if(!newVal) {
+				userHeightField.validate();
 			}
 		});
 		
@@ -135,7 +151,13 @@ public class PatientAccountController implements Initializable {
 		});
 		updateWeight.setOnAction((ActionEvent event) -> {
 			if(userWeightField.validate()) {
-				updateAccount(false);
+				updatePatientAccount(true);
+			}
+		});
+		
+		updateHeight.setOnAction((ActionEvent event) -> {
+			if(userHeightField.validate()) {
+				updatePatientAccount(false);
 			}
 		});
 	}
@@ -184,8 +206,8 @@ public class PatientAccountController implements Initializable {
 		}
 	}
 	
-	@SuppressWarnings("unused")
-	private void updatePatientAccount() {
+
+	private void updatePatientAccount(boolean weightUpdate) {
 		
 		Thread threadObject = new Thread("Updating Patient Account") {
 			public void run() {
@@ -198,13 +220,78 @@ public class PatientAccountController implements Initializable {
 					// Add to the request model a float for weight and height then ass the getter and setters
 					// Copy the request model into the RestAPI (they have to be identical)
 					// Then on the servlet UpdatePatientDataServlet you need to get the data do the SQL UPDATE and send a response
+				
+					
+					
+					
+					requestAPI.setPatientId(AccountObjectCommunication.getPatient().getPatientId());
+					if(weightUpdate) {
+						
+						String userWeight = userWeightField.getText();
+						if(!userWeight.equals("")) {requestAPI.setPatientWeight(Float.parseFloat(userWeight));}
+						
+					} else {
+						
+						String userHeight = userHeightField.getText();
+						
+						if(!userHeight.equals("")) {requestAPI.setPatientHeight(Float.parseFloat(userHeight));}
+						
+					}
+					
+					String postData = "APIRequest=" + URLEncoder.encode(new Gson().toJson(requestAPI), "UTF-8");
+					
+					connection.setDoOutput(true);
+					OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
+					writer.write(postData);
+					writer.flush();
+
+					BufferedReader inputReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+					String inputLine;
+					StringBuffer response = new StringBuffer();
+					while ((inputLine = inputReader.readLine()) != null) {
+						response.append(inputLine);
+					}
+					inputReader.close();
+					APIResponse responseAPI = new Gson().fromJson(response.toString(), APIResponse.class);
+					
+					if(!responseAPI.isError()) {	
+						
+						Platform.runLater(new Runnable() {
+							@Override
+							public void run() {
+								if(weightUpdate) {
+									AccountObjectCommunication.getPatient().setPatientWeight(responseAPI.getPatientWeight());
+									userWeightLabel.setText("Patient's Weight: " + responseAPI.getPatientWeight());
+									userWeightField.setText("");
+								} else {
+									AccountObjectCommunication.getPatient().setPatientHeight(responseAPI.getPatientHeight());
+									userHeightLabel.setText("Patient's Height: " +responseAPI.getPatientHeight());
+									userHeightField.setText("");
+								}
+								openDialog(responseAPI.getAPImessage());
+							}
+						});
+					} else {
+						Platform.runLater(new Runnable() {
+							@Override
+							public void run() {
+								openDialog(responseAPI.getAPImessage());
+								userHeightField.setText("");
+								userWeightField.setText("");
+							}
+						});
+					}
+					
 					
 				} catch (ConnectException | FileNotFoundException conncetionError) {
 					Platform.runLater(new Runnable() {
 						@Override
 						public void run() {
 							openDialog("Failed to connect to the server");
-						}
+							userWeightField.setText("");
+							userHeightField.setText("");
+							}
+						
 					});
 				} catch (IOException error) {
 					error.printStackTrace();
@@ -214,6 +301,7 @@ public class PatientAccountController implements Initializable {
 		};
 		threadObject.start();
 	}
+	
 	
 	private void updateAccount(boolean emailUpdate) {
 		
