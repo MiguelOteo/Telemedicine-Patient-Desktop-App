@@ -102,18 +102,20 @@ public class PatientAccountController implements Initializable {
 			}
 		});
 		
-		RequiredFieldValidator validatorEmpty4 = new RequiredFieldValidator(); 
-		validatorEmpty4.setMessage("User weight cannot be empty");
-		userWeightField.getValidators().add(validatorEmpty4);
+		RegexValidator validator2 = new RegexValidator();
+		validator2.setRegexPattern("[1-9]{1}[0-9]{1,2}(.[0-9]){0,1}");
+		validator2.setMessage("User weight is not valid");
+		userWeightField.getValidators().add(validator2);
 		userWeightField.focusedProperty().addListener((o, oldVal, newVal) ->{
 			if(!newVal) {
 				userWeightField.validate();
 			}
 		});
 		
-		RequiredFieldValidator validatorEmpty5 = new RequiredFieldValidator(); 
-		validatorEmpty5.setMessage("User height cannot be empty");
-		userHeightField.getValidators().add(validatorEmpty5);
+		RegexValidator validator3 = new RegexValidator();
+		validator3.setRegexPattern("[1-9]{1}[0-9]{1,2}");
+		validator3.setMessage("User height is not valid");
+		userHeightField.getValidators().add(validator3);
 		userHeightField.focusedProperty().addListener((o, oldVal, newVal) ->{
 			if(!newVal) {
 				userHeightField.validate();
