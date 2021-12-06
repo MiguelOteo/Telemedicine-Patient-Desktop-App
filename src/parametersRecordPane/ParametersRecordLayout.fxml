@@ -3,8 +3,6 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTreeTableView?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TreeTableView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -35,47 +33,46 @@
             <Image url="@../icons/heartRate_black.png" />
          </image>
       </ImageView>
-      <Label alignment="CENTER" layoutX="73.0" layoutY="506.0" prefHeight="30.0" prefWidth="411.0" text="You are (supposedly) connected to a BITalino" textFill="#0000007f">
-         <font>
-            <Font name="Ebrima" size="20.0" />
-         </font>
-      </Label>
-      <Label alignment="CENTER" layoutX="118.0" layoutY="546.0" prefHeight="25.0" prefWidth="321.0" text="Everything ready to record data" textAlignment="CENTER" textFill="#00000067" wrapText="true">
+      <Label alignment="CENTER" layoutX="33.0" layoutY="445.0" prefHeight="25.0" prefWidth="321.0" text="Everything ready to record data" textAlignment="CENTER" textFill="#00000067" wrapText="true">
          <font>
             <Font name="Ebrima" size="18.0" />
          </font>
       </Label>
       <AnchorPane layoutX="145.0" layoutY="506.0" />
-      <JFXButton fx:id="startRecording" layoutX="177.0" layoutY="603.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#startStopRecording" prefHeight="40.0" prefWidth="204.0" styleClass="add_button" text="START RECORDING!">
+      <JFXButton fx:id="startRecording" layoutX="92.0" layoutY="578.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#startStopRecording" prefHeight="40.0" prefWidth="204.0" styleClass="add_button" text="START RECORDING!">
          <font>
             <Font size="16.0" />
          </font>
       </JFXButton>
-      <Label alignment="CENTER" layoutX="594.0" layoutY="347.0" prefHeight="25.0" prefWidth="321.0" text="Last recorded values (timewise)" textAlignment="CENTER" textFill="#00000067" wrapText="true">
+      <Label alignment="CENTER" layoutX="566.0" layoutY="675.0" prefHeight="25.0" prefWidth="321.0" text="Last recorded values (timewise)" textAlignment="CENTER" textFill="#00000067" wrapText="true">
          <font>
             <Font name="Ebrima" size="18.0" />
          </font>
       </Label>
-      <JFXButton fx:id="comparePast" layoutX="653.0" layoutY="407.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="204.0" styleClass="add_button" text="Compare with past values">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </JFXButton>
-      <MenuButton fx:id="channelSelectButton" layoutX="141.0" layoutY="457.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="261.0" text="Select the channel to be displayed:">
-        <items>
-          <MenuItem mnemonicParsing="false" text="ECG channel" />
-          <MenuItem mnemonicParsing="false" text="EMG channel" />
-        </items>
-      </MenuButton>
-      <JFXTreeTableView fx:id="pastValuesTreeView" layoutX="537.0" layoutY="89.0" prefHeight="230.0" prefWidth="386.0" styleClass="tree_view">
+      <JFXTreeTableView fx:id="pastValuesTreeView" layoutX="483.0" layoutY="445.0" prefHeight="230.0" prefWidth="475.0" styleClass="tree_view">
          <columnResizePolicy>
             <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </JFXTreeTableView>
-      <StackPane fx:id="viewPane" layoutX="88.0" layoutY="111.0" prefHeight="311.0" prefWidth="399.0">
+      <StackPane fx:id="viewPane" layoutX="29.0" layoutY="62.0" prefHeight="318.0" prefWidth="907.0">
          <children>
             <Label fx:id="nothingtoshow" text="Nothing to show, please click on Start Recording!" textAlignment="CENTER" />
          </children>
       </StackPane>
+      <JFXButton fx:id="changegraph" layoutX="381.0" layoutY="380.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#changeChart" prefHeight="40.0" prefWidth="204.0" styleClass="add_button" text="SHOW EMG GRAPH">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </JFXButton>
+      <Label alignment="CENTER" layoutX="33.0" layoutY="479.0" prefHeight="25.0" prefWidth="321.0" text="Connected to BITalino with MAC:" textAlignment="CENTER" textFill="#00000067" wrapText="true">
+         <font>
+            <Font name="Ebrima" size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="macLabel" alignment="CENTER" layoutX="33.0" layoutY="516.0" prefHeight="25.0" prefWidth="321.0" text="00:00:00:00:00:00 " textAlignment="CENTER" textFill="#00000067" wrapText="true">
+         <font>
+            <Font name="Ebrima" size="18.0" />
+         </font>
+      </Label>
    </children>
 </Pane>

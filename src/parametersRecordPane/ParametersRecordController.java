@@ -68,6 +68,7 @@ import treeTableObjects.PastBitalinoValuesTreeObject;
 
 public class ParametersRecordController implements Initializable {
 
+	private boolean isECG = true;
 	
 	private boolean recordvalue = false;
 	
@@ -84,9 +85,9 @@ public class ParametersRecordController implements Initializable {
 	@FXML
 	private JFXButton startRecording;
 	@FXML
-	private JFXButton comparePast;
+	private JFXButton changegraph;
 	@FXML
-	private MenuButton channelSelectButton;
+	private Label macLabel;
 	@FXML
 	private JFXTreeTableView<PastBitalinoValuesTreeObject> pastValuesTreeView;
 	@FXML
@@ -116,15 +117,23 @@ public class ParametersRecordController implements Initializable {
 	@SuppressWarnings("unused")
 	private final int N_SAMPLES = 60000;
 	
-	private final List<String> xValues = new ArrayList<String>(); 
-	
-	private final List<String> yValues = new ArrayList<String>(); 
-	
 	private int xvaluesSize = 0;
 	
 	private int yvaluesSize = 0;
 	
-	private int block_size=10;
+	private int block_size=1000;
+	
+	private BITalino bitalino = null;
+	
+	private final double[] xValues = new double[block_size];
+	
+    private final double[] yValues = new double[block_size];
+    
+	private final double[] xValues2 = new double[block_size];
+	
+    private final double[] yValues2 = new double[block_size];
+    
+    private String MAC;
 	
 	public void initialize(URL location, ResourceBundle resources) {
 			loadTreeTable();
@@ -139,12 +148,16 @@ public class ParametersRecordController implements Initializable {
 			xAxis.setForceZeroInRange(false);
 			yAxis.setForceZeroInRange(false);
 		    ECGdataSet.resize(xvaluesSize);
+		    changegraph.setVisible(false);
+	        MAC = AccountObjectCommunication.getMAC();
+	        macLabel.setText(MAC);
+	        pastValuesTreeView.setPlaceholder(new Label("No data available to show"));
 			
 	}
 	
 	@FXML
 	private void startStopRecording(MouseEvent event) {
-		
+		lastgraphvalue = 0;
 		if (recordvalue == true) {
 			recordvalue = false;
 			nothingtoshow.setText("Recording has stopped");
@@ -152,14 +165,18 @@ public class ParametersRecordController implements Initializable {
 		else {
 			recordvalue = true;
 		}
-		
-		 idvalue=0;
+
 		 pastValuesTreeView.refresh();
 		 int patientId = AccountObjectCommunication.getPatient().getPatientId();
-		 BITalino bitalino = null;
 		 
          DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");  
-
+		nothingtoshow.setText("Recording has started, please wait");
+        MAC = AccountObjectCommunication.getMAC();
+	    changegraph.setVisible(true);
+		changegraph.setDisable(true);
+		startRecording.setDisable(true);
+ 		Thread threadObject = new Thread("Recording BITalino data") {
+			public void run() {
          
 	        try {
 	            bitalino = new BITalino();
@@ -167,7 +184,7 @@ public class ParametersRecordController implements Initializable {
 	            
 	            //Sampling rate, should be 10, 100 or 1000
 	            //int SamplingRate = 10;
-	            String MAC = AccountObjectCommunication.getMAC();
+
 	            bitalino.open(MAC, SamplingRate);
 
 	            // Start acquisition on analog channels A1 and A2
@@ -177,8 +194,8 @@ public class ParametersRecordController implements Initializable {
 
 	            //Read in total 10000000 times
 	            //while with boolean that button changes so that it closes	
-	            while(recordvalue == true) {
-	    			nothingtoshow.setText("Recording has started, please wait");
+	            for(int k = 0; k <1 ; k++) {
+
 	                //Each time read a block of 10 samples 
 
 	                frame = bitalino.read(block_size);
@@ -288,41 +305,33 @@ public class ParametersRecordController implements Initializable {
 			    	graphecg = graphecg.substring(1, graphecg.length());  //delete first [
 			    	ArrayList<String> graphecglist = new ArrayList<>(Arrays.asList(graphecg.split(",")));
 			    	
+			    	String graphemg = bitalinopack.getemgData();
+			    	graphemg = graphemg.substring(0, graphemg.length() - 1); //delete last ]
+			    	graphemg = graphemg.substring(1, graphemg.length());  //delete first [
+			    	ArrayList<String> graphemglist = new ArrayList<>(Arrays.asList(graphemg.split(",")));
+			    	
 				    for (int n = 0; n < block_size; n++) {
-				    	
-				    	xValues.add(Integer.toString(n+lastgraphvalue));
+				    	xValues[n+lastgraphvalue] =n+lastgraphvalue;
 				    	//double yvalue = Double.parseDouble(graphecglist.get(n)); 
-				    	
-				       yValues.add(graphecglist.get(n));
+				       yValues[n+lastgraphvalue] = Integer.parseInt(graphecglist.get(n));
+				    }
+				    
+				    ECGdataSet.clearData();
+				    ECGdataSet.add(xValues, yValues);
+				    
+					
+				    for (int n = 0; n < block_size; n++) {
+				    	xValues2[n+lastgraphvalue] =n+lastgraphvalue;
+				    	//double yvalue = Double.parseDouble(graphecglist.get(n)); 
+				       yValues2[n+lastgraphvalue] = Integer.parseInt(graphemglist.get(n));;
 				    }
 				    lastgraphvalue = block_size+lastgraphvalue;
-				    
-				    xvaluesSize = xValues.size();
-				    yvaluesSize = yValues.size();
-				    
-					final double[] xValues2 = new double[xvaluesSize];
-					
-				    final double[] yValues2 = new double[yvaluesSize];
-				    
-				    for (int n = 0; n < xvaluesSize; n++) {
-				    	
-				    	xValues2[n] = Integer.parseInt(xValues.get(n));
-				    	//double yvalue = Double.parseDouble(graphecglist.get(n)); 
-				    	
-				    	yValues2[n] = Integer.parseInt(yValues.get(n));
-				    }
-				    ECGdataSet.resize(xvaluesSize);
-				    ECGdataSet.add(xValues2, yValues2);
-				    dataChart.getDatasets().clear();
-				    dataChart.getDatasets().add(ECGdataSet);
+				    EMGdataSet.clearData();
+				    EMGdataSet.add(xValues2, yValues2);
 
-	                if (idvalue == 10) {
-	                	recordvalue = false;
-	        			nothingtoshow.setText("Recording has stopped");
-	                }
 	                
 	                
-	            }
+	            }//for loop
 	            //stop acquisition
 	            bitalino.stop();
 	        } catch (BITalinoException ex) {
@@ -340,7 +349,17 @@ public class ParametersRecordController implements Initializable {
 	            }
 	        }
 
-	   
+			}
+		};	
+		threadObject.start();
+		
+	    dataChart.getDatasets().clear();
+	    dataChart.getDatasets().add(ECGdataSet);
+	    startRecording.setDisable(false);
+		changegraph.setDisable(false);
+    	recordvalue = false;
+		nothingtoshow.setText("Recording has stopped");
+		isECG = true;
 
 	}
 		
@@ -350,7 +369,24 @@ public class ParametersRecordController implements Initializable {
 		 * Se crea una lista
 		 */
 	
+	@FXML
+	private void changeChart(MouseEvent event) {
 
+		if (isECG) { // If true then ECG graph has to be change
+
+			isECG = false;
+			changegraph.setText("Show ECG Recording");
+			dataChart.getDatasets().clear();
+			dataChart.getDatasets().add(EMGdataSet);
+
+		} else {
+
+			isECG = true;
+			changegraph.setText("Show EMG Recording");
+			dataChart.getDatasets().clear();
+			dataChart.getDatasets().add(ECGdataSet);
+		}
+	}
 	private void loadData() {
 		int count = 0;
 		String rate = Integer.toString(SamplingRate);
@@ -386,7 +422,7 @@ public class ParametersRecordController implements Initializable {
 		packetDate.setResizable(false);
 		
 		JFXTreeTableColumn<PastBitalinoValuesTreeObject, String> samplingRate = new JFXTreeTableColumn<>("Sampling Rate");
-		//bitalinoMAC.setPrefWidth(200);
+		samplingRate.setPrefWidth(140);
 		samplingRate.setCellValueFactory(new Callback<JFXTreeTableColumn.CellDataFeatures<PastBitalinoValuesTreeObject,String>, ObservableValue<String>>() {
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<PastBitalinoValuesTreeObject, String> param) {
