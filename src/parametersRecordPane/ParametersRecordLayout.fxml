@@ -49,7 +49,7 @@
             <Font name="Ebrima" size="18.0" />
          </font>
       </Label>
-      <JFXTreeTableView fx:id="pastValuesTreeView" layoutX="483.0" layoutY="445.0" prefHeight="230.0" prefWidth="475.0" styleClass="tree_view">
+      <JFXTreeTableView fx:id="pastValuesTreeView" layoutX="455.0" layoutY="445.0" prefHeight="230.0" prefWidth="503.0" styleClass="tree_view">
          <columnResizePolicy>
             <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>

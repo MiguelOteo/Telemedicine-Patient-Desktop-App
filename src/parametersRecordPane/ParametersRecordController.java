@@ -89,6 +89,8 @@ public class ParametersRecordController implements Initializable {
 	@FXML
 	private Label macLabel;
 	@FXML
+	private Label dataSent;
+	@FXML
 	private JFXTreeTableView<PastBitalinoValuesTreeObject> pastValuesTreeView;
 	@FXML
 	private final ObservableList<PastBitalinoValuesTreeObject> recordsObjects = FXCollections.observableArrayList();
@@ -124,7 +126,7 @@ public class ParametersRecordController implements Initializable {
 	private BITalino bitalino = null;
 	
 	private final double[] xValues = new double[block_size];
-	
+
     private final double[] yValues = new double[block_size];
     
 	private final double[] xValues2 = new double[block_size];
@@ -150,6 +152,10 @@ public class ParametersRecordController implements Initializable {
 	        MAC = AccountObjectCommunication.getMAC();
 	        macLabel.setText(MAC);
 	        pastValuesTreeView.setPlaceholder(new Label("No data available to show"));
+	        for (int j = 0; j<block_size; j++) {
+	        	xValues[j]= j;
+	        	xValues2[j]= j;
+	        }
 			
 	}
 	
@@ -192,7 +198,7 @@ public class ParametersRecordController implements Initializable {
 
 	            //Read in total 10000000 times
 	            //while with boolean that button changes so that it closes	
-	            for(int k = 0; k <1 ; k++) {
+	            for(int k = 0; k <10 ; k++) {
 
 	                //Each time read a block of 10 samples 
 
@@ -258,7 +264,10 @@ public class ParametersRecordController implements Initializable {
 							Platform.runLater(new Runnable() {
 								@Override
 								public void run() {
-									openDialog(responseAPI.getAPImessage());
+									//openDialog(responseAPI.getAPImessage());
+									dataSent.setText("Package "+idvalue + " sent correctly");
+								    startRecording.setDisable(false);
+									changegraph.setDisable(false);
 
 								}
 							});
@@ -268,6 +277,8 @@ public class ParametersRecordController implements Initializable {
 								@Override
 								public void run() {
 									openDialog(responseAPI.getAPImessage());
+								    startRecording.setDisable(false);
+									changegraph.setDisable(false);
 
 								}
 							});
@@ -280,6 +291,8 @@ public class ParametersRecordController implements Initializable {
 							public void run() {
 								openDialog("Failed to connect to the server");
 								conncetionError.printStackTrace();
+							    startRecording.setDisable(false);
+								changegraph.setDisable(false);
 							}
 						});
 					} catch (IOException error) {
@@ -323,7 +336,7 @@ public class ParametersRecordController implements Initializable {
 				    	//double yvalue = Double.parseDouble(graphecglist.get(n)); 
 				       yValues2[n+lastgraphvalue] = Integer.parseInt(graphemglist.get(n));;
 				    }
-				    lastgraphvalue = block_size+lastgraphvalue;
+				    //lastgraphvalue = block_size+lastgraphvalue;
 				    EMGdataSet.clearData();
 				    EMGdataSet.add(xValues2, yValues2);
 
@@ -353,8 +366,6 @@ public class ParametersRecordController implements Initializable {
 		
 	    dataChart.getDatasets().clear();
 	    dataChart.getDatasets().add(ECGdataSet);
-	    startRecording.setDisable(false);
-		changegraph.setDisable(false);
     	recordvalue = false;
 		nothingtoshow.setText("Recording has stopped");
 		isECG = true;
