@@ -84,7 +84,7 @@ public class PatientRecordsController implements Initializable {
 
 	private final FloatDataSet EMGdataSet = new FloatDataSet("EMG Records");
 
-	private DefaultNumericAxis xAxis = new DefaultNumericAxis("Time", "Milliseconds");
+	private DefaultNumericAxis xAxis = new DefaultNumericAxis("Time", "Hundredths of a second");
 
 	private DefaultNumericAxis yAxis = new DefaultNumericAxis("Records", "mV");
 
@@ -234,8 +234,8 @@ public class PatientRecordsController implements Initializable {
 			public void run() {
 				
 				for (int n = 0; n < ECGdataArray.length; n++) {
-					ECGdataArray[n] = 500;
-					EMGdataArray[n] = 500;
+					ECGdataArray[n] = 0;
+					EMGdataArray[n] = 0;
 				}
 				
 				for (BitalinoPackage bitalinoPackage : bitalinoPackages) {
@@ -280,8 +280,8 @@ public class PatientRecordsController implements Initializable {
 					// Inserts the package in the 20 minutes arrays at corresponding time
 					for (int n = timePos; n < max && n < time20Array.length; n++) {
 						
-						ECGdataArray[n] = ECGdataPackage[n - timePos];
-						EMGdataArray[n] = EMGdataPackage[n - timePos];
+						ECGdataArray[n] = ECGdataPackage[n - timePos] - 500;
+						EMGdataArray[n] = EMGdataPackage[n - timePos] - 500;
 					}
 				}	
 				ECGdataSet.add(time20Array, ECGdataArray);
@@ -305,8 +305,8 @@ public class PatientRecordsController implements Initializable {
 
 				for (int n = 0; n < samples; n++) {
 					time20Array[n] = n;
-					ECGdataArray[n] = 500;
-					EMGdataArray[n] = 500;
+					ECGdataArray[n] = 0;
+					EMGdataArray[n] = 0;
 				}
 			}
 		};
