@@ -305,8 +305,8 @@ public class PatientRecordsController implements Initializable {
 
 				for (int n = 0; n < samples; n++) {
 					time20Array[n] = n;
-					ECGdataArray[n] = 0;
-					EMGdataArray[n] = 0;
+					ECGdataArray[n] = 500;
+					EMGdataArray[n] = 500;
 				}
 			}
 		};
