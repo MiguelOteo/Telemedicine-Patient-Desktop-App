@@ -105,7 +105,6 @@ public class ParametersRecordController implements Initializable {
 	
 	private final DoubleDataSet ECGdataSet = new DoubleDataSet("ECG Records");
 	
-    @SuppressWarnings("unused")
 	private final DoubleDataSet EMGdataSet = new DoubleDataSet("EMG Records");
     
     private DefaultNumericAxis xAxis = new DefaultNumericAxis("Time", "Seconds");
@@ -113,8 +112,7 @@ public class ParametersRecordController implements Initializable {
     private DefaultNumericAxis yAxis = new DefaultNumericAxis("Records", "mV");
     
     private int lastgraphvalue = 0;
-    
-	@SuppressWarnings("unused")
+
 	private final int N_SAMPLES = 60000;
 	
 	private int xvaluesSize = 0;
@@ -393,7 +391,7 @@ public class ParametersRecordController implements Initializable {
 		recordsObjects.clear();
 		for (String packetIds: packetIds) {
 			String date = packetDates.get(count);
-			recordsObjects.add(new PastBitalinoValuesTreeObject(mainPane, packetIds, date, rate));
+			recordsObjects.add(new PastBitalinoValuesTreeObject(mainPane, packetIds, date, rate, xValues, yValues, xValues2, yValues2, ECGdataSet, ECGdataSet));
 			count++;
 		}
 		pastValuesTreeView.refresh();
@@ -432,7 +430,7 @@ public class ParametersRecordController implements Initializable {
 		samplingRate.setResizable(false);
 		
 		JFXTreeTableColumn<PastBitalinoValuesTreeObject, JFXButton> visualize = new JFXTreeTableColumn<>("Visualize");
-		//establishConnection.setPrefWidth(165);
+		visualize.setPrefWidth(120);
 		visualize.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<PastBitalinoValuesTreeObject, JFXButton>, ObservableValue<JFXButton>>() {
 			@Override
 			public ObservableValue<JFXButton> call(CellDataFeatures<PastBitalinoValuesTreeObject, JFXButton> param) {
