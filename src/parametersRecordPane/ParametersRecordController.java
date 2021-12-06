@@ -89,8 +89,6 @@ public class ParametersRecordController implements Initializable {
 	@FXML
 	private Label macLabel;
 	@FXML
-	private Label dataSent;
-	@FXML
 	private JFXTreeTableView<PastBitalinoValuesTreeObject> pastValuesTreeView;
 	@FXML
 	private final ObservableList<PastBitalinoValuesTreeObject> recordsObjects = FXCollections.observableArrayList();
@@ -264,8 +262,7 @@ public class ParametersRecordController implements Initializable {
 							Platform.runLater(new Runnable() {
 								@Override
 								public void run() {
-									//openDialog(responseAPI.getAPImessage());
-									dataSent.setText("Package "+idvalue + " sent correctly");
+									openDialog(responseAPI.getAPImessage());
 								    startRecording.setDisable(false);
 									changegraph.setDisable(false);
 
