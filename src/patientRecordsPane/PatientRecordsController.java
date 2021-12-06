@@ -234,8 +234,8 @@ public class PatientRecordsController implements Initializable {
 			public void run() {
 				
 				for (int n = 0; n < ECGdataArray.length; n++) {
-					ECGdataArray[n] = 0;
-					EMGdataArray[n] = 0;
+					ECGdataArray[n] = 500;
+					EMGdataArray[n] = 500;
 				}
 				
 				for (BitalinoPackage bitalinoPackage : bitalinoPackages) {
