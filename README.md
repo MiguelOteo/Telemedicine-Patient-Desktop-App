@@ -38,7 +38,7 @@ Type of database used, JBDC or JPA.
 More details of the data base as langeage used (MySQL)
 
 ### About the Server:
-Apache Tomcat is a free and open-source implementation of the Jakarta Servlet, Jakarta Expression Language, and WebSocket technologies.[3] Tomcat provides a "pure Java" HTTP web server environment in which Java code can run. 
+Apache Tomcat is a free and open-source implementation of the Jakarta Servlet, Jakarta Expression Language, and WebSocket technologies. Tomcat provides a "pure Java" HTTP web server environment in which Java code can run. 
 
 Catalina is Tomcat's servlet container which will be used to run the servlets of the RestAPI
 
