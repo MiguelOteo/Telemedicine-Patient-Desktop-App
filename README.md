@@ -30,8 +30,9 @@ It is important to emphasize that this project works together with TelemedicineR
 
 ### About the programming languages:
 
-* Java 11
-* JavaFX
+* Java, version 11 to use more updated libraries
+* JavaFX with FXML for the UI design
+* SQL for the database structure and queries 
 
 ### About the Data Base:
 The database is managed by MySQL which is an open-source relational database management system (RDBMS). Which uses SQL, the abbreviation for Structured Query Language. 
