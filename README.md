@@ -38,7 +38,9 @@ Type of database used, JBDC or JPA.
 More details of the data base as langeage used (MySQL)
 
 ### About the Server:
-Tomcat (version ?) more details...
+Apache Tomcat is a free and open-source implementation of the Jakarta Servlet, Jakarta Expression Language, and WebSocket technologies.[3] Tomcat provides a "pure Java" HTTP web server environment in which Java code can run. 
+
+Catalina is Tomcat's servlet container which will be used to run the servlets of the RestAPI
 
 ### About the operation system:
 This application can run in every operation system (Windows, OSX, Linux...) but the connection with BITalino only works in Windows, becasue the libraries. If this program will run in a Doctor computer this will not be a problem, but if the program need th BITalino connection to register data, as in Patients computers, only can be used with Windows.
