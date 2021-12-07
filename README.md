@@ -34,8 +34,7 @@ It is important to emphasize that this project works together with TelemedicineR
 * JavaFX
 
 ### About the Data Base:
-Type of database used, JBDC or JPA.
-More details of the data base as langeage used (MySQL)
+The database is managed by MySQL which is an open-source relational database management system (RDBMS). Which uses SQL, the abbreviation for Structured Query Language. 
 
 ### About the Server:
 Apache Tomcat is a free and open-source implementation of the Jakarta Servlet, Jakarta Expression Language, and WebSocket technologies. Tomcat provides a "pure Java" HTTP web server environment in which Java code can run. 
