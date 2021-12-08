@@ -128,6 +128,13 @@ In case that you don't want any patient you can click on "Delete assignment" but
 <img src="resources/documentationDependencies/2.png" width="600" border-radius=5% padding=100% />  
 </div> 
 
+If we click on "Show details" button we can see all the information about our patient and her physiological parameters recorded.
+
+<div align="center">
+<img src="resources/documentationDependencies/param_emg.png" width="600" border-radius=5% padding=100% />  
+</div>  
+
+
 
 ------
 
@@ -174,15 +181,18 @@ For example: "12345678T".
 <img src="resources/documentationDependencies/treetableview.png" width="600" border-radius=5% padding=100% />  
 </div>  
 
+
 7.[**BITalino Recording**]
 To start to record your physiological data you have to connect your BITalino first. So if you don't, back to the last step to do it.
 Once the BITalino is connected you must go to the "Parameters record" tab. At this moment you can click on the "START RECORDING" button, and the recorder process will start.
 
 In this interface, you can observe the graph in the first half of the page and in the second one 2 spaces showing, in the fist one, our "START RECORDING" button to record the ECG, and, in the second space we can see a list with the information received from the BITalino in packet form and with a view button of each one to see the information of each packet received.
 
-If we click on the "Show ECG Recording" button we can see the graph with better resolution and we can zoom it.
+In the following screen shot we can observe data about an ECG patient test, but we can do the same patient test with an EMG.
+
+If we click on the "Show ECG Recording" or in the "Show EMG Recording" button we can see the graph with better resolution and we can zoom it.
 
 <div align="center">
-<img src="resources/documentationDependencies/Param_record_view.jpeg" width="600" border-radius=5% padding=100% />  
+<img src="resources/documentationDependencies/param_ecg.png" width="600" border-radius=5% padding=100% />  
 </div>  
 
