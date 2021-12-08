@@ -196,3 +196,4 @@ If we click on the "Show ECG Recording" or in the "Show EMG Recording" button we
 <img src="resources/documentationDependencies/param_ecg.png" width="600" border-radius=5% padding=100% />  
 </div>  
 
+If we click on the "Show ECG Recording" or in the "Show EMG Recording" button we can see the graph with better resolution and we can zoom it.
