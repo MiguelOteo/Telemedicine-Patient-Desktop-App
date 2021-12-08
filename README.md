@@ -44,7 +44,7 @@ Apache Tomcat is a free and open-source implementation of the Jakarta Servlet, J
 Catalina is Tomcat's servlet container which will be used to run the servlets of the RestAPI
 
 ### About the operation system:
-This application can run in every operation system (Windows, OSX, Linux...) but the connection with BITalino only works in Windows, becasue the libraries. If this program will run in a Doctor computer this will not be a problem, but if the program need th BITalino connection to register data, as in Patients computers, only can be used with Windows.
+This application can run in every operation system (Windows, OSX, Linux...) but the connection with BITalino only works in Windows, becasue the libraries. If this program will run in a Doctor computer this will not be a problem, but if the program need the BITalino connection to register data, as in Patients computers, only can be used with Windows.
 
 ### About the BITalino:
 There is a Library needed for the BITalino connection "bluecove-2.1.1.jar". (For Windows).
@@ -175,6 +175,14 @@ For example: "12345678T".
 </div>  
 
 7.[**BITalino Recording**]
-To start to recover your physiological data you have to connect your BITalino first. So if you don't, back to the last step to do it.
+To start to record your physiological data you have to connect your BITalino first. So if you don't, back to the last step to do it.
+Once the BITalino is connected you must go to the "Parameters record" tab. At this moment you can click on the "START RECORDING" button, and the recorder process will start.
 
+In this interface, you can observe the graph in the first half of the page and in the second one 2 spaces showing, in the fist one, our "START RECORDING" button to record the ECG, and, in the second space we can see a list with the information received from the BITalino in packet form and with a view button of each one to see the information of each packet received.
+
+If we click on the "Show ECG Recording" button we can see the graph with better resolution and we can zoom it.
+
+<div align="center">
+<img src="resources/documentationDependencies/Param_record_view.jpeg" width="600" border-radius=5% padding=100% />  
+</div>  
 
