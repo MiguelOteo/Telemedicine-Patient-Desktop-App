@@ -190,7 +190,6 @@ In this interface, you can observe the graph in the first half of the page and i
 
 In the following screen shot we can observe data about an ECG patient test, but we can do the same patient test with an EMG.
 
-If we click on the "Show ECG Recording" or in the "Show EMG Recording" button we can see the graph with better resolution and we can zoom it.
 
 <div align="center">
 <img src="resources/documentationDependencies/param_ecg.png" width="600" border-radius=5% padding=100% />  
