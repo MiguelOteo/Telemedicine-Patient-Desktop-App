@@ -128,6 +128,7 @@ public class PatientRecordsController implements Initializable {
 
 		dataChart = new XYChart(xAxis, yAxis);
 		dataChart.setLegendVisible(false);
+		dataChart.setTitle("ECG recordings");
 		dataChart.getDatasets().add(ECGdataSet);
 		dataChart.autosize();
 		final Zoomer zoom = new Zoomer();
@@ -144,6 +145,7 @@ public class PatientRecordsController implements Initializable {
 
 			isECG = false;
 			changeGraph.setText("Show ECG Recording");
+			dataChart.setTitle("EMG recordings");
 			dataChart.getDatasets().clear();
 			dataChart.getDatasets().add(EMGdataSet);
 
@@ -151,6 +153,7 @@ public class PatientRecordsController implements Initializable {
 
 			isECG = true;
 			changeGraph.setText("Show EMG Recording");
+			dataChart.setTitle("ECG recordings");
 			dataChart.getDatasets().clear();
 			dataChart.getDatasets().add(ECGdataSet);
 		}

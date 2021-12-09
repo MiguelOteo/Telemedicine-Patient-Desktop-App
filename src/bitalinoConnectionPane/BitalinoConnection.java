@@ -19,9 +19,8 @@ public class BitalinoConnection {
 		BITalino bitalino = new BITalino();
 		availableDevices = bitalino.findDevices();
 		
-		/*
-		 *  Adds the : to the MAC address to show it in the UI 
-		 */	
+		
+		// Adds the : to the MAC address to show it in the UI 
 		for(RemoteDevice device: availableDevices) {
 			String MACAddress = device.getBluetoothAddress();
 			MACsList.add("" + MACAddress.charAt(0) + MACAddress.charAt(1) + ":" + MACAddress.charAt(2) + MACAddress.charAt(3) + ":" +
@@ -29,17 +28,5 @@ public class BitalinoConnection {
 					MACAddress.charAt(8) + MACAddress.charAt(9) + ":" + MACAddress.charAt(10) + MACAddress.charAt(11));
 		}
 		return MACsList;
-	}
-	
-	public String getBitalinoMacFromAvailableBitalinosList(int num, ArrayList<String> MACsList) {
-		String mac = "error";
-		if (num >= MACsList.size()) {
-			mac = "Error";
-		} else {
-			for (int i = 0; i < MACsList.size(); i++) {
-				mac = MACsList.get(num);
-			}
-		}
-		return mac;
 	}
 }
