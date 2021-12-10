@@ -67,7 +67,7 @@ import treeTableObjects.PastBitalinoValuesTreeObject;
 public class ParametersRecordController implements Initializable {
 	
 	private boolean isECG = true;
-	private boolean isRecording = false;
+	//private boolean isRecording = false;
 	
 	private String MAC = AccountObjectCommunication.getMAC();
 
@@ -134,9 +134,9 @@ public class ParametersRecordController implements Initializable {
 	@FXML
 	private void startStopRecording(MouseEvent event) {
 
-		if(!isRecording) {
+		if(!AccountObjectCommunication.isRecording()) {
 			
-			isRecording = true;
+			AccountObjectCommunication.setRecording(true);
 			changegraph.setDisable(true);
 			
 			int patientId = AccountObjectCommunication.getPatient().getPatientId();
@@ -149,7 +149,7 @@ public class ParametersRecordController implements Initializable {
 			
 		} else {
 			
-			isRecording = false;
+			AccountObjectCommunication.setRecording(false);
 			startRecording.setText("Start Recording");
 			nothingtoshow.setText("Recording has stopped");
 		}
@@ -169,7 +169,7 @@ public class ParametersRecordController implements Initializable {
 					int[] channelsToAcquire = { 0, 1 };
 					bitalino.start(channelsToAcquire);
 
-					while(isRecording) {
+					while(AccountObjectCommunication.isRecording()) {
 						
 						frame = bitalino.read(CommonParams.BLOCK_SIZE);
 						Timestamp now = new Timestamp(System.currentTimeMillis());
