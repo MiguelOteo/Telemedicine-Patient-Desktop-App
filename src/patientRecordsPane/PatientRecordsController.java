@@ -300,7 +300,7 @@ public class PatientRecordsController implements Initializable {
 			public void run() {
 
 				// Samples in a 20 minutes
-				int samples = 100 * 30 * 20;
+				int samples = CommonParams.SAMPLING_RATE * 30 * 20;
 
 				time20Array = new float[samples];
 				ECGdataArray = new float[samples];

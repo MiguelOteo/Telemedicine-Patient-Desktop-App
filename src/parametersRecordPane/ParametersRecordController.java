@@ -48,7 +48,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTableColumn.CellDataFeatures;
 import javafx.scene.effect.BoxBlur;
 import javafx.scene.input.MouseEvent;
@@ -67,7 +66,6 @@ import treeTableObjects.PastBitalinoValuesTreeObject;
 public class ParametersRecordController implements Initializable {
 	
 	private boolean isECG = true;
-	private boolean isRecording = false;
 	
 	private String MAC = AccountObjectCommunication.getMAC();
 
@@ -126,6 +124,12 @@ public class ParametersRecordController implements Initializable {
 		macLabel.setText(MAC);
 		pastValuesTreeView.setPlaceholder(new Label("No data available to show"));
 		
+		if(AccountObjectCommunication.isRecording()) {
+			startRecording.setText("Stop Recording");
+		} else {
+			startRecording.setText("Start Recording");
+		}
+		
 		for (int j = 0; j < CommonParams.BLOCK_SIZE; j++) {
 			timeArray[j] = j;
 		}
@@ -134,9 +138,9 @@ public class ParametersRecordController implements Initializable {
 	@FXML
 	private void startStopRecording(MouseEvent event) {
 
-		if(!isRecording) {
+		if(!AccountObjectCommunication.isRecording()) {
 			
-			isRecording = true;
+			AccountObjectCommunication.setRecording(true);
 			changegraph.setDisable(true);
 			
 			int patientId = AccountObjectCommunication.getPatient().getPatientId();
@@ -149,7 +153,7 @@ public class ParametersRecordController implements Initializable {
 			
 		} else {
 			
-			isRecording = false;
+			AccountObjectCommunication.setRecording(false);
 			startRecording.setText("Start Recording");
 			nothingtoshow.setText("Recording has stopped");
 		}
@@ -169,7 +173,7 @@ public class ParametersRecordController implements Initializable {
 					int[] channelsToAcquire = { 0, 1 };
 					bitalino.start(channelsToAcquire);
 
-					while(isRecording) {
+					while(AccountObjectCommunication.isRecording()) {
 						
 						frame = bitalino.read(CommonParams.BLOCK_SIZE);
 						Timestamp now = new Timestamp(System.currentTimeMillis());
@@ -344,7 +348,7 @@ public class ParametersRecordController implements Initializable {
 	private void loadTreeTable() {
 
 		JFXTreeTableColumn<PastBitalinoValuesTreeObject, String> packetId = new JFXTreeTableColumn<>("Packet ID");
-		// bitalinoName.setPrefWidth(155);
+		packetId.setPrefWidth(100);
 		packetId.setCellValueFactory(
 				new Callback<JFXTreeTableColumn.CellDataFeatures<PastBitalinoValuesTreeObject, String>, ObservableValue<String>>() {
 					@Override
@@ -354,9 +358,8 @@ public class ParametersRecordController implements Initializable {
 				});
 		packetId.setResizable(false);
 
-		JFXTreeTableColumn<PastBitalinoValuesTreeObject, String> packetDate = new JFXTreeTableColumn<>(
-				"Date of Recording");
-		packetDate.setPrefWidth(160);
+		JFXTreeTableColumn<PastBitalinoValuesTreeObject, String> packetDate = new JFXTreeTableColumn<>("Date of Recording");
+		packetDate.setPrefWidth(150);
 		packetDate.setCellValueFactory(
 				new Callback<JFXTreeTableColumn.CellDataFeatures<PastBitalinoValuesTreeObject, String>, ObservableValue<String>>() {
 					@Override
@@ -366,9 +369,8 @@ public class ParametersRecordController implements Initializable {
 				});
 		packetDate.setResizable(false);
 
-		JFXTreeTableColumn<PastBitalinoValuesTreeObject, String> samplingRate = new JFXTreeTableColumn<>(
-				"Sampling Rate");
-		samplingRate.setPrefWidth(140);
+		JFXTreeTableColumn<PastBitalinoValuesTreeObject, String> samplingRate = new JFXTreeTableColumn<>("Sampling Rate");
+		samplingRate.setPrefWidth(150);
 		samplingRate.setCellValueFactory(
 				new Callback<JFXTreeTableColumn.CellDataFeatures<PastBitalinoValuesTreeObject, String>, ObservableValue<String>>() {
 					@Override
@@ -378,7 +380,7 @@ public class ParametersRecordController implements Initializable {
 				});
 		samplingRate.setResizable(false);
 
-		JFXTreeTableColumn<PastBitalinoValuesTreeObject, JFXButton> visualize = new JFXTreeTableColumn<>("Visualize");
+		/*JFXTreeTableColumn<PastBitalinoValuesTreeObject, JFXButton> visualize = new JFXTreeTableColumn<>("Visualize");
 		visualize.setPrefWidth(120);
 		visualize.setCellValueFactory(
 				new Callback<TreeTableColumn.CellDataFeatures<PastBitalinoValuesTreeObject, JFXButton>, ObservableValue<JFXButton>>() {
@@ -388,12 +390,12 @@ public class ParametersRecordController implements Initializable {
 						return param.getValue().getValue().getViewRecord();
 					}
 				});
-		visualize.setResizable(false);
+		visualize.setResizable(false);*/
 
 		TreeItem<PastBitalinoValuesTreeObject> root = new RecursiveTreeItem<PastBitalinoValuesTreeObject>(
 				recordsObjects, RecursiveTreeObject::getChildren);
 		pastValuesTreeView.setSelectionModel(null);
-		pastValuesTreeView.getColumns().setAll(Arrays.asList(packetId, packetDate, samplingRate, visualize));
+		pastValuesTreeView.getColumns().setAll(Arrays.asList(packetId, packetDate, samplingRate/*, visualize*/));
 		pastValuesTreeView.setRoot(root);
 		pastValuesTreeView.setShowRoot(false);
 	}

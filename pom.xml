@@ -63,6 +63,7 @@
 			<version>11.1.0</version>
 		</dependency>
 
+		<!-- JavaFX basic dependencies -->
 		<!-- https://mvnrepository.com/artifact/org.openjfx/javafx-controls -->
 		<dependency>
 			<groupId>org.openjfx</groupId>
@@ -74,12 +75,6 @@
 			<groupId>org.openjfx</groupId>
 			<artifactId>javafx-fxml</artifactId>
 			<version>18-ea+7</version>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/com.github.kerner1000/javafx-chart-zooming -->
-		<dependency>
-			<groupId>org.gillius</groupId>
-			<artifactId>jfxutils</artifactId>
-			<version>1.0</version>
 		</dependency>
 
 	</dependencies>

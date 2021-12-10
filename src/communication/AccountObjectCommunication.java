@@ -5,6 +5,7 @@ import com.jfoenix.controls.JFXButton;
 import javafx.scene.layout.AnchorPane;
 import models.Doctor;
 import models.Patient;
+import parametersRecordPane.ParametersRecordController;
 
 public class AccountObjectCommunication {
 	
@@ -13,6 +14,8 @@ public class AccountObjectCommunication {
     private static Doctor doctor;
     private static int databaseId;
     private static String MAC = "";
+    private static boolean isRecording = false;
+    private static ParametersRecordController controller = null; 
    
 	// To set the blur on the whole menu
     private static AnchorPane anchorPane;
@@ -40,4 +43,12 @@ public class AccountObjectCommunication {
 	public static JFXButton getButtonControl1() {return buttonControl1;}
 
 	public static void setButtonControl1(JFXButton buttonControl) {buttonControl1 = buttonControl;}
+
+	public static boolean isRecording() {return isRecording;}
+
+	public static void setRecording(boolean recording) {isRecording = recording;}
+
+	public static ParametersRecordController getController() {return controller;}
+
+	public static void setController(ParametersRecordController controllerObject) {controller = controllerObject;}
 }

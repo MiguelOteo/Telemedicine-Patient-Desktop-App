@@ -70,6 +70,8 @@ public class PatientMenuController implements Initializable {
 	private void logOut(MouseEvent event) {
 		Stage stage = (Stage) logOutButton.getScene().getWindow();
 		stage.close();
+		AccountObjectCommunication.setController(null);
+		AccountObjectCommunication.setRecording(false);
 		AccountObjectCommunication.setPatient(null);
 		LaunchApp.getStage().show();
 	}
@@ -102,10 +104,15 @@ public class PatientMenuController implements Initializable {
 	private void openBitalinoRecord() {
 		Pane paramRecordPane;
 		try {
-			paramRecordPane = FXMLLoader
-					.load(getClass().getResource("/parametersRecordPane/ParametersRecordLayout.fxml"));
+			
+			//FXMLLoader loader = new FXMLLoader(getClass().getResource("/parametersRecordPane/ParametersRecordLayout.fxml"));
+			//AccountObjectCommunication.setController(loader.getController());
+			//FXMLLoader.load(getClass().getResource("/parametersRecordPane/ParametersRecordLayout.fxml"));
+			paramRecordPane = FXMLLoader.load(getClass().getResource("/parametersRecordPane/ParametersRecordLayout.fxml"));
+			
 			menuMainPane.getChildren().removeAll();
 			menuMainPane.getChildren().setAll(paramRecordPane);
+
 			openPatientAccount.setDisable(false);
 			openBitalinoConnection.setDisable(false);
 			openBitalinoRecord.setDisable(true);
