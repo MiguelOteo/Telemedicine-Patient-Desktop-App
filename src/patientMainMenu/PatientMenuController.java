@@ -70,6 +70,7 @@ public class PatientMenuController implements Initializable {
 	private void logOut(MouseEvent event) {
 		Stage stage = (Stage) logOutButton.getScene().getWindow();
 		stage.close();
+		AccountObjectCommunication.setMAC("");
 		AccountObjectCommunication.setController(null);
 		AccountObjectCommunication.setRecording(false);
 		AccountObjectCommunication.setPatient(null);
