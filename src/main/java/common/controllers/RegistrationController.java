@@ -142,7 +142,7 @@ public class RegistrationController implements Initializable {
 
 	private void openErrorDialog(String message) {
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/common/view/dialogPopUpLayout.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/common/view/DialogPopUpLayout.fxml"));
 			Parent root = (Parent) loader.load();
 			DialogPopUpController controler = loader.getController();
 			controler.setMessage(message);
@@ -165,7 +165,7 @@ public class RegistrationController implements Initializable {
 	
 	private void openAccountCreatedDialog(String message) {
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/common/view/dialogPopUpLayout.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/common/view/DialogPopUpLayout.fxml"));
 			Parent root = (Parent) loader.load();
 			DialogPopUpController controler = loader.getController();
 			controler.setMessage(message);
@@ -189,7 +189,7 @@ public class RegistrationController implements Initializable {
 
 	private void goBack() {
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("/logIn/LogInLayout.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource("/common/view/LogInLayout.fxml"));
 			LaunchApp.getStage().getScene().setRoot(root);
 			registerButton.setDisable(false);
 		} catch (IOException error) {

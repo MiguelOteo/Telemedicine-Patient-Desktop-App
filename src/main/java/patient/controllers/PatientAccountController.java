@@ -188,7 +188,7 @@ public class PatientAccountController implements Initializable {
 	// Displays any error returned form the Rest API
 	private void openDialog(String message) {
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/common/view/dialogPopUpLayout.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/common/view/DialogPopUpLayout.fxml"));
 			Parent root = (Parent) loader.load();
 			DialogPopUpController controler = loader.getController();
 			controler.setMessage(message);
