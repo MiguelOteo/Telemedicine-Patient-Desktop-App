@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="965.0" styleClass="white_color" stylesheets="@../../css/mainStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.patient.controllers.BitalinoConnectedController">
+   <children>
+      <Label layoutX="106.0" layoutY="25.0" prefHeight="32.0" prefWidth="213.0" text="BITalino Connection" textFill="#00000080">
+         <font>
+            <Font name="Ebrima" size="22.0" />
+         </font>
+      </Label>
+      <JFXButton layoutX="923.0" layoutY="13.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#closeApp" prefHeight="28.0" prefWidth="28.0" styleClass="window_button" text="X">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </JFXButton>
+      <JFXButton layoutX="887.0" layoutY="13.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#minWindow" prefHeight="28.0" prefWidth="28.0" styleClass="window_button" text="_">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </JFXButton>
+      <ImageView fitHeight="54.0" fitWidth="55.0" layoutX="33.0" layoutY="14.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../icons/BITalino_black.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="300.0" fitWidth="225.0" layoutX="371.0" layoutY="110.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../icons/BITalino_black.png" />
+         </image>
+      </ImageView>
+      <Label alignment="CENTER" layoutX="322.0" layoutY="426.0" prefHeight="25.0" prefWidth="321.0" text="You are connected to a BITalino" textFill="#0000007f">
+         <font>
+            <Font name="Ebrima" size="20.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="322.0" layoutY="456.0" prefHeight="25.0" prefWidth="321.0" text="Everything ready to record data" textAlignment="CENTER" textFill="#00000067" wrapText="true">
+         <font>
+            <Font name="Ebrima" size="18.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="293.0" layoutY="592.0" prefHeight="30.0" prefWidth="382.0" text="If you want to connect to a new BITalino" textAlignment="CENTER" textFill="#00000080" wrapText="true">
+         <font>
+            <Font name="Ebrima" size="20.0" />
+         </font>
+      </Label>
+      <JFXButton fx:id="closeConnection" layoutX="383.0" layoutY="540.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#closeConnection" prefHeight="40.0" prefWidth="204.0" styleClass="close_conn_button" text=" Close Connection">
+         <font>
+            <Font size="16.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="30.0" fitWidth="30.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../icons/cross_black.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+      <Label alignment="CENTER" layoutX="242.0" layoutY="622.0" prefHeight="30.0" prefWidth="485.0" text="You must first close the connection with the current one" textAlignment="CENTER" textFill="#00000067" wrapText="true">
+         <font>
+            <Font name="Ebrima" size="18.0" />
+         </font>
+      </Label>
+   </children>
+</Pane>

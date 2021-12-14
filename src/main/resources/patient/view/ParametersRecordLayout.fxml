@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTreeTableView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TreeTableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+
+<Pane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="965.0" styleClass="white_color" stylesheets="@../../css/mainStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.patient.controllers.ParametersRecordController">
+   <children>
+      <Label layoutX="106.0" layoutY="25.0" prefHeight="32.0" prefWidth="213.0" text="Parameters Record" textFill="#00000080">
+         <font>
+            <Font name="Ebrima" size="22.0" />
+         </font>
+      </Label>
+      <JFXButton layoutX="923.0" layoutY="13.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#closeApp" prefHeight="28.0" prefWidth="28.0" styleClass="window_button" text="X">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </JFXButton>
+      <JFXButton layoutX="887.0" layoutY="13.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#minWindow" prefHeight="28.0" prefWidth="28.0" styleClass="window_button" text="_">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </JFXButton>
+      <ImageView fitHeight="54.0" fitWidth="55.0" layoutX="33.0" layoutY="14.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../icons/heartRate_black.png" />
+         </image>
+      </ImageView>
+      <Label alignment="CENTER" layoutX="33.0" layoutY="493.0" prefHeight="25.0" prefWidth="321.0" text="Everything ready to record data" textAlignment="CENTER" textFill="#00000067" wrapText="true">
+         <font>
+            <Font name="Ebrima" size="18.0" />
+         </font>
+      </Label>
+      <AnchorPane layoutX="145.0" layoutY="506.0" />
+      <JFXButton fx:id="startRecording" layoutX="92.0" layoutY="627.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#startStopRecording" prefHeight="40.0" prefWidth="204.0" styleClass="add_button" text="Start Recording">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </JFXButton>
+      <Label alignment="CENTER" layoutX="506.0" layoutY="669.0" prefHeight="25.0" prefWidth="321.0" text="Last recorded values (timewise)" textAlignment="CENTER" textFill="#00000067" wrapText="true">
+         <font>
+            <Font name="Ebrima" size="18.0" />
+         </font>
+      </Label>
+      <JFXTreeTableView fx:id="pastValuesTreeView" layoutX="462.0" layoutY="459.0" prefHeight="210.0" prefWidth="410.0" styleClass="tree_view">
+         <columnResizePolicy>
+            <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </JFXTreeTableView>
+      <StackPane fx:id="viewPane" layoutX="29.0" layoutY="62.0" prefHeight="318.0" prefWidth="907.0">
+         <children>
+            <Label fx:id="nothingtoshow" text="Nothing to show, please click on Start Recording!" textAlignment="CENTER" />
+         </children>
+      </StackPane>
+      <JFXButton fx:id="changegraph" layoutX="381.0" layoutY="405.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#changeChart" prefHeight="40.0" prefWidth="204.0" styleClass="add_button" text="Show EMG Graph">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </JFXButton>
+      <Label alignment="CENTER" layoutX="33.0" layoutY="527.0" prefHeight="25.0" prefWidth="321.0" text="Connected to BITalino with MAC:" textAlignment="CENTER" textFill="#00000067" wrapText="true">
+         <font>
+            <Font name="Ebrima" size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="macLabel" alignment="CENTER" layoutX="33.0" layoutY="564.0" prefHeight="25.0" prefWidth="321.0" text="00:00:00:00:00:00 " textAlignment="CENTER" textFill="#00000067" wrapText="true">
+         <font>
+            <Font name="Ebrima" size="18.0" />
+         </font>
+      </Label>
+   </children>
+</Pane>

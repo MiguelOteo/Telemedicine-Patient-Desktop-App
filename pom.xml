@@ -63,6 +63,13 @@
 			<version>11.1.0</version>
 		</dependency>
 
+
+		<!-- https://mvnrepository.com/artifact/org.openjfx/javafx-graphics -->
+		<dependency>
+    		<groupId>org.openjfx</groupId>
+    		<artifactId>javafx-graphics</artifactId>
+    		<version>18-ea+8</version>
+		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.openjfx/javafx-controls -->
 		<dependency>
 			<groupId>org.openjfx</groupId>
@@ -85,25 +92,37 @@
 	</dependencies>
 
 	<properties>
-		<maven.compiler.release>11</maven.compiler.release>
-	</properties>
+    	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    	<javafx.version>17.0.1</javafx.version>
+    	<javafx.maven.plugin.version>0.0.8</javafx.maven.plugin.version>
+  	</properties>
 
 	<build>
 		<sourceDirectory>src</sourceDirectory>
 		<plugins>
 			<plugin>
-				<groupId>org.openjfx</groupId>
-				<artifactId>javafx-maven-plugin</artifactId>
-				<version>0.0.8</version>
-				<configuration>
-					<mainClass>launchApp/LaunchApp</mainClass>
-				</configuration>
-			</plugin>
-			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.8.0</version>
 				<configuration>
 					<release>11</release>
+					<target>11</target>
+				</configuration>
+			</plugin>
+			
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.2.1</version>
+				<executions>
+					<execution>
+            			<goals>
+             				<goal>java</goal>
+            			</goals>
+          			</execution>
+				</executions>
+				<configuration>
+					<mainClass>main.java.launch.LaunchApp</mainClass>
 				</configuration>
 			</plugin>
 		</plugins>
