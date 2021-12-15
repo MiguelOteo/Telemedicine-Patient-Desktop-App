@@ -92,13 +92,13 @@
 	</dependencies>
 
 	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<javafx.version>17.0.1</javafx.version>
-		<javafx.maven.plugin.version>0.0.8</javafx.maven.plugin.version>
-	</properties>
+    	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    	<maven.compiler.source>11</maven.compiler.source>
+   		<maven.compiler.target>11</maven.compiler.target>
+  	</properties>
 
 	<build>
-		<sourceDirectory>src</sourceDirectory>
+		<finalName>Telelepsia</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -110,9 +110,37 @@
 				</configuration>
 			</plugin>
 			<plugin>
+				<groupId>org.openjfx</groupId>
+				<artifactId>javafx-maven-plugin</artifactId>
+				<version>0.0.8</version>
+				<configuration>
+					<mainClass>main.java.launch.LaunchApp</mainClass>
+				</configuration>
+			</plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>
 				<version>3.2.4</version>
+				<configuration>
+					<filters>
+						<filter>
+							<artifact>*:*</artifact>
+							<excludes>
+								<exclude>module-info.class</exclude>
+								<exclude>META-INF/license/**</exclude>
+								<exclude>META-INF/*</exclude>
+								<exclude>META-INF/maven/**</exclude>
+								<exclude>LICENSE</exclude>
+								<exclude>NOTICE</exclude>
+								<exclude>/*.txt</exclude>
+								<exclude>build.properties</exclude>
+								<exclude>license/LICENSE/*</exclude>
+								<exclude>license/*</exclude>
+								<exclude>META-INF/substrate/config/</exclude>
+							</excludes>
+						</filter>
+					</filters>
+				</configuration>
 				<executions>
 					<execution>
 						<goals>
