@@ -79,8 +79,8 @@ public class PatientAccountController implements Initializable {
 		userNameLabel.setText("Name: " + AccountObjectCommunication.getPatient().getName());
 		userEmailLabel.setText("User Email: " + AccountObjectCommunication.getPatient().getEmail());
 		userIDLabel.setText("Patient ID: " + AccountObjectCommunication.getPatient().getPatientIdNumber());
-		userWeightLabel.setText("Weight: " + AccountObjectCommunication.getPatient().getPatientWeight());
-		userHeightLabel.setText("Height: " + AccountObjectCommunication.getPatient().getPatientHeight());
+		userWeightLabel.setText("Weight: " + AccountObjectCommunication.getPatient().getPatientWeight() + " Kg");
+		userHeightLabel.setText("Height: " + AccountObjectCommunication.getPatient().getPatientHeight() + " cm");
 		
 		RegexValidator validator = new RegexValidator();
 		validator.setRegexPattern("^[_A-Za-z0-9-+]+(\\.[_A-Za-z0-9-]+)*@"
@@ -263,11 +263,11 @@ public class PatientAccountController implements Initializable {
 							public void run() {
 								if(weightUpdate) {
 									AccountObjectCommunication.getPatient().setPatientWeight(Float.parseFloat(userWeightField.getText()));
-									userWeightLabel.setText("Patient's Weight: " + Float.parseFloat(userWeightField.getText()));
+									userWeightLabel.setText("Weight: " + Float.parseFloat(userWeightField.getText()) + " Kg");
 									userWeightField.setText("");
 								} else {
 									AccountObjectCommunication.getPatient().setPatientHeight(Float.parseFloat(userHeightField.getText()));
-									userHeightLabel.setText("Patient's Height: " +Float.parseFloat(userHeightField.getText()));
+									userHeightLabel.setText("Height: " + Float.parseFloat(userHeightField.getText()) + " cm");
 									userHeightField.setText("");
 								}
 								openDialog(responseAPI.getAPImessage());

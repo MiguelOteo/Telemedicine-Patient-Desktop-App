@@ -14,7 +14,7 @@ public class Patient extends User {
 	private float patientHeight;
 	
 	//List of the packages with BITalino measures
-	private List<BitalinoPackage> measuredPackages;
+	private List<BitalinoPackage> measuredPackages = new LinkedList<BitalinoPackage>();
 	
 	// Default constructor
 	public Patient() {}
@@ -26,7 +26,6 @@ public class Patient extends User {
 		
 		this.patientId = patientId;
 		this.patientIdNumber = patientIdNumber;
-		this.measuredPackages = new LinkedList<BitalinoPackage>();
 	}
 	
 	public Patient(int patientId, String patientIdNumber,  float patientHeight, float patientWeight, User user) {
@@ -36,7 +35,6 @@ public class Patient extends User {
 		this.patientIdNumber = patientIdNumber;
 		this.patientHeight = patientHeight;
 		this.patientWeight = patientWeight;
-		this.measuredPackages = new LinkedList<BitalinoPackage>();
 	}
 	
 	public void addNewPackage(BitalinoPackage recordPackage) {
