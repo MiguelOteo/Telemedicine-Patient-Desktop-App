@@ -1,4 +1,4 @@
-package main.java.common.treeobjects;
+package common.treeobjects;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;

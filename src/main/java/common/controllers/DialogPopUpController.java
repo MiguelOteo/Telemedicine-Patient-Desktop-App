@@ -1,4 +1,4 @@
-package main.java.common.controllers;
+package common.controllers;
 
 import java.io.IOException;
 import java.net.URL;

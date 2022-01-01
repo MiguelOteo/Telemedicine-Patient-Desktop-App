@@ -1,4 +1,4 @@
-package main.java.patient.controllers;
+package patient.controllers;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -17,6 +17,12 @@ import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.validation.RequiredFieldValidator;
 
+import common.communication.AccountObjectCommunication;
+import common.controllers.DialogPopUpController;
+import common.models.APIRequest;
+import common.models.APIResponse;
+import common.params.CommonParams;
+import common.utility.RegexValidator;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -32,12 +38,6 @@ import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import main.java.common.communication.AccountObjectCommunication;
-import main.java.common.controllers.DialogPopUpController;
-import main.java.common.models.APIRequest;
-import main.java.common.models.APIResponse;
-import main.java.common.params.CommonParams;
-import main.java.common.utility.RegexValidator;
 
 public class PatientAccountController implements Initializable {
 

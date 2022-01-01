@@ -1,4 +1,4 @@
-package main.java.common.models;
+package common.models;
 
 import java.util.LinkedList;
 import java.util.List;

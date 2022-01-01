@@ -1,4 +1,4 @@
-package main.java.patient.bitalino;
+package patient.bitalino;
 
 import java.util.Vector;
 

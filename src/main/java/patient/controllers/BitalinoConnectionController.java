@@ -1,4 +1,4 @@
-package main.java.patient.controllers;
+package patient.controllers;
 
 import java.io.IOException;
 import java.net.URL;
@@ -15,6 +15,9 @@ import com.jfoenix.controls.JFXTreeTableView;
 import com.jfoenix.controls.RecursiveTreeItem;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 
+import common.communication.AccountObjectCommunication;
+import common.controllers.DialogPopUpController;
+import common.treeobjects.BitalinoConnectionTreeObject;
 import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -36,10 +39,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Callback;
-import main.java.common.communication.AccountObjectCommunication;
-import main.java.common.controllers.DialogPopUpController;
-import main.java.common.treeobjects.BitalinoConnectionTreeObject;
-import main.java.patient.bitalino.BitalinoConnection;
+import patient.bitalino.BitalinoConnection;
 
 public class BitalinoConnectionController implements Initializable {
 

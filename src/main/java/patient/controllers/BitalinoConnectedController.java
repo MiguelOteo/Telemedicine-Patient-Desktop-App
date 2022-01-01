@@ -1,4 +1,4 @@
-package main.java.patient.controllers;
+package patient.controllers;
 
 import java.io.IOException;
 import java.net.URL;
@@ -6,13 +6,13 @@ import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
 
+import common.communication.AccountObjectCommunication;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import main.java.common.communication.AccountObjectCommunication;
 
 public class BitalinoConnectedController implements Initializable {
 

@@ -1,4 +1,4 @@
-package main.java.launch;
+package launch;
 	
 import java.io.IOException;
 

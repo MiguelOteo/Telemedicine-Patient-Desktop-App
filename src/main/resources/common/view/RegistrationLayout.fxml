@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane stylesheets="@../../css/mainStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.common.controllers.RegistrationController">
+<AnchorPane stylesheets="@../../css/mainStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="common.controllers.RegistrationController">
    <children>
       <Pane prefHeight="610.0" prefWidth="810.0" styleClass="blue_color">
          <children>

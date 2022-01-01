@@ -1,4 +1,4 @@
-package main.java.common.treeobjects;
+package common.treeobjects;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -14,6 +14,11 @@ import com.google.gson.Gson;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 
+import common.communication.AccountObjectCommunication;
+import common.controllers.DialogPopUpController;
+import common.models.APIRequest;
+import common.models.APIResponse;
+import common.params.CommonParams;
 import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -29,11 +34,6 @@ import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import main.java.common.communication.AccountObjectCommunication;
-import main.java.common.controllers.DialogPopUpController;
-import main.java.common.models.APIRequest;
-import main.java.common.models.APIResponse;
-import main.java.common.params.CommonParams;
 
 public class PatientTreeObject extends RecursiveTreeObject<PatientTreeObject> {
 	

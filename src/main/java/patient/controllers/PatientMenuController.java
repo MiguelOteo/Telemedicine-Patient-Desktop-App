@@ -1,4 +1,4 @@
-package main.java.patient.controllers;
+package patient.controllers;
 
 import java.io.IOException;
 import java.net.URL;
@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
 
+import common.communication.AccountObjectCommunication;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,8 +21,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import main.java.common.communication.AccountObjectCommunication;
-import main.java.launch.LaunchApp;
+import launch.LaunchApp;
 
 public class PatientMenuController implements Initializable {
 

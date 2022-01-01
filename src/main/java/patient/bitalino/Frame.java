@@ -1,4 +1,4 @@
-package main.java.patient.bitalino;
+package patient.bitalino;
 
 /// A frame returned by BITalino.read()
 public class Frame {

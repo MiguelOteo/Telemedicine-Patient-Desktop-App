@@ -1,4 +1,4 @@
-package main.java.common.models;
+package common.models;
 
 import java.sql.Timestamp;
 import java.util.List;

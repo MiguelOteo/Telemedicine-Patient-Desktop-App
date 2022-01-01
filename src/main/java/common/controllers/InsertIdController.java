@@ -1,4 +1,4 @@
-package main.java.common.controllers;
+package common.controllers;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -15,17 +15,16 @@ import com.google.gson.Gson;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 
+import common.communication.AccountObjectCommunication;
+import common.models.APIRequest;
+import common.models.APIResponse;
+import common.params.CommonParams;
+import common.utility.RegexValidator;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.stage.Stage;
-import main.java.common.communication.AccountObjectCommunication;
-import main.java.common.models.APIRequest;
-import main.java.common.models.APIResponse;
-import main.java.common.params.CommonParams;
-import main.java.common.utility.RegexValidator;
-
 
 public class InsertIdController implements Initializable {
 

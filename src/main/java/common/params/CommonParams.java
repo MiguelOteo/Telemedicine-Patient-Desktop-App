@@ -1,4 +1,4 @@
-package main.java.common.params;
+package common.params;
 
 public @interface CommonParams {
 

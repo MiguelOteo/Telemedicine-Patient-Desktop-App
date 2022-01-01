@@ -36,7 +36,7 @@
 
  */
 
-package main.java.patient.bitalino;
+package patient.bitalino;
 
 import java.io.IOException;
 import java.io.DataInputStream;

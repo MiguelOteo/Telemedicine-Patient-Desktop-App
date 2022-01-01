@@ -1,4 +1,4 @@
-package main.java.doctor.controllers;
+package doctor.controllers;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -20,6 +20,13 @@ import com.google.gson.GsonBuilder;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 
+import common.communication.AccountObjectCommunication;
+import common.controllers.DialogPopUpController;
+import common.models.APIRequest;
+import common.models.APIResponse;
+import common.models.BitalinoPackage;
+import common.models.Patient;
+import common.params.CommonParams;
 import de.gsi.chart.axes.spi.DefaultNumericAxis;
 import de.gsi.chart.plugins.Zoomer;
 import de.gsi.chart.ui.geometry.Side;
@@ -42,13 +49,6 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import main.java.common.communication.AccountObjectCommunication;
-import main.java.common.controllers.DialogPopUpController;
-import main.java.common.models.APIRequest;
-import main.java.common.models.APIResponse;
-import main.java.common.models.BitalinoPackage;
-import main.java.common.models.Patient;
-import main.java.common.params.CommonParams;
 
 public class PatientRecordsController implements Initializable {
 

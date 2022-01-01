@@ -1,11 +1,11 @@
-package main.java.common.communication;
+package common.communication;
 
 import com.jfoenix.controls.JFXButton;
 
+import common.models.Doctor;
+import common.models.Patient;
 import javafx.scene.layout.AnchorPane;
-import main.java.common.models.Doctor;
-import main.java.common.models.Patient;
-import main.java.patient.controllers.ParametersRecordController;
+import patient.controllers.ParametersRecordController;
 
 public class AccountObjectCommunication {
 	

@@ -1,4 +1,4 @@
-package main.java.common.models;
+package common.models;
 
 public class User {
 	

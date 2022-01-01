@@ -1,4 +1,4 @@
-package main.java.patient.controllers;
+package patient.controllers;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -26,6 +26,13 @@ import com.jfoenix.controls.JFXTreeTableView;
 import com.jfoenix.controls.RecursiveTreeItem;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 
+import common.communication.AccountObjectCommunication;
+import common.controllers.DialogPopUpController;
+import common.models.APIRequest;
+import common.models.APIResponse;
+import common.models.BitalinoPackage;
+import common.params.CommonParams;
+import common.treeobjects.PastBitalinoValuesTreeObject;
 import de.gsi.chart.XYChart;
 import de.gsi.chart.axes.spi.DefaultNumericAxis;
 import de.gsi.chart.plugins.Zoomer;
@@ -53,16 +60,9 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Callback;
-import main.java.common.communication.AccountObjectCommunication;
-import main.java.common.controllers.DialogPopUpController;
-import main.java.common.models.APIRequest;
-import main.java.common.models.APIResponse;
-import main.java.common.models.BitalinoPackage;
-import main.java.common.params.CommonParams;
-import main.java.common.treeobjects.PastBitalinoValuesTreeObject;
-import main.java.patient.bitalino.BITalino;
-import main.java.patient.bitalino.BITalinoException;
-import main.java.patient.bitalino.Frame;
+import patient.bitalino.BITalino;
+import patient.bitalino.BITalinoException;
+import patient.bitalino.Frame;
 
 public class ParametersRecordController implements Initializable {
 	

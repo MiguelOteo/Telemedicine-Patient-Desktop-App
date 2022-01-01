@@ -1,4 +1,4 @@
-package main.java.patient.bitalino;
+package patient.bitalino;
 
 public class BITalinoException extends java.lang.Exception {
 	
