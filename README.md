@@ -1,7 +1,7 @@
 # Telelepsia  
 ## TelemedicineProject (Java 11)
 <div align="center">
-<img src="resources/documentationDependencies/logo.png" alt="drawing" width="300" padding=100%/>  
+<img src="readme/documentationDependencies/logo.png" alt="drawing" width="300" padding=100%/>  
 </div>
 
 -------------------------------
@@ -142,7 +142,7 @@ If we click on "Show details" button we can see all the information about our pa
 
 Before the application installation and the use of it, it's important to say to the patient that something to bear in mind is that this system has a Hardware dependency; this application works with the BITalino board to recover physiological data of the patient.
 <div align="center">
-<img src="resources/documentationDependencies/bita.jpeg" width="300" border-radius=5% padding=100% />  
+<img src="readme/documentationDependencies/bita.jpeg" width="300" border-radius=5% padding=100% />  
 </div>  
 
 
