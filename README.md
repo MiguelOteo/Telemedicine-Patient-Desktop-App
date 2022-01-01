@@ -1,7 +1,7 @@
 # Telelepsia  
 ## TelemedicineProject (Java 11)
 <div align="center">
-<img src="resources/documentationDependencies/logo.png" alt="drawing" width="300" padding=100%/>  
+<img src="readme/documentationDependencies/logo.png" alt="drawing" width="300" padding=100%/>  
 </div>
 
 -------------------------------
@@ -69,7 +69,7 @@ This project uses the following Maven dependencies
 Once everything has been downloaded, installed and works properly, you only have to run the project and one window with a friendly user interface will be opened, as the following:
 
 <div align="center">
-<img src="resources/documentationDependencies/login_view.png" alt="drawing" width="600" padding=100%/>  
+<img src="readme/documentationDependencies/login_view.png" alt="drawing" width="600" padding=100%/>  
 </div>
 
 Depending on your role you can interact with the application in a different way, you can use the application as a Doctor or as a Patient.
@@ -83,13 +83,13 @@ Depending on your role you can interact with the application in a different way,
 2. Once you clicking on the button a new tab is shown requesting to know some data to create the new account. It's important to bear in mind that every bound must be filled with the data required. After all was be completed you can click on the "Create account" button.
 
 <div align="center">
-<img src="resources/documentationDependencies/doctor_regis_view.png" width="600" border-radius=5% padding=100% />  
+<img src="readme/documentationDependencies/doctor_regis_view.png" width="600" border-radius=5% padding=100% />  
 </div>  
 
 3.  After all were being completed, you can click on the "Create account" button and a message will appear, indicating that the Doctor account have been created, that's mean that everything goes successfully.
 
 <div align="center">
-<img src="resources/documentationDependencies/doctor_created_view.png" width="600" border-radius=5% padding=100% />  
+<img src="readme/documentationDependencies/doctor_created_view.png" width="600" border-radius=5% padding=100% />  
 </div>  
 
 4. Once, you, as a Doctor, have an account created you can proceed to do the "Login" process, in the main menu. You only have to introduce your email and the password introduced in the "Sign up" process.
@@ -98,24 +98,24 @@ Depending on your role you can interact with the application in a different way,
 For example: "12345678L".
 
 <div align="center">
-<img src="resources/documentationDependencies/doctor_id_view.png" width="600" border-radius=5% padding=100% />  
+<img src="readme/documentationDependencies/doctor_id_view.png" width="600" border-radius=5% padding=100% />  
 </div>  
 
 6. [**Modify Own Data**]After introducing your Doctor number identification a workspace is shown, where you can do a variety of actions; for example update your initial data proportioned when you sign up, or change the password often as a good cybersecurity custom. You can see your actual information below the doctor picture.
 
 <div align="center">
-<img src="resources/documentationDependencies/doctor_account_view.png" width="600" border-radius=5% padding=100% />  
+<img src="readme/documentationDependencies/doctor_account_view.png" width="600" border-radius=5% padding=100% />  
 </div>  
 
 7. [**Monitoring Patients Physiological Paramenters**]
 To monitor the physiological data of a patient you must add it to your control patients panel, in the "Your patients" view. To do that click on "Add new patients" button, and a new window will be opened.
 
 <div align="center">
-<img src="resources/documentationDependencies/your_patients_view.png" width="600" border-radius=5% padding=100% />  
+<img src="readme/documentationDependencies/your_patients_view.png" width="600" border-radius=5% padding=100% />  
 </div> 
 
 <div align="center">
-<img src="resources/documentationDependencies/1.png" width="600" border-radius=5% padding=100% />  
+<img src="readme/documentationDependencies/1.png" width="600" border-radius=5% padding=100% />  
 </div> 
 
 There you can select the patients that you want, which will be marked with a tick. When you finish the selection process, click on "Add selected patients" button and the patients will be added. When you have finished, click on cancel operation to exit from the selection window.
@@ -125,13 +125,13 @@ Once you close the selection window you can see the patients that you have selec
 In case that you don't want any patient you can click on "Delete assignment" button, and this patient will be removed from your patients.
 
 <div align="center">
-<img src="resources/documentationDependencies/2.png" width="600" border-radius=5% padding=100% />  
+<img src="readme/documentationDependencies/2.png" width="600" border-radius=5% padding=100% />  
 </div> 
 
 If we click on "Show details" button we can see all the information about our patient and her physiological parameters recorded.
 
 <div align="center">
-<img src="resources/documentationDependencies/param_emg.png" width="600" border-radius=5% padding=100% />  
+<img src="readme/documentationDependencies/param_emg.png" width="600" border-radius=5% padding=100% />  
 </div>  
 
 
@@ -142,7 +142,7 @@ If we click on "Show details" button we can see all the information about our pa
 
 Before the application installation and the use of it, it's important to say to the patient that something to bear in mind is that this system has a Hardware dependency; this application works with the BITalino board to recover physiological data of the patient.
 <div align="center">
-<img src="resources/documentationDependencies/bita.jpeg" width="300" border-radius=5% padding=100% />  
+<img src="readme/documentationDependencies/bita.jpeg" width="300" border-radius=5% padding=100% />  
 </div>  
 
 
@@ -151,13 +151,13 @@ Before the application installation and the use of it, it's important to say to 
 2. Once you clicking on the button a new tab is shown requesting to know some data to create the new account. It's important to bear in mind that every bound must be filled with the data required. After all was be completed you can click on the "Create account" button.
 
 <div align="center">
-<img src="resources/documentationDependencies/patient_regis_view.png" width="600" border-radius=5% padding=100% />  
+<img src="readme/documentationDependencies/patient_regis_view.png" width="600" border-radius=5% padding=100% />  
 </div>  
 
 3.  After all were being completed, you can click on the "Create account" button and a message will appear, indicating that the Patient account have been created, that's mean that everything goes successfully.
 
 <div align="center">
-<img src="resources/documentationDependencies/patient_created_view.png" width="600" border-radius=5% padding=100% />  
+<img src="readme/documentationDependencies/patient_created_view.png" width="600" border-radius=5% padding=100% />  
 </div>  
 
 4. Once, you, as a Patient, have an account created you can proceed to do the "Login" process, in the main menu. You only have to introduce your email and the password introduced in the "Sign up" process.
@@ -166,7 +166,7 @@ Before the application installation and the use of it, it's important to say to 
 For example: "12345678T".
 
 <div align="center">
-<img src="resources/documentationDependencies/patient_id_view.png" width="600" border-radius=5% padding=100% />  
+<img src="readme/documentationDependencies/patient_id_view.png" width="600" border-radius=5% padding=100% />  
 </div>  
 
 6. [**BITalino Connection**]
@@ -178,7 +178,7 @@ For example: "12345678T".
  6.4 Your BITalino should appear on the screen with its corresponding MAC address. 
 
 <div align="center">
-<img src="resources/documentationDependencies/treetableview.png" width="600" border-radius=5% padding=100% />  
+<img src="readme/documentationDependencies/treetableview.png" width="600" border-radius=5% padding=100% />  
 </div>  
 
 
@@ -192,7 +192,7 @@ In the following screen shot we can observe data about an ECG patient test, but 
 
 
 <div align="center">
-<img src="resources/documentationDependencies/param_ecg.png" width="600" border-radius=5% padding=100% />  
+<img src="readme/documentationDependencies/param_ecg.png" width="600" border-radius=5% padding=100% />  
 </div>  
 
 If we click on the "Show ECG Recording" or in the "Show EMG Recording" button we can see the graph with better resolution and we can zoom it.
