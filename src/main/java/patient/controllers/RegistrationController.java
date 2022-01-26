@@ -195,7 +195,7 @@ public class RegistrationController implements Initializable {
 		Thread threadObject = new Thread("RegisteringUser") {
 			public void run() {
 				try {
-					HttpURLConnection connection = (HttpURLConnection) new URL(PatientParams.BASE_URL + "/userRegistration")
+					HttpURLConnection connection = (HttpURLConnection) new URL(PatientParams.BASE_URL + "/patientRegistration")
 							.openConnection();
 					connection.setRequestMethod("POST");
 
