@@ -118,12 +118,12 @@ public class LogInController implements Initializable {
 		stage.setIconified(true);
 	}
 
-	private void launchMenu(String fileName) {
+	private void launchMenu() {
 		try {
 			LaunchApp.getStage().hide();
 			userEmailField.setText("");
 			userPasswordField.setText("");
-			FXMLLoader loader = new FXMLLoader(getClass().getResource(fileName + ".fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource(PatientParams.PATIENT_MENU_VIEW));
 			Parent root = (Parent) loader.load();
 			Stage stage = new Stage();
 			Scene scene = new Scene(root);
@@ -205,7 +205,7 @@ public class LogInController implements Initializable {
 							@Override
 							public void run() {
 								AccountObjectCommunication.setPatient(responseAPI.getPatient());
-								launchMenu("/patient/view/PatientMenuLayout");
+								launchMenu();
 							}
 						});
 					}

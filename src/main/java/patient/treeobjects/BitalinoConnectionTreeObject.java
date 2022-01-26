@@ -13,6 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.Pane;
 import patient.communication.AccountObjectCommunication;
+import patient.params.PatientParams;
 
 public class BitalinoConnectionTreeObject extends RecursiveTreeObject<BitalinoConnectionTreeObject> {
 
@@ -49,7 +50,7 @@ public class BitalinoConnectionTreeObject extends RecursiveTreeObject<BitalinoCo
 	private void loadConnectedPane() {
 		Pane bitalinoConnectedPane;
 		try {
-			bitalinoConnectedPane = FXMLLoader.load(getClass().getResource("/patient/view/BitalinoConnectedLayout.fxml"));
+			bitalinoConnectedPane = FXMLLoader.load(getClass().getResource(PatientParams.BITALINO_CONNECTED_VIEW));
 			pane.getChildren().removeAll();
 			pane.getChildren().setAll(bitalinoConnectedPane);
 		} catch (IOException error) {

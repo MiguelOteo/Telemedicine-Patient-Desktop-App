@@ -75,6 +75,7 @@ public class PatientAccountController implements Initializable {
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		
 		userNameLabel.setText("Name: " + AccountObjectCommunication.getPatient().getName());
 		userEmailLabel.setText("User Email: " + AccountObjectCommunication.getPatient().getEmail());
 		userIDLabel.setText("Patient ID: " + AccountObjectCommunication.getPatient().getPatientIdNumber());
@@ -187,7 +188,7 @@ public class PatientAccountController implements Initializable {
 	// Displays any error returned form the Rest API
 	private void openDialog(String message) {
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/common/view/DialogPopUpLayout.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource(PatientParams.DIALOG_POP_UP_VIEW));
 			Parent root = (Parent) loader.load();
 			DialogPopUpController controler = loader.getController();
 			controler.setMessage(message);
@@ -217,13 +218,6 @@ public class PatientAccountController implements Initializable {
 					HttpURLConnection connection = (HttpURLConnection) new URL(PatientParams.BASE_URL + "/updatePatientData").openConnection();
 					connection.setRequestMethod("POST");
 					APIRequest requestAPI = new APIRequest();
-					
-					// Add to the request model a float for weight and height then ass the getter and setters
-					// Copy the request model into the RestAPI (they have to be identical)
-					// Then on the servlet UpdatePatientDataServlet you need to get the data do the SQL UPDATE and send a response
-				
-					
-					
 					
 					requestAPI.setPatientId(AccountObjectCommunication.getPatient().getPatientId());
 					if(weightUpdate) {

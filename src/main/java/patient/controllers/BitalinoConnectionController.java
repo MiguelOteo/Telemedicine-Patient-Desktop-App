@@ -38,6 +38,7 @@ import javafx.stage.StageStyle;
 import javafx.util.Callback;
 import patient.bitalino.BitalinoConnection;
 import patient.communication.AccountObjectCommunication;
+import patient.params.PatientParams;
 import patient.treeobjects.BitalinoConnectionTreeObject;
 
 public class BitalinoConnectionController implements Initializable {
@@ -135,7 +136,7 @@ public class BitalinoConnectionController implements Initializable {
 	// Displays any error message on a popUp pane
 	private void openDialog(String message) {
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/common/view/DialogPopUpLayout.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource(PatientParams.DIALOG_POP_UP_VIEW));
 			Parent root = (Parent) loader.load();
 			DialogPopUpController controler = loader.getController();
 			controler.setMessage(message);

@@ -22,6 +22,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import launch.LaunchApp;
 import patient.communication.AccountObjectCommunication;
+import patient.params.PatientParams;
 
 public class PatientMenuController implements Initializable {
 
@@ -88,7 +89,7 @@ public class PatientMenuController implements Initializable {
 		
 		Pane patientAccountPane;
 		try {
-			patientAccountPane = FXMLLoader.load(getClass().getResource("/patient/view/PatientAccountLayout.fxml"));
+			patientAccountPane = FXMLLoader.load(getClass().getResource(PatientParams.PATIENT_ACCOUNT_VIEW));
 			menuMainPane.getChildren().removeAll();
 			menuMainPane.getChildren().setAll(patientAccountPane);
 			openPatientAccount.setDisable(true);
@@ -109,7 +110,7 @@ public class PatientMenuController implements Initializable {
 			//FXMLLoader loader = new FXMLLoader(getClass().getResource("/parametersRecordPane/ParametersRecordLayout.fxml"));
 			//AccountObjectCommunication.setController(loader.getController());
 			//FXMLLoader.load(getClass().getResource("/parametersRecordPane/ParametersRecordLayout.fxml"));
-			paramRecordPane = FXMLLoader.load(getClass().getResource("/patient/view/ParametersRecordLayout.fxml"));
+			paramRecordPane = FXMLLoader.load(getClass().getResource(PatientParams.PARAMETERS_RECORD_VIEW));
 			
 			menuMainPane.getChildren().removeAll();
 			menuMainPane.getChildren().setAll(paramRecordPane);
@@ -129,7 +130,7 @@ public class PatientMenuController implements Initializable {
 			Pane bitalinoConnectivityPane;
 			try {
 				bitalinoConnectivityPane = FXMLLoader
-						.load(getClass().getResource("/patient/view/BitalinoConnectionLayout.fxml"));
+						.load(getClass().getResource(PatientParams.BITALINO_CONNECTION_VIEW));
 				menuMainPane.getChildren().removeAll();
 				menuMainPane.getChildren().setAll(bitalinoConnectivityPane);
 				openPatientAccount.setDisable(false);
@@ -142,7 +143,7 @@ public class PatientMenuController implements Initializable {
 			Pane bitalinoConnectedPane;
 			try {
 				bitalinoConnectedPane = FXMLLoader
-						.load(getClass().getResource("/patient/view/BitalinoConnectedLayout.fxml"));
+						.load(getClass().getResource(PatientParams.BITALINO_CONNECTED_VIEW));
 				menuMainPane.getChildren().removeAll();
 				menuMainPane.getChildren().setAll(bitalinoConnectedPane);
 				openPatientAccount.setDisable(false);
@@ -156,7 +157,7 @@ public class PatientMenuController implements Initializable {
 
 	private void opendIdPopUp() {
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/common/view/InsertIdLayout.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource(PatientParams.INSERT_ID_VIEW));
 			Parent root = (Parent) loader.load();
 			Stage stage = new Stage();
 			Scene scene = new Scene(root);

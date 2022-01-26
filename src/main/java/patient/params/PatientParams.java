@@ -17,4 +17,9 @@ public @interface PatientParams {
 	public static final String REGISTRATION_VIEW = "/patient/view/RegistrationLayout.fxml";
 	public static final String INSERT_ID_VIEW = "/patient/view/InsertIdLayout.fxml";
 	public static final String DIALOG_POP_UP_VIEW = "/patient/view/DialogPopUpLayout.fxml";	
+	public static final String PATIENT_MENU_VIEW = "/patient/view/PatientMenuLayout.fxml";
+	public static final String PATIENT_ACCOUNT_VIEW = "/patient/view/PatientAccountLayout.fxml";
+	public static final String PARAMETERS_RECORD_VIEW = "/patient/view/ParametersRecordLayout.fxml";
+	public static final String BITALINO_CONNECTED_VIEW = "/patient/view/BitalinoConnectedLayout.fxml";
+	public static final String BITALINO_CONNECTION_VIEW = "/patient/view/BitalinoConnectionLayout.fxml";
 }

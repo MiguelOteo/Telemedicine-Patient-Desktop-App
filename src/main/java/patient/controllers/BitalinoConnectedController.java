@@ -13,6 +13,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import patient.communication.AccountObjectCommunication;
+import patient.params.PatientParams;
 
 public class BitalinoConnectedController implements Initializable {
 
@@ -30,7 +31,7 @@ public class BitalinoConnectedController implements Initializable {
 		AccountObjectCommunication.getButtonControl1().setDisable(true);
 		Pane bitalinoConnectivityPane;
 		try {
-			bitalinoConnectivityPane = FXMLLoader.load(getClass().getResource("/patient/view/BitalinoConnectionLayout.fxml"));
+			bitalinoConnectivityPane = FXMLLoader.load(getClass().getResource(PatientParams.BITALINO_CONNECTION_VIEW));
 			mainPane.getChildren().removeAll();
 			mainPane.getChildren().setAll(bitalinoConnectivityPane);
 		} catch (IOException error) {

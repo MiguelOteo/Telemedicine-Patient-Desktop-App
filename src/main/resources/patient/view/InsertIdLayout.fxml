@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="160.0" prefWidth="310.0" styleClass="blue_color_id_field" stylesheets="@../../css/mainStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="common.controllers.InsertIdController">
+<AnchorPane prefHeight="160.0" prefWidth="310.0" styleClass="blue_color_id_field" stylesheets="@../../css/mainStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="patient.controllers.InsertIdController">
    <children>
       <Pane layoutX="5.0" layoutY="5.0" prefHeight="150.0" prefWidth="300.0" styleClass="white_color_id_field">
          <children>
