@@ -6,6 +6,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import patient.params.PatientParams;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
@@ -17,7 +18,7 @@ public class LaunchApp extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("/common/view/LogInLayout.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource(PatientParams.LOG_IN_VIEW));
 			primaryStage.setTitle("Telelepsia");
 			Scene scene = new Scene(root);
 			scene.setFill(Color.TRANSPARENT);

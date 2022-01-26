@@ -6,7 +6,6 @@ import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
 
-import common.communication.AccountObjectCommunication;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,6 +21,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import launch.LaunchApp;
+import patient.communication.AccountObjectCommunication;
 
 public class PatientMenuController implements Initializable {
 

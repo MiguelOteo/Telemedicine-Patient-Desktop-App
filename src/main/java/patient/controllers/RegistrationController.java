@@ -1,4 +1,4 @@
-package common.controllers;
+package patient.controllers;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -13,15 +13,10 @@ import java.util.ResourceBundle;
 
 import com.google.gson.Gson;
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.validation.RequiredFieldValidator;
 
-import common.models.APIRequest;
-import common.models.APIResponse;
-import common.params.CommonParams;
-import common.utility.RegexValidator;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -37,13 +32,15 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import launch.LaunchApp;
+import patient.models.APIRequest;
+import patient.models.APIResponse;
+import patient.params.PatientParams;
+import patient.utility.RegexValidator;
 
 public class RegistrationController implements Initializable {
 
 	@FXML
 	private Pane registrationPane;
-	@FXML
-	private JFXComboBox<String> userType;
 	@FXML
 	private JFXTextField userNameField;
 	@FXML
@@ -99,10 +96,6 @@ public class RegistrationController implements Initializable {
 				userNameField.validate();
 			}
 		});
-		
-		// Adding the types of users
-		userType.getItems().addAll("Patient", "Doctor");
-		userType.setValue("Patient");
 
 		registerButton.setOnAction((ActionEvent event) -> {
 			boolean resultEmail = userEmailField.validate();
@@ -116,8 +109,8 @@ public class RegistrationController implements Initializable {
 	public void doRequest(boolean resultEmail, boolean resultName, boolean resultPass, boolean resultPassRep) {
 		
 		if(resultName == true && resultEmail == true && resultPass == true && resultPassRep == true) {
-			resgisterUserRest(userType.getSelectionModel().getSelectedItem().toString(), userNameField.getText(),
-					userEmailField.getText(), userPasswordField.getText(), userRepeatPasswordField.getText());
+			resgisterUserRest(userNameField.getText(), userEmailField.getText(), userPasswordField.getText(),
+					userRepeatPasswordField.getText());
 			registerButton.setDisable(true);
 		}
 	}
@@ -125,7 +118,7 @@ public class RegistrationController implements Initializable {
 	// When press it goes back to the logIn pane
 	@FXML
 	private void backToMenu(MouseEvent event) throws IOException {
-		Parent root = FXMLLoader.load(getClass().getResource("/common/view/LogInLayout.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource(PatientParams.LOG_IN_VIEW));
 		LaunchApp.getStage().getScene().setRoot(root);
 	}
 
@@ -142,7 +135,7 @@ public class RegistrationController implements Initializable {
 
 	private void openErrorDialog(String message) {
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/common/view/DialogPopUpLayout.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource(PatientParams.DIALOG_POP_UP_VIEW));
 			Parent root = (Parent) loader.load();
 			DialogPopUpController controler = loader.getController();
 			controler.setMessage(message);
@@ -165,7 +158,7 @@ public class RegistrationController implements Initializable {
 	
 	private void openAccountCreatedDialog(String message) {
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/common/view/DialogPopUpLayout.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource(PatientParams.DIALOG_POP_UP_VIEW));
 			Parent root = (Parent) loader.load();
 			DialogPopUpController controler = loader.getController();
 			controler.setMessage(message);
@@ -189,7 +182,7 @@ public class RegistrationController implements Initializable {
 
 	private void goBack() {
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("/common/view/LogInLayout.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource(PatientParams.LOG_IN_VIEW));
 			LaunchApp.getStage().getScene().setRoot(root);
 			registerButton.setDisable(false);
 		} catch (IOException error) {
@@ -197,18 +190,16 @@ public class RegistrationController implements Initializable {
 		}
 	}
 
-	private void resgisterUserRest(String userType, String userName, String userEmail, String userPassword,
-			String userPasswordRepeat) {
+	private void resgisterUserRest(String userName, String userEmail, String userPassword, String userPasswordRepeat) {
 
 		Thread threadObject = new Thread("RegisteringUser") {
 			public void run() {
 				try {
-					HttpURLConnection connection = (HttpURLConnection) new URL(CommonParams.BASE_URL + "/userRegistration")
+					HttpURLConnection connection = (HttpURLConnection) new URL(PatientParams.BASE_URL + "/userRegistration")
 							.openConnection();
 					connection.setRequestMethod("POST");
 
 					APIRequest requestAPI = new APIRequest();
-					if(!userType.equals("")) {requestAPI.setUserType(userType);}
 					if(!userName.equals("")) {requestAPI.setUserName(userName);}
 					if(!userEmail.equals("")) {requestAPI.setUserEmail(userEmail);}
 					if(!userPassword.equals("")) {requestAPI.setUserPassword(userPassword);}

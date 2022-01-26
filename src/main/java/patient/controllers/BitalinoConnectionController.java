@@ -15,9 +15,6 @@ import com.jfoenix.controls.JFXTreeTableView;
 import com.jfoenix.controls.RecursiveTreeItem;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 
-import common.communication.AccountObjectCommunication;
-import common.controllers.DialogPopUpController;
-import common.treeobjects.BitalinoConnectionTreeObject;
 import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -40,6 +37,8 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Callback;
 import patient.bitalino.BitalinoConnection;
+import patient.communication.AccountObjectCommunication;
+import patient.treeobjects.BitalinoConnectionTreeObject;
 
 public class BitalinoConnectionController implements Initializable {
 

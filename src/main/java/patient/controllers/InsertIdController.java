@@ -1,4 +1,4 @@
-package common.controllers;
+package patient.controllers;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -15,16 +15,16 @@ import com.google.gson.Gson;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 
-import common.communication.AccountObjectCommunication;
-import common.models.APIRequest;
-import common.models.APIResponse;
-import common.params.CommonParams;
-import common.utility.RegexValidator;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.stage.Stage;
+import patient.communication.AccountObjectCommunication;
+import patient.models.APIRequest;
+import patient.models.APIResponse;
+import patient.params.PatientParams;
+import patient.utility.RegexValidator;
 
 public class InsertIdController implements Initializable {
 
@@ -37,15 +37,10 @@ public class InsertIdController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		
 		RegexValidator validator = new RegexValidator();
-		validator.setRegexPattern("[0-9]{8}" + CommonParams.DNI_LETTERS + "{1}");
+		validator.setRegexPattern("[0-9]{8}" + PatientParams.DNI_LETTERS + "{1}");
 		
-		if(AccountObjectCommunication.getDoctor() != null) {
-			idField.setPromptText("Doctor identification number");
-			validator.setMessage("Doctor ID Number is not valid");
-		} else {
-			idField.setPromptText("Health insurance number");
-			validator.setMessage("Patient ID Number is not valid");
-		}
+		idField.setPromptText("Health insurance number");
+		validator.setMessage("Patient ID Number is not valid");
 		
 		idField.getValidators().add(validator);
 		idField.focusedProperty().addListener((o, oldVal, newVal) ->{
@@ -68,28 +63,14 @@ public class InsertIdController implements Initializable {
 			public void run() {
 				
 				try {
-					HttpURLConnection connection;
-					String postData;
+					HttpURLConnection connection = (HttpURLConnection) new URL(PatientParams.BASE_URL + "/addPatientIdNumber").openConnection();
+					connection.setRequestMethod("POST");
 					
-					if(AccountObjectCommunication.getDoctor() != null) {
-			
-						connection = (HttpURLConnection) new URL(CommonParams.BASE_URL + "/addDoctorIdentification").openConnection();
-						connection.setRequestMethod("POST");
-						
-						APIRequest requestAPI = new APIRequest();
-						if(!idValue.equals("")) {requestAPI.setDoctorIdentification(idValue);}
-						requestAPI.setDoctorId(AccountObjectCommunication.getDoctor().getDoctorId());
-						postData = "APIRequest=" + URLEncoder.encode(new Gson().toJson(requestAPI), "UTF-8");
-					} else {
-						
-						connection = (HttpURLConnection) new URL(CommonParams.BASE_URL + "/addPatientIdNumber").openConnection();
-						connection.setRequestMethod("POST");
-						
-						APIRequest requestAPI = new APIRequest();
-						if(!idValue.equals("")) {requestAPI.setPatientIdNumber(idValue);}
-						requestAPI.setPatientId(AccountObjectCommunication.getPatient().getPatientId());
-						postData = "APIRequest=" + URLEncoder.encode(new Gson().toJson(requestAPI), "UTF-8");	
-					}
+					APIRequest requestAPI = new APIRequest();
+					if(!idValue.equals("")) {requestAPI.setPatientIdNumber(idValue);}
+					requestAPI.setPatientId(AccountObjectCommunication.getPatient().getPatientId());
+					String postData = "APIRequest=" + URLEncoder.encode(new Gson().toJson(requestAPI), "UTF-8");	
+					
 					
 					connection.setDoOutput(true);
 					OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
@@ -117,12 +98,8 @@ public class InsertIdController implements Initializable {
 						});
 						
 					} else {
-						
-						if(AccountObjectCommunication.getDoctor() != null) {
-							AccountObjectCommunication.getDoctor().setDoctorIdNumber(idValue);
-						} else {
-							AccountObjectCommunication.getPatient().setPatientIdNumber(idValue);
-						}
+					
+						AccountObjectCommunication.getPatient().setPatientIdNumber(idValue);
 						
 						Platform.runLater(new Runnable() {
 							@Override

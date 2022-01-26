@@ -1,4 +1,4 @@
-package common.controllers;
+package patient.controllers;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -17,11 +17,6 @@ import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.validation.RequiredFieldValidator;
 
-import common.communication.AccountObjectCommunication;
-import common.models.APIRequest;
-import common.models.APIResponse;
-import common.params.CommonParams;
-import common.utility.RegexValidator;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -38,6 +33,11 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import launch.LaunchApp;
+import patient.communication.AccountObjectCommunication;
+import patient.models.APIRequest;
+import patient.models.APIResponse;
+import patient.params.PatientParams;
+import patient.utility.RegexValidator;
 
 public class LogInController implements Initializable {
 
@@ -102,7 +102,7 @@ public class LogInController implements Initializable {
 	// Replace the login pane with the registration one
 	@FXML
 	private void openRegistration(MouseEvent event) throws IOException {
-		Pane registrationPane = FXMLLoader.load(getClass().getResource("/common/view/RegistrationLayout.fxml"));
+		Pane registrationPane = FXMLLoader.load(getClass().getResource(PatientParams.REGISTRATION_VIEW));
 		anchorPane.getChildren().remove(logInPane);
 		anchorPane.getChildren().setAll(registrationPane);
 	}
@@ -141,7 +141,7 @@ public class LogInController implements Initializable {
 
 	private void openDialog(String message) {
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/common/view/DialogPopUpLayout.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource(PatientParams.DIALOG_POP_UP_VIEW));
 			Parent root = (Parent) loader.load();
 			DialogPopUpController controler = loader.getController();
 			controler.setMessage(message);
@@ -167,7 +167,7 @@ public class LogInController implements Initializable {
 		Thread threadObject = new Thread("AthentificatingUser") {
 			public void run() {
 				try {
-					HttpURLConnection connection = (HttpURLConnection) new URL(CommonParams.BASE_URL + "/userLogin")
+					HttpURLConnection connection = (HttpURLConnection) new URL(PatientParams.BASE_URL + "/patientLogIn")
 							.openConnection();
 
 					connection.setRequestMethod("POST");
@@ -201,23 +201,13 @@ public class LogInController implements Initializable {
 							}
 						});
 					} else {
-						if (responseAPI.getPatient() != null) {
-							Platform.runLater(new Runnable() {
-								@Override
-								public void run() {
-									AccountObjectCommunication.setPatient(responseAPI.getPatient());
-									launchMenu("/patient/view/PatientMenuLayout");
-								}
-							});
-						} else {
-							Platform.runLater(new Runnable() {
-								@Override
-								public void run() {
-									AccountObjectCommunication.setDoctor(responseAPI.getDoctor());
-									launchMenu("/doctor/view/DoctorMenuLayout");
-								}
-							});
-						}
+						Platform.runLater(new Runnable() {
+							@Override
+							public void run() {
+								AccountObjectCommunication.setPatient(responseAPI.getPatient());
+								launchMenu("/patient/view/PatientMenuLayout");
+							}
+						});
 					}
 				} catch (ConnectException | FileNotFoundException conncetionError) {
 					Platform.runLater(new Runnable() {

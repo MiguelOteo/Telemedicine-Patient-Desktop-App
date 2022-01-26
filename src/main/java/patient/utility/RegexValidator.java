@@ -1,4 +1,4 @@
-package common.utility;
+package patient.utility;
 
 import java.util.regex.Pattern;
 

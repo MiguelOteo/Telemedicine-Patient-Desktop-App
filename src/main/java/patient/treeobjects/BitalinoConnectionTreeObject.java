@@ -1,11 +1,10 @@
-package common.treeobjects;
+package patient.treeobjects;
 
 import java.io.IOException;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 
-import common.communication.AccountObjectCommunication;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -13,6 +12,7 @@ import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.Pane;
+import patient.communication.AccountObjectCommunication;
 
 public class BitalinoConnectionTreeObject extends RecursiveTreeObject<BitalinoConnectionTreeObject> {
 

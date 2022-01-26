@@ -1,4 +1,4 @@
-package common.controllers;
+package patient.controllers;
 
 import java.io.IOException;
 import java.net.URL;

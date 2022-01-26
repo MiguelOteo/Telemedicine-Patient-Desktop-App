@@ -26,13 +26,6 @@ import com.jfoenix.controls.JFXTreeTableView;
 import com.jfoenix.controls.RecursiveTreeItem;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 
-import common.communication.AccountObjectCommunication;
-import common.controllers.DialogPopUpController;
-import common.models.APIRequest;
-import common.models.APIResponse;
-import common.models.BitalinoPackage;
-import common.params.CommonParams;
-import common.treeobjects.PastBitalinoValuesTreeObject;
 import de.gsi.chart.XYChart;
 import de.gsi.chart.axes.spi.DefaultNumericAxis;
 import de.gsi.chart.plugins.Zoomer;
@@ -63,6 +56,12 @@ import javafx.util.Callback;
 import patient.bitalino.BITalino;
 import patient.bitalino.BITalinoException;
 import patient.bitalino.Frame;
+import patient.communication.AccountObjectCommunication;
+import patient.models.APIRequest;
+import patient.models.APIResponse;
+import patient.models.BitalinoPackage;
+import patient.params.PatientParams;
+import patient.treeobjects.PastBitalinoValuesTreeObject;
 
 public class ParametersRecordController implements Initializable {
 	
@@ -101,11 +100,11 @@ public class ParametersRecordController implements Initializable {
 
 	private DefaultNumericAxis yAxis = new DefaultNumericAxis("Records", "mV");
 
-	private final float[] timeArray = new float[CommonParams.BLOCK_SIZE];
+	private final float[] timeArray = new float[PatientParams.BLOCK_SIZE];
 
-	private final float[] ECGdataArray = new float[CommonParams.BLOCK_SIZE];
+	private final float[] ECGdataArray = new float[PatientParams.BLOCK_SIZE];
 
-	private final float[] EMGdataArray = new float[CommonParams.BLOCK_SIZE];
+	private final float[] EMGdataArray = new float[PatientParams.BLOCK_SIZE];
 
 	public void initialize(URL location, ResourceBundle resources) {
 		
@@ -126,7 +125,7 @@ public class ParametersRecordController implements Initializable {
 		macLabel.setText(MAC);
 		pastValuesTreeView.setPlaceholder(new Label("No data available to show"));
 		
-		for (int j = 0; j < CommonParams.BLOCK_SIZE; j++) {
+		for (int j = 0; j < PatientParams.BLOCK_SIZE; j++) {
 			timeArray[j] = j;
 		}
 	}
@@ -163,7 +162,7 @@ public class ParametersRecordController implements Initializable {
 				BITalino bitalino = new BITalino();
 				try {
 					
-					bitalino.open(MAC, CommonParams.SAMPLING_RATE);
+					bitalino.open(MAC, PatientParams.SAMPLING_RATE);
 
 					// Selection of channels 0 and 1 form BITalino
 					int[] channelsToAcquire = { 0, 1 };
@@ -171,7 +170,7 @@ public class ParametersRecordController implements Initializable {
 
 					while(AccountObjectCommunication.isRecording()) {
 						
-						frame = bitalino.read(CommonParams.BLOCK_SIZE);
+						frame = bitalino.read(PatientParams.BLOCK_SIZE);
 						Timestamp now = new Timestamp(System.currentTimeMillis());
 
 						String emgValues = "[";
@@ -186,7 +185,7 @@ public class ParametersRecordController implements Initializable {
 						emgValues = emgValues + "]";
 						ecgValues = ecgValues + "]";
 
-						BitalinoPackage bitalinoPack = new BitalinoPackage(patientId, CommonParams.SAMPLING_RATE, now, emgValues,
+						BitalinoPackage bitalinoPack = new BitalinoPackage(patientId, PatientParams.SAMPLING_RATE, now, emgValues,
 								ecgValues);
 						AccountObjectCommunication.getPatient().addNewPackage(bitalinoPack);
 
@@ -231,7 +230,7 @@ public class ParametersRecordController implements Initializable {
 		graphEMG = graphEMG.substring(1, graphEMG.length() - 1);
 		ArrayList<String> graphEMGList = new ArrayList<>(Arrays.asList(graphEMG.split(",")));
 
-		for (int n = 0; n < CommonParams.BLOCK_SIZE; n++) {
+		for (int n = 0; n < PatientParams.BLOCK_SIZE; n++) {
 			timeArray[n] = n ;
 			ECGdataArray[n] = Integer.parseInt(graphECGList.get(n));
 			EMGdataArray[n] = Integer.parseInt(graphEMGList.get(n));
@@ -248,7 +247,7 @@ public class ParametersRecordController implements Initializable {
 	private void sendData(BitalinoPackage bitalinoPack) {
 		
 		try {
-			HttpURLConnection connection = (HttpURLConnection) new URL(CommonParams.BASE_URL + "/addPacketsToPatient")
+			HttpURLConnection connection = (HttpURLConnection) new URL(PatientParams.BASE_URL + "/addPacketsToPatient")
 					.openConnection();
 
 			connection.setRequestMethod("POST");

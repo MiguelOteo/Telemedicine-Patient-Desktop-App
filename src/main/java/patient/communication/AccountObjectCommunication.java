@@ -1,17 +1,15 @@
-package common.communication;
+package patient.communication;
 
 import com.jfoenix.controls.JFXButton;
 
-import common.models.Doctor;
-import common.models.Patient;
 import javafx.scene.layout.AnchorPane;
 import patient.controllers.ParametersRecordController;
+import patient.models.Patient;
 
 public class AccountObjectCommunication {
 	
 	// To share the account on all the stages/panes etc
     private static Patient patient;
-    private static Doctor doctor;
     private static int databaseId;
     private static String MAC = "";
     private static boolean isRecording = false;
@@ -24,10 +22,6 @@ public class AccountObjectCommunication {
     public static Patient getPatient() {return patient;}
 
     public static void setPatient(Patient passedPatient) {patient = passedPatient;}
-    
-    public static Doctor getDoctor() {return doctor;}
-    
-    public static void setDoctor(Doctor passedDoctor) {doctor = passedDoctor;}
     
 	public static int getDatabaseId() {return databaseId;}
 

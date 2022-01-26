@@ -17,12 +17,6 @@ import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.validation.RequiredFieldValidator;
 
-import common.communication.AccountObjectCommunication;
-import common.controllers.DialogPopUpController;
-import common.models.APIRequest;
-import common.models.APIResponse;
-import common.params.CommonParams;
-import common.utility.RegexValidator;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -38,6 +32,11 @@ import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import patient.communication.AccountObjectCommunication;
+import patient.models.APIRequest;
+import patient.models.APIResponse;
+import patient.params.PatientParams;
+import patient.utility.RegexValidator;
 
 public class PatientAccountController implements Initializable {
 
@@ -215,7 +214,7 @@ public class PatientAccountController implements Initializable {
 			public void run() {
 				try {
 					
-					HttpURLConnection connection = (HttpURLConnection) new URL(CommonParams.BASE_URL + "/updatePatientData").openConnection();
+					HttpURLConnection connection = (HttpURLConnection) new URL(PatientParams.BASE_URL + "/updatePatientData").openConnection();
 					connection.setRequestMethod("POST");
 					APIRequest requestAPI = new APIRequest();
 					
@@ -311,7 +310,7 @@ public class PatientAccountController implements Initializable {
 			public void run() {
 				try {
 					
-					HttpURLConnection connection = (HttpURLConnection) new URL(CommonParams.BASE_URL + "/updateAccount").openConnection();
+					HttpURLConnection connection = (HttpURLConnection) new URL(PatientParams.BASE_URL + "/updateAccount").openConnection();
 					connection.setRequestMethod("POST");
 					APIRequest requestAPI = new APIRequest();
 					
@@ -394,7 +393,7 @@ public class PatientAccountController implements Initializable {
 		Thread threadObject = new Thread("ChangingPassword") {
 			public void run() {
 				try {
-					HttpURLConnection connection = (HttpURLConnection) new URL(CommonParams.BASE_URL + "/changePassword").openConnection();
+					HttpURLConnection connection = (HttpURLConnection) new URL(PatientParams.BASE_URL + "/changePassword").openConnection();
 					connection.setRequestMethod("POST");
 						
 					String userNewPasswordString = userNewPassword.getText();
