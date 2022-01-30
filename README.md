@@ -18,7 +18,7 @@
 
 ## 1. Introduction
 
-This is part of a teledicine project together with two other repositories whose purpose is the supervision from the patient’s home of a chronic disease, in our case Epilepsy. This part of the project is the desktop Java application used by a medical personnel to access the medical data of patients as well ass their data recorded using a BITalino which is stored in a remote server.
+This is part of a teledicine project together with two other repositories whose purpose is the supervision from the patient’s home of a chronic disease, in our case Epilepsy. This part of the project is the desktop Java application used by a patients to recrod their data (ECG and EMG) using a BITalino which is then stored in a remote server.
 
 ### Project Repositories
 
