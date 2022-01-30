@@ -31,16 +31,16 @@ This is part of a teledicine project together with two other repositories whose 
 
 ## 2. About the Project
 
-### About the programming languages:
+### About the programming languages
 
 * Java, version 11 to use more updated libraries
 * FXML for the layout files
 * XML in the pom.xml for maven project structure, dependencies and compilation process
 
-### About the operation system:
+### About the operation system
 This application can run in every operation system (Windows, OSX, Linux...) but the connection with BITalino only works in Windows, becasue the libraries. If this program will run in a Doctor computer this will not be a problem, but if the program need the BITalino connection to register data, as in Patients computers, only can be used with Windows.
 
-### About the BITalino:
+### About the BITalino
 There is a Library needed for the BITalino connection "bluecove-2.1.1.jar". (For Windows).
 
 ### JavaFX Project Maven dependencies
