@@ -9,37 +9,33 @@
 ### Index
 
 1. Introduction
-2. Admin & Installation Manual
+2. About the Project
+3. Project Set-Up 
 3. Patient Manual
 
+-------------------------------
 -------------------------------
 
 ## 1. Introduction
 
-This project is a telemedicine application whose purpose is the supervision from the patient’s home of a chronic disease, in our case Epilepsy.
+This is part of a teledicine project together with two other repositories whose purpose is the supervision from the patient’s home of a chronic disease, in our case Epilepsy. This part of the project is the desktop Java application used by a medical personnel to access the medical data of patients as well ass their data recorded using a BITalino which is stored in a remote server.
 
-The application works recieving data from a BITalino and sending it to a MySQL data base by a connection stablished with a Rest API ([Link to the Rest API used in the project, click on me](https://github.com/MiguelOteo/TelemedicineRestAPI)), as well as allowing the user to create two possible accounts, patients which send the BITalino bio-data and doctors who can see the stored patient's data.
+### Project Repositories
 
-It is important to emphasize that this project works together with TelemedicineRestAPI project, which link has been written previously. 
+1. Telemedicine-Doctor-Desktop-App: https://github.com/MiguelOteo/Telemedicine-Doctor-Desktop-App
+2. Telemedicine-Patient-Desktop-App: https://github.com/MiguelOteo/Telemedicine-Patient-Desktop-App
+3. Telemedicine-Rest-API: https://github.com/MiguelOteo/Telemedicine-Rest-API
 
-----------------------------------------
+-------------------------------
+-------------------------------
 
-## 2. Admin & Instalation Manual
+## 2. About the Project
 
 ### About the programming languages:
 
 * Java, version 11 to use more updated libraries
-* JavaFX with FXML for the UI design
-* SQL for the database structure and queries 
-* XML for the web.xml in the RestAPI and the pom.xml of both the app and the RestAPI maven projects
-
-### About the Data Base:
-The database is managed by MySQL which is an open-source relational database management system (RDBMS). Which uses SQL, the abbreviation for Structured Query Language. 
-
-### About the Server:
-Apache Tomcat is a free and open-source implementation of the Jakarta Servlet, Jakarta Expression Language, and WebSocket technologies. Tomcat provides a "pure Java" HTTP web server environment in which Java code can run. 
-
-Catalina is Tomcat's servlet container which will be used to run the servlets of the RestAPI
+* FXML for the layout files
+* XML in the pom.xml for maven project structure, dependencies and compilation process
 
 ### About the operation system:
 This application can run in every operation system (Windows, OSX, Linux...) but the connection with BITalino only works in Windows, becasue the libraries. If this program will run in a Doctor computer this will not be a problem, but if the program need the BITalino connection to register data, as in Patients computers, only can be used with Windows.
@@ -47,7 +43,7 @@ This application can run in every operation system (Windows, OSX, Linux...) but 
 ### About the BITalino:
 There is a Library needed for the BITalino connection "bluecove-2.1.1.jar". (For Windows).
 
-## JavaFX Project Maven dependencies
+### JavaFX Project Maven dependencies
 
 This project uses the following Maven dependencies
 
@@ -59,10 +55,27 @@ This project uses the following Maven dependencies
 6. slf4j-simple 2.0.0-alpha0 dependency: https://mvnrepository.com/artifact/org.slf4j/slf4j-simple/2.0.0-alpha0
 7. controlsfx 11.1.0 dependency: https://mvnrepository.com/artifact/org.controlsfx/controlsfx/11.1.0
 
------------------------------------------
------------------------------------------
+-------------------------------
+-------------------------------
 
-## 3. User Manual  
+## 3. Project Set-Up and compilation
+
+### Project Set-Up
+
+#### On Eclipse
+The repository constains the .classpath file from Eclipse IDE, this project should build itself when opened with this IDE without any additional steps.
+
+#### On other IDEs
+There could be problems with the structure of the project when opened from a different IDE, you might need to stablish the structure of the project manually.
+
+### Porject compilation
+
+The pom.xml file is designed to compile the project into a fat-jar constaining all the dependencies needed for the project to work, remember that the project will only run on Java 11 or newer.
+
+-------------------------------
+-------------------------------
+
+## 4. Patient Manual  
 
 Once everything has been downloaded, installed and works properly, you only have to run the project and one window with a friendly user interface will be opened, as the following:
 
