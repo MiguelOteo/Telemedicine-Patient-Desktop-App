@@ -100,12 +100,14 @@ Once the account parameters have been introduced and validated by the server bef
 
 ------
 
-Before the application installation and the use of it, it's important to say to the patient that something to bear in mind is that this system has a Hardware dependency; this application works with the BITalino board to recover physiological data of the patient.
+### Hardware dependency (BITalino board)
+It is important to say something to bear in mind, this system has a hardware dependency, it works with the BITalino board to record physiological data of the patient. The rest of the patient's functionalities will still work without a BITalino device.
 <div align="center">
 <img src="readme/resources/bita.jpeg" width="300" border-radius=5% padding=100% />  
 </div>  
 
 -------------------------------
+
 ### 2. Main application menu 
 #### 2.1. Insert Patient ID View
 Once the user logs-in a pop-up will be displayed for the doctor to identify himself as a real patient, in this case the ID uses the format of 8 digits and a letter form a list, in reality this ID should be verify aginst a hospital or institutional data-base to validate the patient's authenticity. This pop-up will show up everytime the patient logs-in until a valid ID is inserted, this blocks the application from continuing blocking the access to the application information.
