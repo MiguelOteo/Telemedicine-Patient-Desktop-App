@@ -1,7 +1,7 @@
 # Telelepsia Patient Desktop App
 ## TelemedicineProject (Java 11)
 <div align="center">
-<img src="readme/documentationDependencies/logo.png" alt="drawing" width="350" padding=100%/>  
+<img src="readme/resources/logo.png" alt="drawing" width="350" padding=100%/>  
 </div>
 
 -------------------------------
@@ -80,14 +80,12 @@ The pom.xml file is designed to compile the project into a fat-jar constaining a
 Once everything has been downloaded, installed and works properly, you only have to run the project and one window with a friendly user interface will be opened, as the following:
 
 <div align="center">
-<img src="readme/documentationDependencies/login_view.png" alt="drawing" width="600" padding=100%/>  
+<img src="readme/resources/log_in_view.png" alt="drawing" width="600" padding=100%/>  
 </div>
 
 Depending on your role you can interact with the application in a different way, you can use the application as a Doctor or as a Patient.
 
 ------
-
-### 3.1 Patient Manual:
 
 Before the application installation and the use of it, it's important to say to the patient that something to bear in mind is that this system has a Hardware dependency; this application works with the BITalino board to recover physiological data of the patient.
 <div align="center">
