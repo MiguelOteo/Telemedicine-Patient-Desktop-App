@@ -116,7 +116,7 @@ Once the user logs-in a pop-up will be displayed for the doctor to identify hims
 <img src="readme/resources/insert_id_view.png" width="1280" border-radius=5% padding=100% />  
 </div>  
 
-2.2. Account settings and information tab
+### 2.2. Account settings and information tab
 After inserting the ID the account information tab is shown as default when you log-in to see the main parameters of your account as a patient and to update any of the information if needed. It also allows the possibility to insert so physiological parameters such as weight or height as an example.
 
 <div align="center">
