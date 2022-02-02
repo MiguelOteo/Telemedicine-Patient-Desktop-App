@@ -111,7 +111,7 @@ Before the application installation and the use of it, it's important to say to 
 Once the user logs-in a pop-up will be displayed for the doctor to identify himself as a real patient, in this case the ID uses the format of 8 digits and a letter form a list, in reality this ID should be verify aginst a hospital or institutional data-base to validate the patient's authenticity. This pop-up will show up everytime the patient logs-in until a valid ID is inserted, this blocks the application from continuing blocking the access to the application information.
 
 <div align="center">
-<img src="readme/resources/patient_id_view.png" width="1280" border-radius=5% padding=100% />  
+<img src="readme/resources/insert_id_view.png" width="1280" border-radius=5% padding=100% />  
 </div>  
 
 6. [**BITalino Connection**]
