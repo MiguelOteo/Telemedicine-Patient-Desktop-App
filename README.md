@@ -95,7 +95,7 @@ If the user does not have an account they can create one by clicking on the butt
 Once the account parameters have been introduced and validated by the server before storing them as a new user in the data-base, a message pop-up will show up to indicate the result of the request to the server. This will return a message like "Patient account created" or an error like "User already exists" if the email was used already as it can be seen in the next image.
 
 <div align="center">
-<img src="readme/resources/patient_created_view.png" width="650" border-radius=5% padding=100% />  
+<img src="readme/resources/patient_registration_pop_up.png" width="650" border-radius=5% padding=100% />  
 </div>
 
 ------
