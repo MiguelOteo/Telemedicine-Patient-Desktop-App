@@ -94,6 +94,10 @@ If the user does not have an account they can create one by clicking on the butt
 
 Once the account parameters have been introduced and validated by the server before storing them as a new user in the data-base, a message pop-up will show up to indicate the result of the request to the server. This will return a message like "Patient account created" or an error like "User already exists" if the email was used already as it can be seen in the next image.
 
+<div align="center">
+<img src="readme/resources/patient_created_view.png" width="650" border-radius=5% padding=100% />  
+</div>
+
 ------
 
 Before the application installation and the use of it, it's important to say to the patient that something to bear in mind is that this system has a Hardware dependency; this application works with the BITalino board to recover physiological data of the patient.
@@ -101,28 +105,13 @@ Before the application installation and the use of it, it's important to say to 
 <img src="readme/resources/bita.jpeg" width="300" border-radius=5% padding=100% />  
 </div>  
 
-
-1. If you haven't got an account created yet (keep reading, in the other case go to step 4), you have to click in the "Sign Up" button, to register a new account. 
-
-2. Once you clicking on the button a new tab is shown requesting to know some data to create the new account. It's important to bear in mind that every bound must be filled with the data required. After all was be completed you can click on the "Create account" button.
-
-<div align="center">
-<img src="readme/resources/patient_regis_view.png" width="600" border-radius=5% padding=100% />  
-</div>  
-
-3.  After all were being completed, you can click on the "Create account" button and a message will appear, indicating that the Patient account have been created, that's mean that everything goes successfully.
+-------------------------------
+### 2. Main application menu 
+#### 2.1. Insert Patient ID View
+Once the user logs-in a pop-up will be displayed for the doctor to identify himself as a real patient, in this case the ID uses the format of 8 digits and a letter form a list, in reality this ID should be verify aginst a hospital or institutional data-base to validate the patient's authenticity. This pop-up will show up everytime the patient logs-in until a valid ID is inserted, this blocks the application from continuing blocking the access to the application information.
 
 <div align="center">
-<img src="readme/resources/patient_created_view.png" width="600" border-radius=5% padding=100% />  
-</div>  
-
-4. Once, you, as a Patient, have an account created you can proceed to do the "Login" process, in the main menu. You only have to introduce your email and the password introduced in the "Sign up" process.
-
-5. When you are in, a Health Insurance number  is required. This is the id that each Patient must to have as a part of a society with healthcare system. The Health Insurance number consists of 8 digits following by a capital letter.  
-For example: "12345678T".
-
-<div align="center">
-<img src="readme/resources/patient_id_view.png" width="600" border-radius=5% padding=100% />  
+<img src="readme/resources/patient_id_view.png" width="1280" border-radius=5% padding=100% />  
 </div>  
 
 6. [**BITalino Connection**]
