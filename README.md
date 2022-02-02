@@ -114,6 +114,10 @@ Once the user logs-in a pop-up will be displayed for the doctor to identify hims
 <img src="readme/resources/insert_id_view.png" width="1280" border-radius=5% padding=100% />  
 </div>  
 
+
+-------------------------------
+-------------------------------
+-------------------------------
 6. [**BITalino Connection**]
  If everything has gone well, you are now in the main window of the patient. Here you can do a lot of things, but, if it is the first time that you enter you must connect your BITalino board to the application.  
  In this process you should have your BITalino board in hand, and follow the next steps:  
