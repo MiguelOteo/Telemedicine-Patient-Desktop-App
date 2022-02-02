@@ -80,7 +80,7 @@ The pom.xml file is designed to compile the project into a fat-jar constaining a
 Once everything has been downloaded, installed and works properly, you only have to run the project and one window with a friendly user interface will be opened, as the following:
 
 <div align="center">
-<img src="readme/resources/log_in_view.png" alt="drawing" width="600" padding=100%/>  
+<img src="readme/resources/log_in_view.png" alt="drawing" width="720" padding=100%/>  
 </div>
 
 Depending on your role you can interact with the application in a different way, you can use the application as a Doctor or as a Patient.
