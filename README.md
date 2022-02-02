@@ -89,7 +89,7 @@ Depending on your role you can interact with the application in a different way,
 
 Before the application installation and the use of it, it's important to say to the patient that something to bear in mind is that this system has a Hardware dependency; this application works with the BITalino board to recover physiological data of the patient.
 <div align="center">
-<img src="readme/documentationDependencies/bita.jpeg" width="300" border-radius=5% padding=100% />  
+<img src="readme/resources/bita.jpeg" width="300" border-radius=5% padding=100% />  
 </div>  
 
 
@@ -98,13 +98,13 @@ Before the application installation and the use of it, it's important to say to 
 2. Once you clicking on the button a new tab is shown requesting to know some data to create the new account. It's important to bear in mind that every bound must be filled with the data required. After all was be completed you can click on the "Create account" button.
 
 <div align="center">
-<img src="readme/documentationDependencies/patient_regis_view.png" width="600" border-radius=5% padding=100% />  
+<img src="readme/resources/patient_regis_view.png" width="600" border-radius=5% padding=100% />  
 </div>  
 
 3.  After all were being completed, you can click on the "Create account" button and a message will appear, indicating that the Patient account have been created, that's mean that everything goes successfully.
 
 <div align="center">
-<img src="readme/documentationDependencies/patient_created_view.png" width="600" border-radius=5% padding=100% />  
+<img src="readme/resources/patient_created_view.png" width="600" border-radius=5% padding=100% />  
 </div>  
 
 4. Once, you, as a Patient, have an account created you can proceed to do the "Login" process, in the main menu. You only have to introduce your email and the password introduced in the "Sign up" process.
@@ -113,7 +113,7 @@ Before the application installation and the use of it, it's important to say to 
 For example: "12345678T".
 
 <div align="center">
-<img src="readme/documentationDependencies/patient_id_view.png" width="600" border-radius=5% padding=100% />  
+<img src="readme/resources/patient_id_view.png" width="600" border-radius=5% padding=100% />  
 </div>  
 
 6. [**BITalino Connection**]
@@ -125,7 +125,7 @@ For example: "12345678T".
  6.4 Your BITalino should appear on the screen with its corresponding MAC address. 
 
 <div align="center">
-<img src="readme/documentationDependencies/treetableview.png" width="600" border-radius=5% padding=100% />  
+<img src="readme/resources/treetableview.png" width="600" border-radius=5% padding=100% />  
 </div>  
 
 
@@ -139,7 +139,7 @@ In the following screen shot we can observe data about an ECG patient test, but 
 
 
 <div align="center">
-<img src="readme/documentationDependencies/param_ecg.png" width="600" border-radius=5% padding=100% />  
+<img src="readme/resources/param_ecg.png" width="600" border-radius=5% padding=100% />  
 </div>  
 
 If we click on the "Show ECG Recording" or in the "Show EMG Recording" button we can see the graph with better resolution and we can zoom it.
