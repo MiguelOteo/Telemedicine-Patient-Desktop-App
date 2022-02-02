@@ -77,13 +77,22 @@ The pom.xml file is designed to compile the project into a fat-jar constaining a
 
 ## 4. Patient Manual  
 
-Once everything has been downloaded, installed and works properly, you only have to run the project and one window with a friendly user interface will be opened, as the following:
+### 1. Log-in and Registration of users (Patients)
+#### 1.1. Log-in View
+When loading the application the user will see a log-in view to access their accounts, the application checks for a valid password and email.
 
 <div align="center">
 <img src="readme/resources/log_in_view.png" alt="drawing" width="650" padding=100%/>  
 </div>
 
-Depending on your role you can interact with the application in a different way, you can use the application as a Doctor or as a Patient.
+#### 1.2. Registration View
+If the user does not have an account they can create one by clicking on the button "sign up", if so a new view will appear for the user to register himself, the application checks all the parameter to not be empyty and to have the correct format.
+
+<div align="center">
+<img src="readme/resources/registration_view.png" alt="drawing" width="650" padding=100%/>  
+</div>
+
+Once the account parameters have been introduced and validated by the server before storing them as a new user in the data-base, a message pop-up will show up to indicate the result of the request to the server. This will return a message like "Patient account created" or an error like "User already exists" if the email was used already as it can be seen in the next image.
 
 ------
 
