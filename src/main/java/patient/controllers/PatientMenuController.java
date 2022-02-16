@@ -160,11 +160,18 @@ public class PatientMenuController implements Initializable {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(PatientParams.INSERT_ID_VIEW));
 			Parent root = (Parent) loader.load();
 			Stage stage = new Stage();
+			stage.setHeight(160);
+			stage.setWidth(310);
 			Scene scene = new Scene(root);
 			scene.setFill(Color.TRANSPARENT);
 			stage.setScene(scene);
 			stage.initStyle(StageStyle.TRANSPARENT);
 			stage.initModality(Modality.APPLICATION_MODAL);
+			
+			// Set the pop up in the center of the main menu window
+			stage.setX(LogInController.getStage().getX() + LogInController.getStage().getWidth() / 2 - stage.getWidth() / 2);
+			stage.setY(-75 + LogInController.getStage().getY() + LogInController.getStage().getHeight() / 2 - stage.getHeight() / 2);
+			
 			menuWindow.setEffect(new BoxBlur(4, 4, 4));
 			stage.show();
 			stage.setOnHiding(event -> {
