@@ -12,6 +12,9 @@ public @interface PatientParams {
 	public static final int BLOCK_SIZE = 1000;
 	public static final int SAMPLING_RATE = 100;
 	
+	// Main app icon root
+	public static final String APP_ICON = "/icons/patient-app-icon.png";
+	
 	// FXML files roots
 	public static final String LOG_IN_VIEW = "/patient/view/LogInLayout.fxml";
 	public static final String REGISTRATION_VIEW = "/patient/view/RegistrationLayout.fxml";
