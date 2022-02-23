@@ -39,6 +39,8 @@ public class PatientMenuController implements Initializable {
 	private JFXButton openPatientAccount;
 	@FXML
 	private JFXButton openBitalinoRecord;
+	@FXML
+	private JFXButton patientMessenger;
 
 	public PatientMenuController() {
 	}
@@ -95,6 +97,7 @@ public class PatientMenuController implements Initializable {
 			menuMainPane.getChildren().setAll(patientAccountPane);
 			openPatientAccount.setDisable(true);
 			openBitalinoConnection.setDisable(false);
+			patientMessenger.setDisable(false);
 			if (!AccountObjectCommunication.getMAC().equals("")) {
 				openBitalinoRecord.setDisable(false);
 			}
@@ -107,15 +110,11 @@ public class PatientMenuController implements Initializable {
 	private void openBitalinoRecord() {
 		Pane paramRecordPane;
 		try {
-			
-			//FXMLLoader loader = new FXMLLoader(getClass().getResource("/parametersRecordPane/ParametersRecordLayout.fxml"));
-			//AccountObjectCommunication.setController(loader.getController());
-			//FXMLLoader.load(getClass().getResource("/parametersRecordPane/ParametersRecordLayout.fxml"));
-			paramRecordPane = FXMLLoader.load(getClass().getResource(PatientParams.PARAMETERS_RECORD_VIEW));
-			
+		
+			paramRecordPane = FXMLLoader.load(getClass().getResource(PatientParams.PARAMETERS_RECORD_VIEW));	
 			menuMainPane.getChildren().removeAll();
 			menuMainPane.getChildren().setAll(paramRecordPane);
-
+			patientMessenger.setDisable(false);
 			openPatientAccount.setDisable(false);
 			openBitalinoConnection.setDisable(false);
 			openBitalinoRecord.setDisable(true);
@@ -136,6 +135,7 @@ public class PatientMenuController implements Initializable {
 				menuMainPane.getChildren().setAll(bitalinoConnectivityPane);
 				openPatientAccount.setDisable(false);
 				openBitalinoConnection.setDisable(true);	
+				patientMessenger.setDisable(false);
 				openBitalinoRecord.setDisable(true);
 			} catch (IOException error) {
 				error.printStackTrace();
@@ -149,10 +149,29 @@ public class PatientMenuController implements Initializable {
 				menuMainPane.getChildren().setAll(bitalinoConnectedPane);
 				openPatientAccount.setDisable(false);
 				openBitalinoConnection.setDisable(true);
+				patientMessenger.setDisable(false);
 				openBitalinoRecord.setDisable(false);
 			} catch (IOException error) {
 				error.printStackTrace();
 			}
+		}
+	}
+	
+	@FXML
+	private void openPatientMessenger() {
+		Pane patientMessengerPane;
+		try {
+			patientMessengerPane = FXMLLoader.load(getClass().getResource(PatientParams.PATIENT_MESSENGER_VIEW));
+			menuMainPane.getChildren().removeAll();
+			menuMainPane.getChildren().setAll(patientMessengerPane);
+			openPatientAccount.setDisable(false);
+			openBitalinoConnection.setDisable(false);
+			patientMessenger.setDisable(true);
+			if (!AccountObjectCommunication.getMAC().equals("")) {
+				openBitalinoRecord.setDisable(false);
+			}
+		} catch (IOException error) {
+			error.printStackTrace();
 		}
 	}
 

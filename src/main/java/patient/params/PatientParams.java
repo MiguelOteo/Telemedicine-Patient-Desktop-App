@@ -25,4 +25,5 @@ public @interface PatientParams {
 	public static final String PARAMETERS_RECORD_VIEW = "/patient/view/ParametersRecordLayout.fxml";
 	public static final String BITALINO_CONNECTED_VIEW = "/patient/view/BitalinoConnectedLayout.fxml";
 	public static final String BITALINO_CONNECTION_VIEW = "/patient/view/BitalinoConnectionLayout.fxml";
+	public static final String PATIENT_MESSENGER_VIEW = "/patient/view/PatientMessengerLayout.fxml";
 }
