@@ -56,10 +56,10 @@
       </JFXTreeTableView>
       <StackPane fx:id="viewPane" layoutX="29.0" layoutY="62.0" prefHeight="318.0" prefWidth="907.0">
          <children>
-            <Label fx:id="nothingtoshow" text="Nothing to show, please click on Start Recording!" textAlignment="CENTER" />
+            <Label fx:id="nothingToShow" text="Nothing to show, please click on Start Recording!" textAlignment="CENTER" />
          </children>
       </StackPane>
-      <JFXButton fx:id="changegraph" layoutX="381.0" layoutY="405.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#changeChart" prefHeight="40.0" prefWidth="204.0" styleClass="add_button" text="Show EMG Graph">
+      <JFXButton fx:id="changeGraph" layoutX="381.0" layoutY="405.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#changeChart" prefHeight="40.0" prefWidth="204.0" styleClass="add_button" text="Show EMG Graph">
          <font>
             <Font size="16.0" />
          </font>

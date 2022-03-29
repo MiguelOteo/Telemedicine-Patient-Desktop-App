@@ -7,7 +7,7 @@ public class Patient extends User {
 
 	private int patientId;
 
-	// Id of the patient (Documentation)
+	// ID of the patient (Documentation)
 	private String patientIdNumber;
 
 	private float patientWeight;

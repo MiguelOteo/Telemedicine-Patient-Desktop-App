@@ -1,6 +1,7 @@
 package patient.treeobjects;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
@@ -17,12 +18,12 @@ import patient.params.PatientParams;
 
 public class BitalinoConnectionTreeObject extends RecursiveTreeObject<BitalinoConnectionTreeObject> {
 
-	private Pane pane;
-	private String MACAddress;
+	private final Pane pane;
+	private final String MACAddress;
 	
-	private StringProperty bitalinoName;
-	private StringProperty bitalinoMAC;
-	private ObjectProperty<JFXButton> stablishConnection;
+	private final StringProperty bitalinoName;
+	private final StringProperty bitalinoMAC;
+	private final ObjectProperty<JFXButton> establishConnection;
 	
 	public BitalinoConnectionTreeObject(Pane pane, String name, String MACAddress) {
 		
@@ -32,16 +33,14 @@ public class BitalinoConnectionTreeObject extends RecursiveTreeObject<BitalinoCo
 		this.bitalinoName = new SimpleStringProperty(name);
 		this.bitalinoMAC = new SimpleStringProperty(MACAddress);
 		
-		JFXButton stablishConnection = new JFXButton("Select");
-		stablishConnection.getStyleClass().add("tree_table_button");
-		stablishConnection.setOnAction((ActionEvent event) -> {
-			stablishConnection();
-		});
+		JFXButton establishConnection = new JFXButton("Select");
+		establishConnection.getStyleClass().add("tree_table_button");
+		establishConnection.setOnAction((ActionEvent event) -> establishConnection());
 		
-		this.stablishConnection = new SimpleObjectProperty<JFXButton>(stablishConnection);
+		this.establishConnection = new SimpleObjectProperty<>(establishConnection);
 	}
 	
-	private void stablishConnection() {
+	private void establishConnection() {
 		AccountObjectCommunication.setMAC(MACAddress);
 		AccountObjectCommunication.getButtonControl1().setDisable(false);
 		loadConnectedPane();
@@ -50,7 +49,7 @@ public class BitalinoConnectionTreeObject extends RecursiveTreeObject<BitalinoCo
 	private void loadConnectedPane() {
 		Pane bitalinoConnectedPane;
 		try {
-			bitalinoConnectedPane = FXMLLoader.load(getClass().getResource(PatientParams.BITALINO_CONNECTED_VIEW));
+			bitalinoConnectedPane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(PatientParams.BITALINO_CONNECTED_VIEW)));
 			pane.getChildren().removeAll();
 			pane.getChildren().setAll(bitalinoConnectedPane);
 		} catch (IOException error) {
@@ -62,7 +61,7 @@ public class BitalinoConnectionTreeObject extends RecursiveTreeObject<BitalinoCo
 
 	public StringProperty getBitalinoMAC() {return bitalinoMAC;}
 
-	public ObjectProperty<JFXButton> getStablishConnection() {return stablishConnection;}
+	public ObjectProperty<JFXButton> getEstablishConnection() {return establishConnection;}
 
 	public String getMACAddress() {return MACAddress;}
 }

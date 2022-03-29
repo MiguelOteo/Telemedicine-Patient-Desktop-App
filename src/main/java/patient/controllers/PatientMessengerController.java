@@ -8,7 +8,6 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -25,12 +24,12 @@ public class PatientMessengerController implements Initializable {
 	}
 	
 	@FXML
-	private void closeApp(MouseEvent event) {
+	private void closeApp() {
 		System.exit(0);
 	}
 
 	@FXML
-	private void minWindow(MouseEvent event) {
+	private void minWindow() {
 		Stage stage = (Stage) mainPane.getScene().getWindow();
 		stage.setIconified(true);
 	}

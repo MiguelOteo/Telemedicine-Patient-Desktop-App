@@ -8,7 +8,7 @@ public class APIResponse {
 	private boolean error;
 
 	// API response if error is false
-	private int APIresponseId;
+	private int APIResponseId;
 	private Doctor doctor;
 	private Patient patient;
 	private List<BitalinoPackage> dayRecords;
@@ -22,20 +22,19 @@ public class APIResponse {
 	// Return the API message (Error message if error boolean is true)
 	private String APImessage;
 
-	// Default constructor
-	public APIResponse() {
-	}
-
 	// Constructor
-	public APIResponse(int APIresponseId, boolean error, Doctor doctor, Patient patient, String errorMsg,
+	public APIResponse(int APIResponseId, boolean error, Doctor doctor, Patient patient, String errorMsg,
 			List<Patient> noDoctorPatients) {
 		this.error = error;
-		this.APIresponseId = APIresponseId;
+		this.APIResponseId = APIResponseId;
 		this.doctor = doctor;
 		this.patient = patient;
 		this.APImessage = errorMsg;
 		this.noDoctorPatients = noDoctorPatients;
 	}
+	
+	//Default Constructor
+	public APIResponse() {}
 
 	// Getter and Setter methods
 	public boolean isError() {
@@ -46,12 +45,12 @@ public class APIResponse {
 		this.error = error;
 	}
 
-	public int getAPIresponseId() {
-		return APIresponseId;
+	public int getAPIResponseId() {
+		return APIResponseId;
 	}
 
-	public void setAPIresponseId(int APIresponseId) {
-		this.APIresponseId = APIresponseId;
+	public void setAPIResponseId(int APIResponseId) {
+		this.APIResponseId = APIResponseId;
 	}
 
 	public Doctor getDoctor() {

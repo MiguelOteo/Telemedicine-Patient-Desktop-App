@@ -1,11 +1,6 @@
 package patient.controllers;
 
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
-
 import com.jfoenix.controls.JFXButton;
-
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,7 +9,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.effect.BoxBlur;
 import javafx.scene.image.Image;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -23,7 +17,13 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import launch.LaunchApp;
 import patient.communication.AccountObjectCommunication;
-import patient.params.PatientParams;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.Objects;
+import java.util.ResourceBundle;
+
+import static patient.params.PatientParams.*;
 
 public class PatientMenuController implements Initializable {
 
@@ -52,26 +52,16 @@ public class PatientMenuController implements Initializable {
 		AccountObjectCommunication.setButtonControl1(openBitalinoRecord);
 		
 		if (AccountObjectCommunication.getPatient().getPatientIdNumber() == null) {
-			Platform.runLater(new Runnable() {
-				@Override
-				public void run() {
-					opendIdPopUp();
-				}
-			});
+			Platform.runLater(this::openIdPopUp);
 		} else {
-			openPatientAccout();
+			openPatientAccount();
 		}
 		
 		openBitalinoRecord.setDisable(true);
 	}
 
 	@FXML
-	private void closeApp(MouseEvent event) {
-		System.exit(0);
-	}
-
-	@FXML
-	private void logOut(MouseEvent event) {
+	private void logOut() {
 		Stage stage = (Stage) logOutButton.getScene().getWindow();
 		stage.close();
 		AccountObjectCommunication.setMAC("");
@@ -82,17 +72,11 @@ public class PatientMenuController implements Initializable {
 	}
 
 	@FXML
-	private void minWindow(MouseEvent event) {
-		Stage stage = (Stage) menuMainPane.getScene().getWindow();
-		stage.setIconified(true);
-	}
-
-	@FXML
-	private void openPatientAccout() {
+	private void openPatientAccount() {
 		
 		Pane patientAccountPane;
 		try {
-			patientAccountPane = FXMLLoader.load(getClass().getResource(PatientParams.PATIENT_ACCOUNT_VIEW));
+			patientAccountPane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(PATIENT_ACCOUNT_VIEW)));
 			menuMainPane.getChildren().removeAll();
 			menuMainPane.getChildren().setAll(patientAccountPane);
 			openPatientAccount.setDisable(true);
@@ -111,7 +95,7 @@ public class PatientMenuController implements Initializable {
 		Pane paramRecordPane;
 		try {
 		
-			paramRecordPane = FXMLLoader.load(getClass().getResource(PatientParams.PARAMETERS_RECORD_VIEW));	
+			paramRecordPane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(PARAMETERS_RECORD_VIEW)));
 			menuMainPane.getChildren().removeAll();
 			menuMainPane.getChildren().setAll(paramRecordPane);
 			patientMessenger.setDisable(false);
@@ -130,7 +114,7 @@ public class PatientMenuController implements Initializable {
 			Pane bitalinoConnectivityPane;
 			try {
 				bitalinoConnectivityPane = FXMLLoader
-						.load(getClass().getResource(PatientParams.BITALINO_CONNECTION_VIEW));
+						.load(Objects.requireNonNull(getClass().getResource(BITALINO_CONNECTION_VIEW)));
 				menuMainPane.getChildren().removeAll();
 				menuMainPane.getChildren().setAll(bitalinoConnectivityPane);
 				openPatientAccount.setDisable(false);
@@ -144,7 +128,7 @@ public class PatientMenuController implements Initializable {
 			Pane bitalinoConnectedPane;
 			try {
 				bitalinoConnectedPane = FXMLLoader
-						.load(getClass().getResource(PatientParams.BITALINO_CONNECTED_VIEW));
+						.load(Objects.requireNonNull(getClass().getResource(BITALINO_CONNECTED_VIEW)));
 				menuMainPane.getChildren().removeAll();
 				menuMainPane.getChildren().setAll(bitalinoConnectedPane);
 				openPatientAccount.setDisable(false);
@@ -161,7 +145,7 @@ public class PatientMenuController implements Initializable {
 	private void openPatientMessenger() {
 		Pane patientMessengerPane;
 		try {
-			patientMessengerPane = FXMLLoader.load(getClass().getResource(PatientParams.PATIENT_MESSENGER_VIEW));
+			patientMessengerPane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(PATIENT_MESSENGER_VIEW)));
 			menuMainPane.getChildren().removeAll();
 			menuMainPane.getChildren().setAll(patientMessengerPane);
 			openPatientAccount.setDisable(false);
@@ -175,10 +159,10 @@ public class PatientMenuController implements Initializable {
 		}
 	}
 
-	private void opendIdPopUp() {
+	private void openIdPopUp() {
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource(PatientParams.INSERT_ID_VIEW));
-			Parent root = (Parent) loader.load();
+			FXMLLoader loader = new FXMLLoader(getClass().getResource(INSERT_ID_VIEW));
+			Parent root = loader.load();
 			Stage stage = new Stage();
 			stage.setHeight(160);
 			stage.setWidth(310);
@@ -188,9 +172,9 @@ public class PatientMenuController implements Initializable {
 			stage.initStyle(StageStyle.TRANSPARENT);
 			stage.initModality(Modality.APPLICATION_MODAL);
 			stage.setTitle("Insert ID Number");
-			stage.getIcons().add(new Image(PatientParams.APP_ICON));
+			stage.getIcons().add(new Image(APP_ICON));
 			
-			// Set the pop up in the center of the main menu window
+			// Set the pop-up in the center of the main menu window
 			stage.setX(LogInController.getStage().getX() + LogInController.getStage().getWidth() / 2 - stage.getWidth() / 2);
 			stage.setY(-75 + LogInController.getStage().getY() + LogInController.getStage().getHeight() / 2 - stage.getHeight() / 2);
 			
@@ -198,7 +182,7 @@ public class PatientMenuController implements Initializable {
 			stage.show();
 			stage.setOnHiding(event -> {
 				menuWindow.setEffect(null);
-				openPatientAccout();
+				openPatientAccount();
 			});
 		} catch (IOException error) {
 			error.printStackTrace();

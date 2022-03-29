@@ -1,22 +1,10 @@
 package patient.controllers;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.ConnectException;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
-import java.util.ResourceBundle;
-
 import com.google.gson.Gson;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.validation.RequiredFieldValidator;
-
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -27,7 +15,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.effect.BoxBlur;
 import javafx.scene.image.Image;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
@@ -36,8 +23,17 @@ import javafx.stage.StageStyle;
 import patient.communication.AccountObjectCommunication;
 import patient.models.APIRequest;
 import patient.models.APIResponse;
-import patient.params.PatientParams;
 import patient.utility.RegexValidator;
+
+import java.io.*;
+import java.net.ConnectException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.ResourceBundle;
+
+import static patient.params.PatientParams.*;
 
 public class PatientAccountController implements Initializable {
 
@@ -170,18 +166,18 @@ public class PatientAccountController implements Initializable {
 
 		boolean resultNew = userNewPassword.validate();
 		boolean resultOld = userOldPassword.validate();
-		if(resultNew == true && resultOld == true) {
+		if(resultNew && resultOld) {
 			changePasswordRequest();
 		}
 	}
 	
 	@FXML
-	private void closeApp(MouseEvent event) {
+	private void closeApp() {
 		System.exit(0);
 	}
 
 	@FXML
-	private void minWindow(MouseEvent event) {
+	private void minWindow() {
 		Stage stage = (Stage) mainPane.getScene().getWindow();
 		stage.setIconified(true);
 	}
@@ -189,10 +185,10 @@ public class PatientAccountController implements Initializable {
 	// Displays any error returned form the Rest API
 	private void openDialog(String message) {
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource(PatientParams.DIALOG_POP_UP_VIEW));
-			Parent root = (Parent) loader.load();
-			DialogPopUpController controler = loader.getController();
-			controler.setMessage(message);
+			FXMLLoader loader = new FXMLLoader(getClass().getResource(DIALOG_POP_UP_VIEW));
+			Parent root = loader.load();
+			DialogPopUpController controller = loader.getController();
+			controller.setMessage(message);
 			Stage stage = new Stage();
 			stage.setHeight(130);
 			stage.setWidth(300);
@@ -202,17 +198,15 @@ public class PatientAccountController implements Initializable {
 			stage.initStyle(StageStyle.TRANSPARENT);
 			stage.initModality(Modality.APPLICATION_MODAL);
 			stage.setTitle("Telelepsia Message");
-			stage.getIcons().add(new Image(PatientParams.APP_ICON));
+			stage.getIcons().add(new Image(APP_ICON));
 			
-			// Set the pop up in the center of the main menu window
+			// Set the pop-up in the center of the main menu window
 			stage.setX(LogInController.getStage().getX() + LogInController.getStage().getWidth() / 2 - stage.getWidth() / 2);
 			stage.setY(-75 + LogInController.getStage().getY() + LogInController.getStage().getHeight() / 2 - stage.getHeight() / 2);
 			
 			AccountObjectCommunication.getAnchorPane().setEffect(new BoxBlur(4, 4, 4));
 			stage.show();
-			stage.setOnHiding(event -> {
-				AccountObjectCommunication.getAnchorPane().setEffect(null);
-			});
+			stage.setOnHiding(event -> AccountObjectCommunication.getAnchorPane().setEffect(null));
 		} catch (IOException error) {
 			error.printStackTrace();
 		}
@@ -225,7 +219,7 @@ public class PatientAccountController implements Initializable {
 			public void run() {
 				try {
 					
-					HttpURLConnection connection = (HttpURLConnection) new URL(PatientParams.BASE_URL + "/updatePatientData").openConnection();
+					HttpURLConnection connection = (HttpURLConnection) new URL(BASE_URL + "/updatePatientData").openConnection();
 					connection.setRequestMethod("POST");
 					APIRequest requestAPI = new APIRequest();
 					
@@ -243,7 +237,7 @@ public class PatientAccountController implements Initializable {
 						
 					}
 					
-					String postData = "APIRequest=" + URLEncoder.encode(new Gson().toJson(requestAPI), "UTF-8");
+					String postData = "APIRequest=" + URLEncoder.encode(new Gson().toJson(requestAPI), StandardCharsets.UTF_8);
 					
 					connection.setDoOutput(true);
 					OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
@@ -252,57 +246,48 @@ public class PatientAccountController implements Initializable {
 
 					BufferedReader inputReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 					String inputLine;
-					StringBuffer response = new StringBuffer();
+					StringBuilder response = new StringBuilder();
 					while ((inputLine = inputReader.readLine()) != null) {
 						response.append(inputLine);
 					}
 					inputReader.close();
-					APIResponse responseAPI = new Gson().fromJson(response.toString(), APIResponse.class);
-					
+					APIResponse responseAPI;
+					responseAPI = new Gson().fromJson(response.toString(), APIResponse.class);
+
 					if(!responseAPI.isError()) {	
 						
-						Platform.runLater(new Runnable() {
-							@Override
-							public void run() {
-								if(weightUpdate) {
-									AccountObjectCommunication.getPatient().setPatientWeight(Float.parseFloat(userWeightField.getText()));
-									userWeightLabel.setText("Weight: " + Float.parseFloat(userWeightField.getText()) + " Kg");
-									userWeightField.setText("");
-								} else {
-									AccountObjectCommunication.getPatient().setPatientHeight(Float.parseFloat(userHeightField.getText()));
-									userHeightLabel.setText("Height: " + Float.parseFloat(userHeightField.getText()) + " cm");
-									userHeightField.setText("");
-								}
-								openDialog(responseAPI.getAPImessage());
+						Platform.runLater(() -> {
+							if(weightUpdate) {
+								AccountObjectCommunication.getPatient().setPatientWeight(Float.parseFloat(userWeightField.getText()));
+								userWeightLabel.setText("Weight: " + Float.parseFloat(userWeightField.getText()) + " Kg");
+								userWeightField.setText("");
+							} else {
+								AccountObjectCommunication.getPatient().setPatientHeight(Float.parseFloat(userHeightField.getText()));
+								userHeightLabel.setText("Height: " + Float.parseFloat(userHeightField.getText()) + " cm");
+								userHeightField.setText("");
 							}
+							openDialog(responseAPI.getAPImessage());
 						});
 					} else {
-						Platform.runLater(new Runnable() {
-							@Override
-							public void run() {
-								openDialog(responseAPI.getAPImessage());
-								userHeightField.setText("");
-								userWeightField.setText("");
-							}
+						Platform.runLater(() -> {
+							openDialog(responseAPI.getAPImessage());
+							userHeightField.setText("");
+							userWeightField.setText("");
 						});
 					}
 					
 					
-				} catch (ConnectException | FileNotFoundException conncetionError) {
-					Platform.runLater(new Runnable() {
-						@Override
-						public void run() {
-							openDialog("Failed to connect to the server");
-							userWeightField.setText("");
-							userHeightField.setText("");
-							}
-						
-					});
+				} catch (ConnectException | FileNotFoundException connectionError) {
+					Platform.runLater(() -> {
+						openDialog("Failed to connect to the server");
+						userWeightField.setText("");
+						userHeightField.setText("");
+						});
 				} catch (IOException error) {
 					error.printStackTrace();
 				}	
 				
-			};
+			}
 		};
 		threadObject.start();
 	}
@@ -314,7 +299,7 @@ public class PatientAccountController implements Initializable {
 			public void run() {
 				try {
 					
-					HttpURLConnection connection = (HttpURLConnection) new URL(PatientParams.BASE_URL + "/updateAccount").openConnection();
+					HttpURLConnection connection = (HttpURLConnection) new URL(BASE_URL + "/updateAccount").openConnection();
 					connection.setRequestMethod("POST");
 					APIRequest requestAPI = new APIRequest();
 					
@@ -331,7 +316,7 @@ public class PatientAccountController implements Initializable {
 						
 					}
 					
-					String postData = "APIRequest=" + URLEncoder.encode(new Gson().toJson(requestAPI), "UTF-8");
+					String postData = "APIRequest=" + URLEncoder.encode(new Gson().toJson(requestAPI), StandardCharsets.UTF_8);
 					
 					connection.setDoOutput(true);
 					OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
@@ -340,7 +325,7 @@ public class PatientAccountController implements Initializable {
 
 					BufferedReader inputReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 					String inputLine;
-					StringBuffer response = new StringBuffer();
+					StringBuilder response = new StringBuilder();
 					while ((inputLine = inputReader.readLine()) != null) {
 						response.append(inputLine);
 					}
@@ -349,40 +334,31 @@ public class PatientAccountController implements Initializable {
 					
 					if(!responseAPI.isError()) {	
 						
-						Platform.runLater(new Runnable() {
-							@Override
-							public void run() {
-								if(emailUpdate) {
-									AccountObjectCommunication.getPatient().setEmail(responseAPI.getUserEmail());
-									userEmailLabel.setText("Patient Email: " + responseAPI.getUserEmail());
-									userEmailField.setText("");
-								} else {
-									AccountObjectCommunication.getPatient().setName(responseAPI.getUserName());
-									userNameLabel.setText("Name: " +responseAPI.getUserName());
-									userNameField.setText("");
-								}
-								openDialog(responseAPI.getAPImessage());
+						Platform.runLater(() -> {
+							if(emailUpdate) {
+								AccountObjectCommunication.getPatient().setEmail(responseAPI.getUserEmail());
+								userEmailLabel.setText("Patient Email: " + responseAPI.getUserEmail());
+								userEmailField.setText("");
+							} else {
+								AccountObjectCommunication.getPatient().setName(responseAPI.getUserName());
+								userNameLabel.setText("Name: " +responseAPI.getUserName());
+								userNameField.setText("");
 							}
+							openDialog(responseAPI.getAPImessage());
 						});
 					} else {
-						Platform.runLater(new Runnable() {
-							@Override
-							public void run() {
-								openDialog(responseAPI.getAPImessage());
-								userNameField.setText("");
-								userEmailField.setText("");
-							}
+						Platform.runLater(() -> {
+							openDialog(responseAPI.getAPImessage());
+							userNameField.setText("");
+							userEmailField.setText("");
 						});
 					}
 					
-				} catch (ConnectException | FileNotFoundException conncetionError) {
-					Platform.runLater(new Runnable() {
-						@Override
-						public void run() {
-							openDialog("Failed to connect to the server");
-							userNameField.setText("");
-							userEmailField.setText("");
-						}
+				} catch (ConnectException | FileNotFoundException connectionError) {
+					Platform.runLater(() -> {
+						openDialog("Failed to connect to the server");
+						userNameField.setText("");
+						userEmailField.setText("");
 					});
 				} catch (IOException error) {
 					error.printStackTrace();
@@ -397,7 +373,7 @@ public class PatientAccountController implements Initializable {
 		Thread threadObject = new Thread("ChangingPassword") {
 			public void run() {
 				try {
-					HttpURLConnection connection = (HttpURLConnection) new URL(PatientParams.BASE_URL + "/changePassword").openConnection();
+					HttpURLConnection connection = (HttpURLConnection) new URL(BASE_URL + "/changePassword").openConnection();
 					connection.setRequestMethod("POST");
 						
 					String userNewPasswordString = userNewPassword.getText();
@@ -408,7 +384,7 @@ public class PatientAccountController implements Initializable {
 					if(!userOldPasswordString.equals("")) {requestAPI.setUserPassword(userOldPasswordString);}
 					if(!userNewPasswordString.equals("")) {requestAPI.setUserNewPassword(userNewPasswordString);}
 					
-					String postData = "APIRequest=" + URLEncoder.encode(new Gson().toJson(requestAPI), "UTF-8");
+					String postData = "APIRequest=" + URLEncoder.encode(new Gson().toJson(requestAPI), StandardCharsets.UTF_8);
 					
 					connection.setDoOutput(true);
 					OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
@@ -417,41 +393,33 @@ public class PatientAccountController implements Initializable {
 
 					BufferedReader inputReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 					String inputLine;
-					StringBuffer response = new StringBuffer();
+					StringBuilder response = new StringBuilder();
 					while ((inputLine = inputReader.readLine()) != null) {
 						response.append(inputLine);
 					}
 					inputReader.close();
-					APIResponse responseAPI = new Gson().fromJson(response.toString(), APIResponse.class);
-					
+					APIResponse responseAPI;
+					responseAPI = new Gson().fromJson(response.toString(), APIResponse.class);
+
 					if(!responseAPI.isError()) {	
 						AccountObjectCommunication.getPatient().setEncryptedPassword(responseAPI.getEncryptedPassword());
-						Platform.runLater(new Runnable() {
-							@Override
-							public void run() {
-								openDialog(responseAPI.getAPImessage());
-								userNewPassword.setText("");
-								userOldPassword.setText("");
-							}
-						});
-					} else {
-						Platform.runLater(new Runnable() {
-							@Override
-							public void run() {
-								openDialog(responseAPI.getAPImessage());
-								userNewPassword.setText("");
-								userOldPassword.setText("");
-							}
-						});
-					}
-				} catch (ConnectException | FileNotFoundException conncetionError) {
-					Platform.runLater(new Runnable() {
-						@Override
-						public void run() {
-							openDialog("Failed to connect to the server");
+						Platform.runLater(() -> {
+							openDialog(responseAPI.getAPImessage());
 							userNewPassword.setText("");
 							userOldPassword.setText("");
-						}
+						});
+					} else {
+						Platform.runLater(() -> {
+							openDialog(responseAPI.getAPImessage());
+							userNewPassword.setText("");
+							userOldPassword.setText("");
+						});
+					}
+				} catch (ConnectException | FileNotFoundException connectionError) {
+					Platform.runLater(() -> {
+						openDialog("Failed to connect to the server");
+						userNewPassword.setText("");
+						userOldPassword.setText("");
 					});
 				} catch (IOException error) {
 					error.printStackTrace();

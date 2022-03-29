@@ -65,19 +65,19 @@ public class BitalinoPackage {
 		this.recordsDate = recordsDate;
 	}
 
-	public String getemgData() {
+	public String getEmgData() {
 		return emgData;
 	}
 
-	public void setemgData(String emgData) {
+	public void setEmgData(String emgData) {
 		this.emgData = emgData;
 	}
 
-	public String getecgData() {
+	public String getEcgData() {
 		return ecgData;
 	}
 
-	public void setecgData(String ecgData) {
+	public void setEcgData(String ecgData) {
 		this.ecgData = ecgData;
 	}
 }

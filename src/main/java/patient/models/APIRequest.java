@@ -131,11 +131,11 @@ public class APIRequest {
 		this.date = date;
 	}
 
-	public BitalinoPackage getBitalinopackage() {
+	public BitalinoPackage getBitalinoPackage() {
 		return bitalinopackage;
 	}
 
-	public void setBitalinopackage(BitalinoPackage bitalinopackage) {
+	public void setBitalinoPackage(BitalinoPackage bitalinopackage) {
 		this.bitalinopackage = bitalinopackage;
 	}
 

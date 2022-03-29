@@ -11,16 +11,16 @@ import javafx.event.ActionEvent;
 
 public class PastBitalinoValuesTreeObject extends RecursiveTreeObject<PastBitalinoValuesTreeObject> {
 
-	private StringProperty treePacketid;
-	private StringProperty treePacketdate;
+	private StringProperty treePacketID;
+	private StringProperty treePacketDate;
 	private StringProperty treeSamplingRate;
-	
+
 	private ObjectProperty<JFXButton> viewRecord;
 	
-	public PastBitalinoValuesTreeObject(int packetid, String packetDate, int samplingRate) {
+	public PastBitalinoValuesTreeObject(int packetID, String packetDate, int samplingRate) {
 				
-		this.treePacketid = new SimpleStringProperty("" + packetid);
-		this.treePacketdate = new SimpleStringProperty(packetDate);
+		this.treePacketID = new SimpleStringProperty("" + packetID);
+		this.treePacketDate = new SimpleStringProperty(packetDate);
 		this.treeSamplingRate = new SimpleStringProperty("" + samplingRate);
 		
 		JFXButton viewRecord = new JFXButton("View");
@@ -33,7 +33,8 @@ public class PastBitalinoValuesTreeObject extends RecursiveTreeObject<PastBitali
 	}
 	
 	private void viewRecord() {
-		//TODO implement view past records
+
+		//TODO - implement view past records
 		
 		//ECGdataSet.clearData();
 		//ECGdataSet.add(xValues, yValues);
@@ -41,20 +42,20 @@ public class PastBitalinoValuesTreeObject extends RecursiveTreeObject<PastBitali
 		//EMGdataSet.add(xValues2, yValues2);
 	}
 	
-	public StringProperty getTreePacketid() {
-		return treePacketid;
+	public StringProperty getTreePacketID() {
+		return treePacketID;
 	}
 
-	public void setTreePacketid(StringProperty treePacketid) {
-		this.treePacketid = treePacketid;
+	public void setTreePacketID(StringProperty treePacketID) {
+		this.treePacketID = treePacketID;
 	}
 
-	public StringProperty getTreePacketdate() {
-		return treePacketdate;
+	public StringProperty getTreePacketDate() {
+		return treePacketDate;
 	}
 
-	public void setTreePacketdate(StringProperty treePacketdate) {
-		this.treePacketdate = treePacketdate;
+	public void setTreePacketDate(StringProperty treePacketDate) {
+		this.treePacketDate = treePacketDate;
 	}
 
 	public StringProperty getTreeSamplingRate() {

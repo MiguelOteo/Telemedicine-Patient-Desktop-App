@@ -27,7 +27,7 @@
                   <Image url="@../../icons/logo.png" />
                </image>
             </ImageView>
-            <JFXButton fx:id="openPatientAccount" alignment="TOP_LEFT" layoutY="130.0" onMouseClicked="#openPatientAccout" prefHeight="44.0" prefWidth="280.0" styleClass="menu_button" text="    Your account" textFill="#ffffffb3">
+            <JFXButton fx:id="openPatientAccount" alignment="TOP_LEFT" layoutY="130.0" onMouseClicked="#openPatientAccount" prefHeight="44.0" prefWidth="280.0" styleClass="menu_button" text="    Your account" textFill="#ffffffb3">
                <font>
                   <Font name="Ebrima" size="16.0" />
                </font>

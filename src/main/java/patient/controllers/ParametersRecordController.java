@@ -1,23 +1,5 @@
 package patient.controllers;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.ConnectException;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
-import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.jfoenix.controls.JFXButton;
@@ -25,14 +7,12 @@ import com.jfoenix.controls.JFXTreeTableColumn;
 import com.jfoenix.controls.JFXTreeTableView;
 import com.jfoenix.controls.RecursiveTreeItem;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
-
 import de.gsi.chart.XYChart;
 import de.gsi.chart.axes.spi.DefaultNumericAxis;
 import de.gsi.chart.plugins.Zoomer;
 import de.gsi.chart.ui.geometry.Side;
 import de.gsi.dataset.spi.FloatDataSet;
 import javafx.application.Platform;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -42,18 +22,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeTableColumn;
-import javafx.scene.control.TreeTableColumn.CellDataFeatures;
 import javafx.scene.effect.BoxBlur;
 import javafx.scene.image.Image;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.util.Callback;
 import patient.bitalino.BITalino;
 import patient.bitalino.BITalinoException;
 import patient.bitalino.Frame;
@@ -61,15 +37,31 @@ import patient.communication.AccountObjectCommunication;
 import patient.models.APIRequest;
 import patient.models.APIResponse;
 import patient.models.BitalinoPackage;
-import patient.params.PatientParams;
 import patient.treeobjects.PastBitalinoValuesTreeObject;
 
+import java.io.*;
+import java.net.ConnectException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import static patient.params.PatientParams.*;
+
 public class ParametersRecordController implements Initializable {
-	
+
 	private boolean isECG = true;
 	//private boolean isRecording = false;
 	
-	private String MAC = AccountObjectCommunication.getMAC();
+	private final String MAC = AccountObjectCommunication.getMAC();
 
 	private static Frame[] frame;
 	
@@ -78,11 +70,11 @@ public class ParametersRecordController implements Initializable {
 	@FXML
 	private StackPane viewPane;
 	@FXML
-	private Label nothingtoshow;
+	private Label nothingToShow;
 	@FXML
 	private JFXButton startRecording;
 	@FXML
-	private JFXButton changegraph;
+	private JFXButton changeGraph;
 	@FXML
 	private Label macLabel;
 	@FXML
@@ -97,15 +89,15 @@ public class ParametersRecordController implements Initializable {
 
 	private final FloatDataSet EMGdataSet = new FloatDataSet("EMG Records");
 
-	private DefaultNumericAxis xAxis = new DefaultNumericAxis("Time", "Hundredths of a second");
+	private final DefaultNumericAxis xAxis = new DefaultNumericAxis("Time", "Hundredths of a second");
 
-	private DefaultNumericAxis yAxis = new DefaultNumericAxis("Records", "mV");
+	private final DefaultNumericAxis yAxis = new DefaultNumericAxis("Records", "mV");
 
-	private final float[] timeArray = new float[PatientParams.BLOCK_SIZE];
+	private final float[] timeArray = new float[BLOCK_SIZE];
 
-	private final float[] ECGdataArray = new float[PatientParams.BLOCK_SIZE];
+	private final float[] ECGdataArray = new float[BLOCK_SIZE];
 
-	private final float[] EMGdataArray = new float[PatientParams.BLOCK_SIZE];
+	private final float[] EMGdataArray = new float[BLOCK_SIZE];
 
 	public void initialize(URL location, ResourceBundle resources) {
 		
@@ -126,23 +118,23 @@ public class ParametersRecordController implements Initializable {
 		macLabel.setText(MAC);
 		pastValuesTreeView.setPlaceholder(new Label("No data available to show"));
 		
-		for (int j = 0; j < PatientParams.BLOCK_SIZE; j++) {
+		for (int j = 0; j < BLOCK_SIZE; j++) {
 			timeArray[j] = j;
 		}
 	}
 
 	@FXML
-	private void startStopRecording(MouseEvent event) {
+	private void startStopRecording() {
 
 		if(!AccountObjectCommunication.isRecording()) {
 			
 			AccountObjectCommunication.setRecording(true);
-			changegraph.setDisable(true);
+			changeGraph.setDisable(true);
 			
 			int patientId = AccountObjectCommunication.getPatient().getPatientId();
 			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 			
-			nothingtoshow.setText("Recording has started, please wait");
+			nothingToShow.setText("Recording has started, please wait");
 			startRecording.setText("Stop Recording");
 			
 			doRecording(patientId, dateFormat);
@@ -151,7 +143,7 @@ public class ParametersRecordController implements Initializable {
 			
 			AccountObjectCommunication.setRecording(false);
 			startRecording.setText("Start Recording");
-			nothingtoshow.setText("Recording has stopped");
+			nothingToShow.setText("Recording has stopped");
 		}
 	}
 
@@ -163,7 +155,7 @@ public class ParametersRecordController implements Initializable {
 				BITalino bitalino = new BITalino();
 				try {
 					
-					bitalino.open(MAC, PatientParams.SAMPLING_RATE);
+					bitalino.open(MAC, SAMPLING_RATE);
 
 					// Selection of channels 0 and 1 form BITalino
 					int[] channelsToAcquire = { 0, 1 };
@@ -171,23 +163,24 @@ public class ParametersRecordController implements Initializable {
 
 					while(AccountObjectCommunication.isRecording()) {
 						
-						frame = bitalino.read(PatientParams.BLOCK_SIZE);
+						frame = bitalino.read(BLOCK_SIZE);
 						Timestamp now = new Timestamp(System.currentTimeMillis());
 
-						String emgValues = "[";
-						String ecgValues = "[";
-						for (int i = 0; i < frame.length; i++) {
+						StringBuilder emgValues = new StringBuilder("[");
+						StringBuilder ecgValues = new StringBuilder("[");
 
-							emgValues = emgValues + frame[i].analog[0] + ",";
-							ecgValues = ecgValues + frame[i].analog[1] + ",";
+						for (Frame value : frame) {
+							emgValues.append(value.analog[0]).append(",");
+							ecgValues.append(value.analog[1]).append(",");
 						}
-						emgValues = emgValues.substring(0, emgValues.length() - 1);
-						ecgValues = ecgValues.substring(0, ecgValues.length() - 1);
-						emgValues = emgValues + "]";
-						ecgValues = ecgValues + "]";
 
-						BitalinoPackage bitalinoPack = new BitalinoPackage(patientId, PatientParams.SAMPLING_RATE, now, emgValues,
-								ecgValues);
+						emgValues = new StringBuilder(emgValues.substring(0, emgValues.length() - 1));
+						ecgValues = new StringBuilder(ecgValues.substring(0, ecgValues.length() - 1));
+						emgValues.append("]");
+						ecgValues.append("]");
+
+						BitalinoPackage bitalinoPack = new BitalinoPackage(patientId, SAMPLING_RATE, now, emgValues.toString(),
+								ecgValues.toString());
 						AccountObjectCommunication.getPatient().addNewPackage(bitalinoPack);
 
 						// Sent the data to the RestAPI
@@ -201,15 +194,11 @@ public class ParametersRecordController implements Initializable {
 					}
 					bitalino.stop();
 					
-				} catch (BITalinoException ex) {
-					Logger.getLogger(ParametersRecordController.class.getName()).log(Level.SEVERE, null, ex);
 				} catch (Throwable ex) {
 					Logger.getLogger(ParametersRecordController.class.getName()).log(Level.SEVERE, null, ex);
 				} finally {
 					try {
-						if (bitalino != null) {
-							bitalino.close();
-						}
+						bitalino.close();
 					} catch (BITalinoException ex) {
 						Logger.getLogger(ParametersRecordController.class.getName()).log(Level.SEVERE, null, ex);
 					}
@@ -223,15 +212,15 @@ public class ParametersRecordController implements Initializable {
 	// Show the last package inserted in the chart
 	private void updateChartData(BitalinoPackage bitalinoPack) {
 		
-		String graphECG = bitalinoPack.getecgData();
+		String graphECG = bitalinoPack.getEcgData();
 		graphECG = graphECG.substring(1, graphECG.length() - 1);
 		ArrayList<String> graphECGList = new ArrayList<>(Arrays.asList(graphECG.split(",")));
 
-		String graphEMG = bitalinoPack.getemgData();
+		String graphEMG = bitalinoPack.getEmgData();
 		graphEMG = graphEMG.substring(1, graphEMG.length() - 1);
 		ArrayList<String> graphEMGList = new ArrayList<>(Arrays.asList(graphEMG.split(",")));
 
-		for (int n = 0; n < PatientParams.BLOCK_SIZE; n++) {
+		for (int n = 0; n < BLOCK_SIZE; n++) {
 			timeArray[n] = n ;
 			ECGdataArray[n] = Integer.parseInt(graphECGList.get(n));
 			EMGdataArray[n] = Integer.parseInt(graphEMGList.get(n));
@@ -248,16 +237,16 @@ public class ParametersRecordController implements Initializable {
 	private void sendData(BitalinoPackage bitalinoPack) {
 		
 		try {
-			HttpURLConnection connection = (HttpURLConnection) new URL(PatientParams.BASE_URL + "/addPacketsToPatient")
+			HttpURLConnection connection = (HttpURLConnection) new URL(BASE_URL + "/addPacketsToPatient")
 					.openConnection();
 
 			connection.setRequestMethod("POST");
 
 			Gson gsonConverter = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").create();
 			APIRequest requestAPI = new APIRequest();
-			requestAPI.setBitalinopackage(bitalinoPack);
+			requestAPI.setBitalinoPackage(bitalinoPack);
 
-			String postData = "APIRequest=" + URLEncoder.encode(gsonConverter.toJson(requestAPI), "UTF-8");
+			String postData = "APIRequest=" + URLEncoder.encode(gsonConverter.toJson(requestAPI), StandardCharsets.UTF_8);
 
 			connection.setDoOutput(true);
 			OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
@@ -266,7 +255,7 @@ public class ParametersRecordController implements Initializable {
 
 			BufferedReader inputReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 			String inputLine;
-			StringBuffer response = new StringBuffer();
+			StringBuilder response = new StringBuilder();
 			while ((inputLine = inputReader.readLine()) != null) {
 				response.append(inputLine);
 			}
@@ -275,35 +264,26 @@ public class ParametersRecordController implements Initializable {
 			APIResponse responseAPI = gsonConverter.fromJson(response.toString(), APIResponse.class);
 
 			if (!responseAPI.isError()) {
-				Platform.runLater(new Runnable() {
-					@Override
-					public void run() {
-						startRecording.setDisable(false);
-						changegraph.setDisable(false);
+				Platform.runLater(() -> {
+					startRecording.setDisable(false);
+					changeGraph.setDisable(false);
 
-					}
 				});
 			} else {
-				Platform.runLater(new Runnable() {
-					@Override
-					public void run() {
-						openDialog(responseAPI.getAPImessage());
-						startRecording.setDisable(false);
-						changegraph.setDisable(false);
+				Platform.runLater(() -> {
+					openDialog(responseAPI.getAPImessage());
+					startRecording.setDisable(false);
+					changeGraph.setDisable(false);
 
-					}
 				});
 			}
 
-		} catch (ConnectException | FileNotFoundException conncetionError) {
-			Platform.runLater(new Runnable() {
-				@Override
-				public void run() {
-					openDialog("Failed to connect to the server");
-					conncetionError.printStackTrace();
-					startRecording.setDisable(false);
-					changegraph.setDisable(false);
-				}
+		} catch (ConnectException | FileNotFoundException connectionError) {
+			Platform.runLater(() -> {
+				openDialog("Failed to connect to the server");
+				connectionError.printStackTrace();
+				startRecording.setDisable(false);
+				changeGraph.setDisable(false);
 			});
 		} catch (IOException error) {
 			error.printStackTrace();
@@ -311,12 +291,12 @@ public class ParametersRecordController implements Initializable {
 	}
 
 	@FXML
-	private void changeChart(MouseEvent event) {
+	private void changeChart() {
 
 		if (isECG) { // If true then ECG graph has to be change
 
 			isECG = false;
-			changegraph.setText("Show ECG Recording");
+			changeGraph.setText("Show ECG Recording");
 			dataChart.setTitle("Last EMG package recorded");
 			dataChart.getDatasets().clear();
 			dataChart.getDatasets().add(EMGdataSet);
@@ -324,7 +304,7 @@ public class ParametersRecordController implements Initializable {
 		} else {
 
 			isECG = true;
-			changegraph.setText("Show EMG Recording");
+			changeGraph.setText("Show EMG Recording");
 			dataChart.setTitle("Last ECG package recorded");
 			dataChart.getDatasets().clear();
 			dataChart.getDatasets().add(ECGdataSet);
@@ -346,51 +326,30 @@ public class ParametersRecordController implements Initializable {
 		JFXTreeTableColumn<PastBitalinoValuesTreeObject, String> packetId = new JFXTreeTableColumn<>("Packet ID");
 		// bitalinoName.setPrefWidth(155);
 		packetId.setCellValueFactory(
-				new Callback<JFXTreeTableColumn.CellDataFeatures<PastBitalinoValuesTreeObject, String>, ObservableValue<String>>() {
-					@Override
-					public ObservableValue<String> call(CellDataFeatures<PastBitalinoValuesTreeObject, String> param) {
-						return param.getValue().getValue().getTreePacketid();
-					}
-				});
+				param -> param.getValue().getValue().getTreePacketID());
 		packetId.setResizable(false);
 
 		JFXTreeTableColumn<PastBitalinoValuesTreeObject, String> packetDate = new JFXTreeTableColumn<>(
 				"Date of Recording");
 		packetDate.setPrefWidth(160);
 		packetDate.setCellValueFactory(
-				new Callback<JFXTreeTableColumn.CellDataFeatures<PastBitalinoValuesTreeObject, String>, ObservableValue<String>>() {
-					@Override
-					public ObservableValue<String> call(CellDataFeatures<PastBitalinoValuesTreeObject, String> param) {
-						return param.getValue().getValue().getTreePacketdate();
-					}
-				});
+				param -> param.getValue().getValue().getTreePacketDate());
 		packetDate.setResizable(false);
 
 		JFXTreeTableColumn<PastBitalinoValuesTreeObject, String> samplingRate = new JFXTreeTableColumn<>(
 				"Sampling Rate");
 		samplingRate.setPrefWidth(140);
 		samplingRate.setCellValueFactory(
-				new Callback<JFXTreeTableColumn.CellDataFeatures<PastBitalinoValuesTreeObject, String>, ObservableValue<String>>() {
-					@Override
-					public ObservableValue<String> call(CellDataFeatures<PastBitalinoValuesTreeObject, String> param) {
-						return param.getValue().getValue().getTreeSamplingRate();
-					}
-				});
+				param -> param.getValue().getValue().getTreeSamplingRate());
 		samplingRate.setResizable(false);
 
 		JFXTreeTableColumn<PastBitalinoValuesTreeObject, JFXButton> visualize = new JFXTreeTableColumn<>("Visualize");
 		visualize.setPrefWidth(120);
 		visualize.setCellValueFactory(
-				new Callback<TreeTableColumn.CellDataFeatures<PastBitalinoValuesTreeObject, JFXButton>, ObservableValue<JFXButton>>() {
-					@Override
-					public ObservableValue<JFXButton> call(
-							CellDataFeatures<PastBitalinoValuesTreeObject, JFXButton> param) {
-						return param.getValue().getValue().getViewRecord();
-					}
-				});
+				param -> param.getValue().getValue().getViewRecord());
 		visualize.setResizable(false);
 
-		TreeItem<PastBitalinoValuesTreeObject> root = new RecursiveTreeItem<PastBitalinoValuesTreeObject>(
+		TreeItem<PastBitalinoValuesTreeObject> root = new RecursiveTreeItem<>(
 				recordsObjects, RecursiveTreeObject::getChildren);
 		pastValuesTreeView.setSelectionModel(null);
 		pastValuesTreeView.getColumns().setAll(Arrays.asList(packetId, packetDate, samplingRate, visualize));
@@ -400,10 +359,10 @@ public class ParametersRecordController implements Initializable {
 
 	private void openDialog(String message) {
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource(PatientParams.DIALOG_POP_UP_VIEW));
-			Parent root = (Parent) loader.load();
-			DialogPopUpController controler = loader.getController();
-			controler.setMessage(message);
+			FXMLLoader loader = new FXMLLoader(getClass().getResource(DIALOG_POP_UP_VIEW));
+			Parent root = loader.load();
+			DialogPopUpController controller = loader.getController();
+			controller.setMessage(message);
 			Stage stage = new Stage();
 			stage.setHeight(130);
 			stage.setWidth(300);
@@ -413,30 +372,28 @@ public class ParametersRecordController implements Initializable {
 			stage.initStyle(StageStyle.TRANSPARENT);
 			stage.initModality(Modality.APPLICATION_MODAL);
 			stage.setTitle("Telelepsia Message");
-			stage.getIcons().add(new Image(PatientParams.APP_ICON));
+			stage.getIcons().add(new Image(APP_ICON));
 			
-			// Set the pop up in the center of the main menu window
+			// Set the pop-up in the center of the main menu window
 			stage.setX(LogInController.getStage().getX() + LogInController.getStage().getWidth() / 2 - stage.getWidth() / 2);
 			stage.setY(-75 + LogInController.getStage().getY() + LogInController.getStage().getHeight() / 2 - stage.getHeight() / 2);
 			
 			AccountObjectCommunication.getAnchorPane().setEffect(new BoxBlur(4, 4, 4));
 			stage.show();
-			stage.setOnHiding(event -> {
-				AccountObjectCommunication.getAnchorPane().setEffect(null);
-			});
+			stage.setOnHiding(event -> AccountObjectCommunication.getAnchorPane().setEffect(null));
 		} catch (IOException error) {
 			error.printStackTrace();
 		}
 	}
 
 	@FXML
-	private void minWindow(MouseEvent event) {
+	private void minWindow() {
 		Stage stage = (Stage) mainPane.getScene().getWindow();
 		stage.setIconified(true);
 	}
 
 	@FXML
-	private void closeApp(MouseEvent event) {
+	private void closeApp() {
 		System.exit(0);
 	}
 }

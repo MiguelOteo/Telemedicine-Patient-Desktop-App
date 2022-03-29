@@ -30,6 +30,7 @@ public class AccountObjectCommunication {
     public static AnchorPane getAnchorPane() {return anchorPane;}
     
     public static void setAnchorPane(AnchorPane anchor) {anchorPane = anchor;}
+
     public static String getMAC() {return MAC;}
 
 	public static void setMAC(String mAC) {MAC = mAC;}
